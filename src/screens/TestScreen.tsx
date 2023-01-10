@@ -1,21 +1,22 @@
-import React, {FC} from 'react';
-import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { FC } from 'react';
+import { SafeAreaView, Text, TouchableOpacity } from 'react-native';
 
 export interface CustomButtonPropsType {
-  title: string;
+    title: string;
 }
-const CustomButton: FC<CustomButtonPropsType> = ({title}) => {
-  return (
-    <TouchableOpacity>
-      <Text>{title}</Text>
-    </TouchableOpacity>
-  );
+const CustomButton: FC<CustomButtonPropsType> = ({ title }) => {
+    return (
+        <TouchableOpacity>
+            <Text>{title}</Text>
+        </TouchableOpacity>
+    );
 };
 export const TestScreen = () => {
-  return (
-    <SafeAreaView>
-      <Text>Test Screen</Text>
-      <CustomButton title={'press me if you want'} />
-    </SafeAreaView>
-  );
+    return (
+        <SafeAreaView>
+            <Text>Test Screen</Text>
+            <CustomButton title={'press me if you want'} />
+        </SafeAreaView>
+    );
 };
