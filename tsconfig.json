@@ -30,6 +30,8 @@
       "~utils/*": [ "src/utils/*"],
       "~constants/*": [ "src/constants/*"],
       "~context/*": [ "src/context/*"],
+      "~hooks/*": [ "src/hooks/*"],
+      "~store/*": [ "src/store/*"],
     }
 },
   "exclude": [
@@ -39,5 +41,5 @@
     "jest.config.js",
      "__tests__/**/*-test.ts"
  ],
-  "include": ["./src/**/*", "./__helpers__/*", "server/**/*" ]
+//  "include": ["./src/**/*", "./__helpers__/*", "server/**/*" ]
 }

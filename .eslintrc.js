@@ -4,6 +4,7 @@ module.exports = {
     extends: ['@react-native-community', 'airbnb-typescript', 'prettier', 'plugin:import/recommended'],
     parserOptions: {
         project: ['./tsconfig.json'],
+        sourceType: 'module',
     },
     settings: {
         'import/ignore': ['node_modules/react-native/index\\.js$', 'react-navigation/native', 'react-navigation/stack'],

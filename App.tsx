@@ -1,12 +1,12 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
-import {TestScreen} from './src/screens/TestScreen';
+import { SafeAreaView } from 'react-native';
+
+import { LaunchScreen } from '~screens/LaunchScreen';
 
 export const App = () => {
-  return (
-    <SafeAreaView>
-      <Text>hello</Text>
-      <TestScreen />
-    </SafeAreaView>
-  );
+    return (
+        <SafeAreaView>
+            <LaunchScreen />
+        </SafeAreaView>
+    );
 };

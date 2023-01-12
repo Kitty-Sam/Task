@@ -11,7 +11,7 @@ const CustomButton: FC<CustomButtonPropsType> = ({ title }) => {
         </TouchableOpacity>
     );
 };
-export const TestScreen = () => {
+export const LaunchScreen = () => {
     return (
         <SafeAreaView>
             <Text>Test Screen</Text>
