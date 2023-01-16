@@ -1,12 +1,12 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { SafeAreaView } from 'react-native';
 
-import { LaunchScreen } from '~screens/LaunchScreen';
+import { RootStack } from '~navigation/RootStack';
 
 export const App = () => {
     return (
-        <SafeAreaView>
-            <LaunchScreen />
-        </SafeAreaView>
+        <NavigationContainer>
+            <RootStack />
+        </NavigationContainer>
     );
 };
