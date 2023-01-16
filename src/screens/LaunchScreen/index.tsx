@@ -1,22 +1,18 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { SafeAreaView, Text, TouchableOpacity } from 'react-native';
-import { useDispatch } from 'react-redux';
 
+import { RootNavigationNames } from '~navigation/RootStack';
 import { styles } from '~screens/LaunchScreen/style';
 import { LaunchSvg } from '~src/svg/LaunchSvg';
-import { toggleAppStatus } from '~store/actions/appAC';
-import { RequestStatus } from '~store/reducers/appReducer';
 
 export const LaunchScreen = () => {
-    const dispatch = useDispatch();
-    const onGetStartedPress = () => {
-        dispatch(toggleAppStatus(RequestStatus.SECOND_LAUNCH));
-    };
+    const navigation = useNavigation<any>();
 
     return (
         <SafeAreaView style={styles.root}>
             <LaunchSvg />
-            <TouchableOpacity onPress={onGetStartedPress}>
+            <TouchableOpacity onPress={() => navigation.navigate(RootNavigationNames.TASKS)}>
                 <Text>get started</Text>
             </TouchableOpacity>
         </SafeAreaView>
