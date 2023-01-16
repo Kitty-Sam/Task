@@ -14,6 +14,7 @@ module.exports = {
                     '~context': './src/context',
                     '~store': './src/store',
                     '~hooks': './src/hooks',
+                    '~constants': './src/constants',
                 },
             },
         ],

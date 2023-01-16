@@ -1418,6 +1418,15 @@
   dependencies:
     "nanoid" "^3.1.23"
 
+"@react-navigation/stack@^6.3.11":
+  "integrity" "sha512-GWOAyJfPEsjVwDWec1ERwWL5LvManJucCRUZetJqCBs4/mV7HXEt2x6l3SMitHxH1+K+9XuYXI+wBTbK1WDYOA=="
+  "resolved" "https://registry.npmjs.org/@react-navigation/stack/-/stack-6.3.11.tgz"
+  "version" "6.3.11"
+  dependencies:
+    "@react-navigation/elements" "^1.3.13"
+    "color" "^4.2.3"
+    "warn-once" "^0.1.0"
+
 "@redux-saga/core@^1.2.2":
   "integrity" "sha512-0qr5oleOAmI5WoZLRA6FEa30M4qKZcvx+ZQOQw+RqFeH8t20bvhE329XSPsNfTVP8C6qyDsXOSjuoV+g3+8zkg=="
   "resolved" "https://registry.npmjs.org/@redux-saga/core/-/core-1.2.2.tgz"

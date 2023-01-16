@@ -1,20 +1,26 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { SafeAreaView, Text, TouchableOpacity } from 'react-native';
+import React, { FC } from 'react';
+import { SafeAreaView } from 'react-native';
 
+import { AppButton } from '~components/AppButton';
+import { TextBlock } from '~components/TextBlock';
+import { launchText } from '~constants/Typography';
 import { RootNavigationNames } from '~navigation/RootStack';
+import { LaunchScreenProps } from '~navigation/RootStack/type';
 import { styles } from '~screens/LaunchScreen/style';
 import { LaunchSvg } from '~src/svg/LaunchSvg';
 
-export const LaunchScreen = () => {
-    const navigation = useNavigation<any>();
+const { title, paragraph } = launchText;
+
+export const LaunchScreen: FC<LaunchScreenProps> = ({ navigation }) => {
+    const onGetStartedPress = () => {
+        navigation.navigate(RootNavigationNames.TASKS);
+    };
 
     return (
         <SafeAreaView style={styles.root}>
             <LaunchSvg />
-            <TouchableOpacity onPress={() => navigation.navigate(RootNavigationNames.TASKS)}>
-                <Text>get started</Text>
-            </TouchableOpacity>
+            <TextBlock title={title} paragraph={paragraph} />
+            <AppButton onPress={onGetStartedPress} title={'Get started'} />
         </SafeAreaView>
     );
 };

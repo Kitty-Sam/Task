@@ -35,21 +35,21 @@ export const DrawerStack = () => {
                 name={DrawerNavigationNames.DAILY_TASKS}
                 component={DailyTasksScreen}
                 options={{
-                    drawerIcon: () => <DailyTaskSvg />,
+                    drawerIcon: () => <DailyTaskSvg width={'20'} height={'20'} strokeFill={'#888'} />,
                 }}
             />
             <Drawer.Screen
                 name={DrawerNavigationNames.IMPORTANT_TASKS}
                 component={ImportantTasksScreen}
                 options={{
-                    drawerIcon: () => <ImportantTaskSvg />,
+                    drawerIcon: () => <ImportantTaskSvg width={'18'} height={'17'} color={'#888'} />,
                 }}
             />
             <Drawer.Screen
                 name={DrawerNavigationNames.DONE_TASKS}
                 component={DoneTasksScreen}
                 options={{
-                    drawerIcon: () => <DoneTaskSvg />,
+                    drawerIcon: () => <DoneTaskSvg width={'17'} height={'11'} color={'#888'} />,
                 }}
             />
         </Drawer.Navigator>
