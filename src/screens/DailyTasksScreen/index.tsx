@@ -9,9 +9,15 @@ import { date } from '~constants/Date';
 import { sortValues } from '~constants/SortValues';
 import { theme } from '~constants/Theme';
 import { styles } from '~screens/DailyTasksScreen/style';
+import { database } from '~utils/getDataBaseURL';
 
 export const DailyTasksScreen = () => {
     const [search, setSearch] = useState('');
+
+    const onPress = async (text: string) => {
+        console.log('press', text);
+        await database.ref(`/${text}/`).set({ text: text });
+    };
 
     return (
         <SafeAreaView style={styles.root}>
@@ -33,7 +39,7 @@ export const DailyTasksScreen = () => {
             <Gap size={5} />
             <View style={styles.sortValuesContainer}>
                 {sortValues.map((item) => (
-                    <TouchableOpacity style={styles.sortValueContainer} key={item}>
+                    <TouchableOpacity style={styles.sortValueContainer} key={item} onPress={() => onPress(item)}>
                         <Text style={styles.sortValueText}>{item}</Text>
                     </TouchableOpacity>
                 ))}
