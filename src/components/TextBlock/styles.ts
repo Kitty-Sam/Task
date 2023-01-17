@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
         fontSize: theme.fontSize['24'],
         color: theme.color.light_black,
         fontWeight: '500',
-        marginBottom: theme.marginBottom['8'],
+        marginBottom: theme.gap['8'],
     },
     paragraph: {
         fontSize: theme.fontSize['12'],
