@@ -1,4 +1,4 @@
-import { AppActions, toggleAppError, toggleAppStatus } from '../actions/appAC';
+import { AppActions, saveDeviceID, toggleAppError, toggleAppStatus } from '../actions/appAC';
 
 export enum RequestStatus {
     IDLE = 'IDLE',
@@ -12,11 +12,13 @@ export enum RequestStatus {
 const initialState = {
     status: RequestStatus.FIRST_LAUNCH,
     error: false,
+    deviceId: '',
 };
 
 type InitialStateType = {
     error: boolean;
     status: RequestStatusType;
+    deviceId: string;
 };
 
 export type RequestStatusType = RequestStatus;
@@ -29,9 +31,15 @@ export const appReducer = (state: InitialStateType, action: ActionsType): Initia
         case AppActions.APP_SET_ERROR: {
             return { ...state, error: action.payload };
         }
+        case AppActions.APP_SET_DEVICE_ID: {
+            return { ...state, deviceId: action.payload };
+        }
         default:
             return initialState;
     }
 };
 
-export type ActionsType = ReturnType<typeof toggleAppStatus> | ReturnType<typeof toggleAppError>;
+export type ActionsType =
+    | ReturnType<typeof toggleAppStatus>
+    | ReturnType<typeof toggleAppError>
+    | ReturnType<typeof saveDeviceID>;

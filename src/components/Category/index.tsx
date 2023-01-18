@@ -5,7 +5,7 @@ import { styles } from '~components/Category/style';
 import { CategoryPropsType } from '~components/Category/type';
 import { theme } from '~constants/Theme';
 
-export const Category: FC<CategoryPropsType> = ({ title, counter, icon, backgroundColor, style }) => {
+export const Category: FC<CategoryPropsType> = ({ title, counter, icon, backgroundColor, style, onPress }) => {
     return (
         <>
             {!title ? (
@@ -22,7 +22,10 @@ export const Category: FC<CategoryPropsType> = ({ title, counter, icon, backgrou
                     <Image source={icon} style={style} />
                 </TouchableOpacity>
             ) : (
-                <TouchableOpacity style={[styles.containerStyle, { backgroundColor: backgroundColor }]}>
+                <TouchableOpacity
+                    style={[styles.containerStyle, { backgroundColor: backgroundColor }]}
+                    onPress={onPress}
+                >
                     <Text style={styles.counter}>{counter}</Text>
                     <Image source={icon} style={style} />
                     <Text style={styles.title}>{title}</Text>

@@ -1,10 +1,11 @@
 import { addTaskAC, fetchTasksAC, removeTaskAC, TasksActions } from '~store/actions/tasksAC';
 
-type TaskType = {
+export type TaskType = {
     id: string;
     title: string;
     description: string;
     time: string;
+    chapter: string;
 };
 
 const initialState: InitialStateType = {
@@ -20,7 +21,7 @@ type ActionsType = ReturnType<typeof addTaskAC> | ReturnType<typeof removeTaskAC
 export const tasksReducer = (state: InitialStateType, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case TasksActions.ADD_TASK: {
-            const { id, title, time, description } = action.payload;
+            const { id, title, time, description, chapter } = action.payload;
             const hasTask = state.tasks.find((task) => task.id === id);
 
             if (!hasTask) {
@@ -29,6 +30,7 @@ export const tasksReducer = (state: InitialStateType, action: ActionsType): Init
                     title,
                     description,
                     time,
+                    chapter,
                 };
                 return {
                     ...state,
