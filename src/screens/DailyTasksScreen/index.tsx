@@ -1,62 +1,40 @@
+import { useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 
-import { Category } from '~components/Category';
 import { Gap } from '~components/Gap';
-import { categories } from '~constants/Categories';
-import { date } from '~constants/Date';
-import { sortValues } from '~constants/SortValues';
-import { theme } from '~constants/Theme';
+import { ModalTemplate } from '~components/ModalTemplate';
+import { TaskContainer } from '~components/TaskContainer';
 import { styles } from '~screens/DailyTasksScreen/style';
+import { getTasks } from '~store/selectors/tasksSelector';
 
 export const DailyTasksScreen = () => {
-    const [search, setSearch] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
+    const tasks = useSelector(getTasks);
+
+    const route = useRoute<any>();
+    const { title } = route.params;
 
     return (
         <SafeAreaView style={styles.root}>
-            <Text style={styles.title}>you have 5 tasks today!</Text>
-            <Gap size={1} />
-            <Text style={styles.date}>{date}</Text>
-            <Gap size={2} />
-            <View style={styles.inputContainer}>
-                <Image source={require('../../../assets/search.png')} style={styles.searchImage} />
-                <TextInput
-                    placeholder={'Search tasks'}
-                    value={search}
-                    onChangeText={setSearch}
-                    selectTextOnFocus={true}
-                    style={styles.input}
-                    placeholderTextColor={theme.color.light_grey}
-                />
-            </View>
-            <Gap size={5} />
-            <View style={styles.sortValuesContainer}>
-                {sortValues.map((item) => (
-                    <TouchableOpacity style={styles.sortValueContainer} key={item}>
-                        <Text style={styles.sortValueText}>{item}</Text>
+            {isOpen ? (
+                <ModalTemplate isOpen={isOpen} setIsOpen={setIsOpen} chapter={title} />
+            ) : (
+                <>
+                    <Text>{title} tasks</Text>
+                    <Gap size={3} />
+                    <FlatList
+                        data={tasks}
+                        renderItem={({ item }) => <TaskContainer title={item.title} taskId={item.taskId} />}
+                    />
+                    <Text>______________________</Text>
+                    <TouchableOpacity onPress={() => setIsOpen(true)}>
+                        <Text style={{ fontSize: 30 }}>+</Text>
                     </TouchableOpacity>
-                ))}
-            </View>
-            <Gap size={3} />
-            <View style={styles.listContainer}>
-                <FlatList
-                    numColumns={3}
-                    data={categories}
-                    renderItem={({ item }) => (
-                        <View style={styles.categoryWrapper}>
-                            <Category
-                                title={item.title}
-                                counter={'3'}
-                                icon={item.icon}
-                                style={item.style}
-                                backgroundColor={item.backgroundColor}
-                            />
-                        </View>
-                    )}
-                    columnWrapperStyle={styles.columnWrapper}
-                />
-            </View>
+                </>
+            )}
         </SafeAreaView>
     );
 };

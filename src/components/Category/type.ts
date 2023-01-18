@@ -3,5 +3,6 @@ export interface CategoryPropsType {
     counter: string;
     icon: string;
     backgroundColor: string;
+    onPress: () => void;
     style?: { width: number; height: number };
 }

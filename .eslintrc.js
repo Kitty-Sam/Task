@@ -7,7 +7,12 @@ module.exports = {
         sourceType: 'module',
     },
     settings: {
-        'import/ignore': ['node_modules/react-native/index\\.js$', 'react-navigation/native', 'react-navigation/stack'],
+        'import/ignore': [
+            'node_modules/react-native/index\\.js$',
+            'react-navigation/native',
+            'react-navigation/stack',
+            '@react-native-firebase/database',
+        ],
         'import/resolver': {
             node: {
                 extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -26,6 +31,7 @@ module.exports = {
         'import/newline-after-import': 'error',
         'import/no-duplicates': 'error',
         '@typescript-eslint/no-unused-vars': 'off',
+        "@react-native-firebase/database'(import/named)": 'off',
     },
     plugins: ['@typescript-eslint', 'simple-import-sort', 'import'],
 };
