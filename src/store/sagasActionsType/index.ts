@@ -2,3 +2,5 @@ export const FETCH_TASKS = 'FETCH_TASKS';
 export const GET_DEVICE_ID = 'GET_DEVICE_ID';
 export const SAVE_DATA_INTO_STORAGE = 'SAVE_DATA_INTO_STORAGE';
 export const GET_DATA_FROM_STORAGE = 'GET_DATA_FROM_STORAGE';
+export const ADD_TASK = 'ADD_TASK';
+export const REMOVE_TASK = 'REMOVE_TASK';

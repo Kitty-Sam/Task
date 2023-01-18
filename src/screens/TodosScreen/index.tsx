@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
 
 import { Category } from '~components/Category';
 import { Gap } from '~components/Gap';
@@ -11,6 +12,7 @@ import { theme } from '~constants/Theme';
 import { DrawerNavigationNames } from '~navigation/DrawerStack';
 import { RootNavigationNames } from '~navigation/RootStack';
 import { TodosScreenProps } from '~navigation/RootStack/type';
+import { fetchTasksAction } from '~store/sagasActions/fetchTasks';
 
 import { styles } from './style';
 
@@ -23,6 +25,12 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
             params: { title: title },
         });
     };
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchTasksAction());
+    }, []);
 
     return (
         <SafeAreaView style={styles.root}>

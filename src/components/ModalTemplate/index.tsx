@@ -1,24 +1,23 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { FC, useEffect, useState } from 'react';
-import { Modal, TextInput, View } from 'react-native';
+import React, { FC, useState } from 'react';
+import { Alert, Modal, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { AppButton } from '~components/AppButton';
-import { addTaskAC } from '~store/actions/tasksAC';
-import { database } from '~utils/getDataBaseURL';
+import { AppButtonWithoutBackGround } from '~components/AppButtonWithoutBackGround';
+import { theme } from '~constants/Theme';
+import { addTaskAction } from '~store/sagasActions/addTask';
 
 interface ModalWindow {
     isOpen: boolean;
     setIsOpen: (value: boolean) => void;
     chapter: string;
-    deviceId: string;
 }
 
-const taskId = String(Date.now());
-
-export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter, deviceId }) => {
+export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+
+    const taskId = String(Date.now());
 
     const onClearPress = () => {
         setDescription('');
@@ -28,11 +27,14 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter, dev
     const dispatch = useDispatch();
 
     const onSavePress = async () => {
-        await database.ref(`/${deviceId}/`).child('tasks').child(taskId).set({ chapter, title, description, taskId });
-        dispatch(addTaskAC({ chapter, title, description, id: taskId, time: '' }));
-        setDescription('');
-        setTitle('');
-        setIsOpen(false);
+        if (title.trim() && description.trim()) {
+            dispatch(addTaskAction({ chapter, title, description, taskId, time: '' }));
+            onClearPress();
+            setIsOpen(false);
+        } else {
+            Alert.alert('Enter data');
+            onClearPress();
+        }
     };
 
     return (
@@ -47,17 +49,39 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter, dev
                 <TextInput
                     value={title}
                     onChangeText={setTitle}
-                    placeholder={'enter title'}
-                    style={{ width: 300, borderWidth: 1, borderColor: 'red', height: 40 }}
+                    placeholder={'Enter title'}
+                    style={{
+                        width: 300,
+                        borderWidth: 1,
+                        borderColor: theme.color.blue,
+                        height: 50,
+                        borderRadius: 10,
+                        marginVertical: 10,
+                        paddingLeft: 16,
+                    }}
                 />
                 <TextInput
                     value={description}
                     onChangeText={setDescription}
-                    placeholder={'enter description'}
-                    style={{ width: 300, borderWidth: 1, borderColor: 'red', height: 40 }}
+                    placeholder={'Enter description'}
+                    style={{
+                        width: 300,
+                        borderWidth: 1,
+                        borderColor: theme.color.blue,
+                        height: 50,
+                        borderRadius: 10,
+                        marginVertical: 10,
+                        paddingLeft: 16,
+                    }}
                 />
-                <AppButton onPress={onSavePress} title={'ok'} />
-                <AppButton onPress={onClearPress} title={'clear'} />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '50%' }}>
+                    <AppButtonWithoutBackGround onPress={onSavePress} title={'ok'} />
+                    <AppButtonWithoutBackGround
+                        onPress={onClearPress}
+                        title={'clear'}
+                        backgroundColor={theme.backgroundColor.green_and_blue}
+                    />
+                </View>
             </View>
         </Modal>
     );

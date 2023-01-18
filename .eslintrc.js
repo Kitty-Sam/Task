@@ -7,7 +7,12 @@ module.exports = {
         sourceType: 'module',
     },
     settings: {
-        'import/ignore': ['node_modules/react-native/index\\.js$', 'react-navigation/native', 'react-navigation/stack'],
+        'import/ignore': [
+            'node_modules/react-native/index\\.js$',
+            'react-navigation/native',
+            'react-navigation/stack',
+            '@react-native-firebase/database',
+        ],
         'import/resolver': {
             node: {
                 extensions: ['.js', '.jsx', '.ts', '.tsx'],

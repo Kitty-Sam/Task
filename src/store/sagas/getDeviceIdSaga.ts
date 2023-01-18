@@ -1,12 +1,10 @@
-import { put } from '@redux-saga/core/effects';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUniqueId } from 'react-native-device-info';
-
-import { saveDeviceID } from '~store/actions/appAC';
 
 export function* getDeviceIdWorker() {
     try {
         const id: string = yield getUniqueId();
-        yield put(saveDeviceID(id));
+        yield AsyncStorage.setItem('deviceID', JSON.stringify(id));
     } catch (error: any) {
         console.warn(error);
     }
