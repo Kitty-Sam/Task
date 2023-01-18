@@ -13,7 +13,7 @@ export function* removeTaskWorker({ payload }: RemoveTaskActionType) {
         const savedDeviceId: string = yield AsyncStorage.getItem('deviceID');
         const resultedDeviceId: string = yield JSON.parse(savedDeviceId);
         yield database.ref(`/${resultedDeviceId}/`).child('tasks').child(taskId).remove();
-        yield put(removeTaskAC({ id: taskId }));
+        // yield put(removeTaskAC({ id: taskId }));
         yield call(fetchTasksWorker);
     } catch (error: any) {
         console.warn(error);

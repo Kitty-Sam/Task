@@ -76,11 +76,7 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
                 />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '50%' }}>
                     <AppButtonWithoutBackGround onPress={onSavePress} title={'ok'} />
-                    <AppButtonWithoutBackGround
-                        onPress={onClearPress}
-                        title={'clear'}
-                        backgroundColor={theme.backgroundColor.green_and_blue}
-                    />
+                    <AppButtonWithoutBackGround onPress={onClearPress} title={'clear'} />
                 </View>
             </View>
         </Modal>

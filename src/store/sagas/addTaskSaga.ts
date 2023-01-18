@@ -17,7 +17,7 @@ export function* addTaskWorker({ payload }: AddTaskActionType) {
             .child('tasks')
             .child(taskId)
             .set({ chapter, title, description, taskId, time });
-        yield put(addTaskAC({ chapter, title, description, id: taskId, time }));
+        // yield put(addTaskAC({ chapter, title, description, id: taskId, time }));
         yield call(fetchTasksWorker);
     } catch (error: any) {
         console.warn(error);

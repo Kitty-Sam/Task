@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Category } from '~components/Category';
 import { Gap } from '~components/Gap';
@@ -13,11 +13,14 @@ import { DrawerNavigationNames } from '~navigation/DrawerStack';
 import { RootNavigationNames } from '~navigation/RootStack';
 import { TodosScreenProps } from '~navigation/RootStack/type';
 import { fetchTasksAction } from '~store/sagasActions/fetchTasks';
+import { getTasks } from '~store/selectors/tasksSelector';
+import { getTaskAmount } from '~utils/getTaskAmount';
 
 import { styles } from './style';
 
 export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
     const [search, setSearch] = useState('');
+    const tasks = useSelector(getTasks);
 
     const onCategoryPress = (title: string) => {
         navigation.navigate(RootNavigationNames.TASKS, {
@@ -67,7 +70,7 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
                         <View style={styles.categoryWrapper}>
                             <Category
                                 title={item.title}
-                                counter={'3'}
+                                counter={getTaskAmount(tasks, item.title)}
                                 icon={item.icon}
                                 style={item.style}
                                 backgroundColor={item.backgroundColor}
