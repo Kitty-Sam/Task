@@ -47,11 +47,13 @@ export const theme = {
         2: 2,
     },
     marginHorizontal: {
+        16: 16,
         48: 48,
     },
     gap: {
         4: 4,
         8: 8,
         16: 16,
+        50: 50,
     },
 };

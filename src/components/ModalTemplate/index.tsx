@@ -1,34 +1,38 @@
-import React, { FC, useState } from 'react';
-import { Alert, Modal, TextInput, View } from 'react-native';
+import React, { FC } from 'react';
+import { Alert, Modal, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { AppButton } from '~components/AppButton';
 import { AppButtonWithoutBackGround } from '~components/AppButtonWithoutBackGround';
-import { theme } from '~constants/Theme';
+import { CustomTextInput } from '~components/CustomTextInput';
+import { styles } from '~components/ModalTemplate/styles';
+import { ModalWindow } from '~components/ModalTemplate/type';
+import { useInput } from '~hooks/UseInput';
 import { addTaskAction } from '~store/sagasActions/addTask';
 
-interface ModalWindow {
-    isOpen: boolean;
-    setIsOpen: (value: boolean) => void;
-    chapter: string;
-}
-
 export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    const userTaskTitle = useInput('');
+    const userTaskDescription = useInput('');
 
     const taskId = String(Date.now());
 
     const onClearPress = () => {
-        setDescription('');
-        setTitle('');
+        userTaskTitle.resetValue();
+        userTaskDescription.resetValue();
     };
 
     const dispatch = useDispatch();
 
     const onSavePress = async () => {
-        if (title.trim() && description.trim()) {
-            dispatch(addTaskAction({ chapter, title, description, taskId, time: '' }));
+        if (userTaskTitle.value.trim() !== '' && userTaskDescription.value.trim() !== '') {
+            dispatch(
+                addTaskAction({
+                    chapter,
+                    title: userTaskTitle.value,
+                    description: userTaskDescription.value,
+                    taskId,
+                    time: '',
+                }),
+            );
             onClearPress();
             setIsOpen(false);
         } else {
@@ -38,47 +42,28 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
     };
 
     return (
-        <Modal
-            animationType="slide"
-            visible={isOpen}
-            onRequestClose={() => {
-                setIsOpen(!isOpen);
-            }}
-        >
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <TextInput
-                    value={title}
-                    onChangeText={setTitle}
-                    placeholder={'Enter title'}
-                    style={{
-                        width: 300,
-                        borderWidth: 1,
-                        borderColor: theme.color.blue,
-                        height: 50,
-                        borderRadius: 10,
-                        marginVertical: 10,
-                        paddingLeft: 16,
-                    }}
-                />
-                <TextInput
-                    value={description}
-                    onChangeText={setDescription}
-                    placeholder={'Enter description'}
-                    style={{
-                        width: 300,
-                        borderWidth: 1,
-                        borderColor: theme.color.blue,
-                        height: 50,
-                        borderRadius: 10,
-                        marginVertical: 10,
-                        paddingLeft: 16,
-                    }}
-                />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '50%' }}>
-                    <AppButtonWithoutBackGround onPress={onSavePress} title={'ok'} />
-                    <AppButtonWithoutBackGround onPress={onClearPress} title={'clear'} />
+        <View style={styles.modalWrapper}>
+            <Modal
+                animationType="fade"
+                visible={isOpen}
+                onRequestClose={() => {
+                    setIsOpen(!isOpen);
+                }}
+                transparent={true}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalView}>
+                        <Text>Enter your task</Text>
+                        <CustomTextInput {...userTaskTitle} placeholder={'Enter title'} />
+                        <CustomTextInput {...userTaskDescription} placeholder={'Enter description'} />
+                        <View style={styles.buttonsContainer}>
+                            <AppButtonWithoutBackGround onPress={onSavePress} title={'ok'} />
+                            <AppButtonWithoutBackGround onPress={onClearPress} title={'clear'} />
+                            <AppButtonWithoutBackGround onPress={() => setIsOpen(false)} title={'close'} />
+                        </View>
+                    </View>
                 </View>
-            </View>
-        </Modal>
+            </Modal>
+        </View>
     );
 };

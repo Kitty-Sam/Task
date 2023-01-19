@@ -1,16 +1,15 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { put } from 'redux-saga/effects';
+import { put, select } from 'redux-saga/effects';
 
 import { removeTaskAC } from '~store/actions/tasksAC';
 import { RemoveTaskActionType } from '~store/sagasActions/removeTask';
+import { getDeviceId } from '~store/selectors/appSelector';
 import { database } from '~utils/getDataBaseURL';
 
 export function* removeTaskWorker({ payload }: RemoveTaskActionType) {
     const { taskId } = payload;
 
     try {
-        const savedDeviceId: string = yield AsyncStorage.getItem('deviceID');
-        const resultedDeviceId: string = yield JSON.parse(savedDeviceId);
+        const resultedDeviceId: string = yield select(getDeviceId);
         yield database.ref(`/${resultedDeviceId}/`).child('tasks').child(taskId).remove();
         yield put(removeTaskAC(taskId));
     } catch (error: any) {

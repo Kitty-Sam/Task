@@ -1,4 +1,4 @@
-import { addTaskAC, fetchTasksAC, removeTaskAC, TasksActions } from '~store/actions/tasksAC';
+import { addTaskAC, fetchTasksAC, removeTaskAC, TasksActions, toggleIsDoneTaskAC } from '~store/actions/tasksAC';
 
 export type TaskType = {
     taskId: string;
@@ -6,6 +6,7 @@ export type TaskType = {
     description: string;
     time: string;
     chapter: string;
+    isDone: boolean;
 };
 
 const initialState: InitialStateType = {
@@ -16,13 +17,17 @@ type InitialStateType = {
     tasks: TaskType[];
 };
 
-type ActionsType = ReturnType<typeof addTaskAC> | ReturnType<typeof removeTaskAC> | ReturnType<typeof fetchTasksAC>;
+type ActionsType =
+    | ReturnType<typeof addTaskAC>
+    | ReturnType<typeof removeTaskAC>
+    | ReturnType<typeof fetchTasksAC>
+    | ReturnType<typeof toggleIsDoneTaskAC>;
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
 export const tasksReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case TasksActions.ADD_TASK: {
-            const { taskId, title, time, description, chapter } = action.payload;
+            const { taskId, title, time, description, chapter, isDone } = action.payload;
             const hasTask = state.tasks.find((task) => task.taskId === taskId);
 
             if (!hasTask) {
@@ -32,6 +37,7 @@ export const tasksReducer = (state = initialState, action: ActionsType): Initial
                     description,
                     time,
                     chapter,
+                    isDone,
                 };
 
                 return {
@@ -40,6 +46,20 @@ export const tasksReducer = (state = initialState, action: ActionsType): Initial
                 };
             }
             return state;
+        }
+
+        case TasksActions.TOGGLE_IS_DONE: {
+            const taskId = action.payload;
+            return {
+                ...state,
+                tasks: state.tasks.map((task) => {
+                    if (taskId === task.taskId) {
+                        return { ...task, isDone: !task.isDone };
+                    } else {
+                        return task;
+                    }
+                }),
+            };
         }
 
         case TasksActions.REMOVE_TASK: {
