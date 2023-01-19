@@ -1,55 +1,62 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { FlatList, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
-import { Gap } from '~components/Gap';
+import { Divider } from '~components/Divider';
 import { ModalTemplate } from '~components/ModalTemplate';
 import { TaskContainer } from '~components/TaskContainer';
 import { theme } from '~constants/Theme';
+import { DailyTasksScreenProps } from '~navigation/RootStack/type';
 import { styles } from '~screens/DailyTasksScreen/style';
 import { TaskType } from '~store/reducers/tasksReducer';
 import { getTasks } from '~store/selectors/tasksSelector';
+import { getDoneTasksAmount } from '~utils/getTasksAmount';
 
-export const DailyTasksScreen = () => {
+export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ navigation, route }) => {
     const [isOpen, setIsOpen] = useState(false);
     const tasks = useSelector(getTasks);
 
-    const route = useRoute<any>();
-    const navigation = useNavigation<any>();
-
+    // @ts-ignore
     const { title } = route.params;
 
+    const isOpenModalPress = () => {
+        setIsOpen(true);
+    };
+
     return (
-        <SafeAreaView style={styles.root}>
-            <Text onPress={() => navigation.goBack()} style={{ color: theme.color.blue }}>
-                back
-            </Text>
-            {isOpen ? (
-                <ModalTemplate isOpen={isOpen} setIsOpen={setIsOpen} chapter={title} />
-            ) : (
-                <>
-                    <Text>{title} tasks</Text>
-                    <Gap size={3} />
-                    <FlatList
-                        data={tasks.filter((task: TaskType) => task.chapter === title)}
-                        renderItem={({ item }: { item: TaskType }) => (
-                            <TaskContainer
-                                title={item.title}
-                                taskId={item.taskId}
-                                chapter={item.chapter}
-                                time={item.time}
-                                description={item.description}
-                            />
-                        )}
-                    />
-                    <Text>______________________</Text>
-                    <TouchableOpacity onPress={() => setIsOpen(true)}>
-                        <Text style={{ fontSize: 30 }}>+</Text>
-                    </TouchableOpacity>
-                </>
-            )}
-        </SafeAreaView>
+        <>
+            <SafeAreaView style={styles.root}>
+                <Text
+                    onPress={() => navigation.goBack()}
+                    style={{ color: theme.color.blue, position: 'absolute', left: 18, top: 18 }}
+                >
+                    Back
+                </Text>
+
+                <Text>{title} tasks</Text>
+
+                <FlatList
+                    data={tasks.filter((task: TaskType) => task.chapter === title)}
+                    renderItem={({ item }: { item: TaskType }) => (
+                        <TaskContainer
+                            title={item.title}
+                            taskId={item.taskId}
+                            chapter={item.chapter}
+                            time={item.time}
+                            description={item.description}
+                            isDone={item.isDone}
+                        />
+                    )}
+                />
+                <Divider />
+                <Text>done task ( {getDoneTasksAmount(tasks)} )</Text>
+
+                <TouchableOpacity onPress={isOpenModalPress} style={styles.addIcon}>
+                    <Text style={styles.addIconText}>+</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
+            {isOpen ? <ModalTemplate isOpen={isOpen} setIsOpen={setIsOpen} chapter={title} /> : <></>}
+        </>
     );
 };

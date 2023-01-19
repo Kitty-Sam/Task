@@ -1,50 +1,52 @@
 import CheckBox from '@react-native-community/checkbox';
 import React, { FC, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { theme } from '~constants/Theme';
+import { styles } from '~components/TaskContainer/styles';
 import { TaskType } from '~store/reducers/tasksReducer';
 import { removeTaskAction } from '~store/sagasActions/removeTask';
+import { toggleIsDoneTaskAction } from '~store/sagasActions/toggleIsDoneTask';
 
-export const TaskContainer: FC<TaskType> = ({ title, taskId }) => {
-    const [toggleCheckBox, setToggleCheckBox] = useState(false);
+export const TaskContainer: FC<TaskType> = ({ title, taskId, description, isDone, time, chapter }) => {
+    const [isTaskDone, setIsTaskDone] = useState(isDone);
 
     const dispatch = useDispatch();
 
     const onRemovePress = () => {
-        dispatch(removeTaskAction({ taskId }));
+        Alert.alert('Remove task', 'Are you sure?', [
+            {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+            },
+            { text: 'OK', onPress: () => dispatch(removeTaskAction({ taskId })) },
+        ]);
+    };
+
+    const onDoneTaskChangePress = async () => {
+        setIsTaskDone(!isTaskDone);
+        dispatch(toggleIsDoneTaskAction({ taskId, time, title, chapter, description, isDone }));
     };
 
     return (
-        <View
-            style={{
-                width: 300,
-                padding: 16,
-                borderWidth: 1,
-                borderColor: theme.color.light_grey,
-                borderRadius: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                margin: 8,
-            }}
-        >
-            <View style={{ flexDirection: 'column' }}>
+        <View style={styles.rootContainer}>
+            <View style={styles.dataContainer}>
                 <Text>start time</Text>
                 <Text>end time</Text>
             </View>
             <CheckBox
                 disabled={false}
-                value={toggleCheckBox}
-                onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                value={isTaskDone}
+                onValueChange={onDoneTaskChangePress}
+                style={styles.checkbox}
             />
-            <View style={{ flexDirection: 'column' }}>
-                <Text>{title}</Text>
-                <Text>description</Text>
+            <View style={styles.dataContainer}>
+                <Text style={styles.titleText}>{title}</Text>
+                <Text>{description}</Text>
             </View>
-            <TouchableOpacity onPress={onRemovePress}>
-                <Text>----</Text>
+            <TouchableOpacity onPress={onRemovePress} style={styles.iconContainer}>
+                <Text>#</Text>
             </TouchableOpacity>
         </View>
     );

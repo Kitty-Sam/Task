@@ -1,25 +1,25 @@
-import React, { FC, useEffect, useState } from 'react';
-import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { FC, useEffect } from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Category } from '~components/Category';
-import { Gap } from '~components/Gap';
+import { CustomTextInput } from '~components/CustomTextInput';
 import { categories } from '~constants/Categories';
 import { date } from '~constants/Date';
 import { sortValues } from '~constants/SortValues';
-import { theme } from '~constants/Theme';
+import { useInput } from '~hooks/UseInput';
 import { DrawerNavigationNames } from '~navigation/DrawerStack';
 import { RootNavigationNames } from '~navigation/RootStack';
 import { TodosScreenProps } from '~navigation/RootStack/type';
 import { fetchTasksAction } from '~store/sagasActions/fetchTasks';
 import { getTasks } from '~store/selectors/tasksSelector';
-import { getTaskAmount } from '~utils/getTaskAmount';
+import { getTasksAmount } from '~utils/getTasksAmount';
 
 import { styles } from './style';
 
 export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
-    const [search, setSearch] = useState('');
+    const userSearchValue = useInput('');
     const tasks = useSelector(getTasks);
 
     const onCategoryPress = (title: string) => {
@@ -37,23 +37,12 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.root}>
-            <Gap size={4} />
-            <Text style={styles.title}>you have 5 tasks today!</Text>
-            <Gap size={1} />
-            <Text style={styles.date}>{date}</Text>
-            <Gap size={2} />
-            <View style={styles.inputContainer}>
-                <Image source={require('../../../assets/search.png')} style={styles.searchImage} />
-                <TextInput
-                    placeholder={'Search tasks'}
-                    value={search}
-                    onChangeText={setSearch}
-                    selectTextOnFocus={true}
-                    style={styles.input}
-                    placeholderTextColor={theme.color.light_grey}
-                />
+            <View style={{ alignItems: 'center' }}>
+                <Text style={styles.title}>you have 5 tasks today!</Text>
+                <Text style={styles.date}>{date}</Text>
             </View>
-            <Gap size={5} />
+            <CustomTextInput {...userSearchValue} placeholder={'Search tasks'} />
+
             <View style={styles.sortValuesContainer}>
                 {sortValues.map((item) => (
                     <TouchableOpacity style={styles.sortValueContainer} key={item}>
@@ -61,7 +50,6 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
                     </TouchableOpacity>
                 ))}
             </View>
-            <Gap size={3} />
             <View style={styles.listContainer}>
                 <FlatList
                     numColumns={3}
@@ -70,7 +58,7 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
                         <View style={styles.categoryWrapper}>
                             <Category
                                 title={item.title}
-                                counter={getTaskAmount(tasks, item.title)}
+                                counter={getTasksAmount(tasks, item.title)}
                                 icon={item.icon}
                                 style={item.style}
                                 backgroundColor={item.backgroundColor}
