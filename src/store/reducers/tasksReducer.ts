@@ -1,7 +1,7 @@
 import { addTaskAC, fetchTasksAC, removeTaskAC, TasksActions } from '~store/actions/tasksAC';
 
 export type TaskType = {
-    id: string;
+    taskId: string;
     title: string;
     description: string;
     time: string;
@@ -18,20 +18,22 @@ type InitialStateType = {
 
 type ActionsType = ReturnType<typeof addTaskAC> | ReturnType<typeof removeTaskAC> | ReturnType<typeof fetchTasksAC>;
 
-export const tasksReducer = (state: InitialStateType, action: ActionsType): InitialStateType => {
+// eslint-disable-next-line @typescript-eslint/default-param-last
+export const tasksReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case TasksActions.ADD_TASK: {
-            const { id, title, time, description, chapter } = action.payload;
-            const hasTask = state.tasks.find((task) => task.id === id);
+            const { taskId, title, time, description, chapter } = action.payload;
+            const hasTask = state.tasks.find((task) => task.taskId === taskId);
 
             if (!hasTask) {
                 const newTask: TaskType = {
-                    id,
+                    taskId,
                     title,
                     description,
                     time,
                     chapter,
                 };
+
                 return {
                     ...state,
                     tasks: [newTask, ...state.tasks],
@@ -41,8 +43,8 @@ export const tasksReducer = (state: InitialStateType, action: ActionsType): Init
         }
 
         case TasksActions.REMOVE_TASK: {
-            const { id } = action.payload;
-            return { ...state, tasks: state.tasks.filter((task) => task.id !== id) };
+            const taskId = action.payload;
+            return { ...state, tasks: state.tasks.filter((task) => task.taskId !== taskId) };
         }
         case TasksActions.FETCH_TASKS: {
             return {
@@ -51,6 +53,6 @@ export const tasksReducer = (state: InitialStateType, action: ActionsType): Init
             };
         }
         default:
-            return initialState;
+            return state;
     }
 };

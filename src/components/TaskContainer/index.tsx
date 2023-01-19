@@ -7,13 +7,13 @@ import { theme } from '~constants/Theme';
 import { TaskType } from '~store/reducers/tasksReducer';
 import { removeTaskAction } from '~store/sagasActions/removeTask';
 
-export const TaskContainer: FC<TaskType> = ({ title, id }) => {
+export const TaskContainer: FC<TaskType> = ({ title, taskId }) => {
     const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
     const dispatch = useDispatch();
 
-    const onRemovePress = (taskId: string) => {
-        dispatch(removeTaskAction({ taskId: taskId }));
+    const onRemovePress = () => {
+        dispatch(removeTaskAction({ taskId }));
     };
 
     return (
@@ -43,7 +43,7 @@ export const TaskContainer: FC<TaskType> = ({ title, id }) => {
                 <Text>{title}</Text>
                 <Text>description</Text>
             </View>
-            <TouchableOpacity onPress={() => onRemovePress(id)}>
+            <TouchableOpacity onPress={onRemovePress}>
                 <Text>----</Text>
             </TouchableOpacity>
         </View>

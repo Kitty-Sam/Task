@@ -23,7 +23,8 @@ type InitialStateType = {
 
 export type RequestStatusType = RequestStatus;
 
-export const appReducer = (state: InitialStateType, action: ActionsType): InitialStateType => {
+// eslint-disable-next-line @typescript-eslint/default-param-last
+export const appReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case AppActions.APP_SET_STATUS:
             return { ...state, status: action.payload };
@@ -35,7 +36,7 @@ export const appReducer = (state: InitialStateType, action: ActionsType): Initia
             return { ...state, deviceId: action.payload };
         }
         default:
-            return initialState;
+            return state;
     }
 };
 

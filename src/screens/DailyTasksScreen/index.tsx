@@ -34,10 +34,10 @@ export const DailyTasksScreen = () => {
                     <Gap size={3} />
                     <FlatList
                         data={tasks.filter((task: TaskType) => task.chapter === title)}
-                        renderItem={({ item }) => (
+                        renderItem={({ item }: { item: TaskType }) => (
                             <TaskContainer
                                 title={item.title}
-                                id={item.taskId}
+                                taskId={item.taskId}
                                 chapter={item.chapter}
                                 time={item.time}
                                 description={item.description}

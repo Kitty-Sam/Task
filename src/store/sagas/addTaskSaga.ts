@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { call, put } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 
 import { addTaskAC } from '~store/actions/tasksAC';
-import { fetchTasksWorker } from '~store/sagas/fetchTasksSaga';
 import { AddTaskActionType } from '~store/sagasActions/addTask';
 import { database } from '~utils/getDataBaseURL';
 
@@ -17,8 +16,7 @@ export function* addTaskWorker({ payload }: AddTaskActionType) {
             .child('tasks')
             .child(taskId)
             .set({ chapter, title, description, taskId, time });
-        // yield put(addTaskAC({ chapter, title, description, id: taskId, time }));
-        yield call(fetchTasksWorker);
+        yield put(addTaskAC({ chapter, title, description, taskId, time }));
     } catch (error: any) {
         console.warn(error);
     }

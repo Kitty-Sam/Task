@@ -18,13 +18,13 @@ export type AddTaskActionType = (payload: TaskType) => {
     type: TasksActions.ADD_TASK;
 };
 
-export const removeTaskAC: RemoveTaskActionType = (payload: RemovePayloadType) => ({
+export const removeTaskAC: RemoveTaskActionType = (payload: string) => ({
     type: TasksActions.REMOVE_TASK,
     payload,
 });
 
-export type RemoveTaskActionType = (payload: RemovePayloadType) => {
-    payload: RemovePayloadType;
+export type RemoveTaskActionType = (payload: string) => {
+    payload: string;
     type: TasksActions.REMOVE_TASK;
 };
 
