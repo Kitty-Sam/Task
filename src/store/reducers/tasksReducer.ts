@@ -4,7 +4,7 @@ export type TaskType = {
     taskId: string;
     title: string;
     description: string;
-    time: string;
+    time: { from: string; till: string };
     chapter: string;
     isDone: boolean;
 };

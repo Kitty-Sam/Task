@@ -4,7 +4,7 @@ import { theme } from '~constants/Theme';
 
 export const styles = StyleSheet.create({
     rootContainer: {
-        width: 300,
+        width: 350,
         padding: theme.gap['16'],
         borderWidth: theme.borderWidth['1'],
         borderColor: theme.color.light_grey,
@@ -19,5 +19,5 @@ export const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: theme.fontSize['24'],
     },
-    checkbox: { marginHorizontal: theme.gap['8'] },
+    checkbox: { marginHorizontal: theme.gap['16'] },
 });

@@ -5,6 +5,7 @@
     "scripts": {
         "android": "react-native run-android",
         "ios": "react-native run-ios",
+        "iPad": "react-native run-ios --simulator='iPad Pro (12.9-inch) (4th generation)'",
         "start": "react-native start --reset-cache",
         "prettier:write": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}",
         "test": "jest",
@@ -29,8 +30,10 @@
         "@typescript-eslint/parser": "^5.48.1",
         "babel-plugin-inline-import": "^3.0.0",
         "metro-config": "^0.74.0",
+        "moment": "^2.29.4",
         "react": "18.1.0",
         "react-native": "0.70.6",
+        "react-native-date-picker": "^4.2.6",
         "react-native-device-info": "^10.3.0",
         "react-native-gesture-handler": "^2.8.0",
         "react-native-reanimated": "^2.14.1",

@@ -38,16 +38,7 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ navigation, route 
 
                 <FlatList
                     data={tasks.filter((task: TaskType) => task.chapter === title)}
-                    renderItem={({ item }: { item: TaskType }) => (
-                        <TaskContainer
-                            title={item.title}
-                            taskId={item.taskId}
-                            chapter={item.chapter}
-                            time={item.time}
-                            description={item.description}
-                            isDone={item.isDone}
-                        />
-                    )}
+                    renderItem={({ item }: { item: TaskType }) => <TaskContainer task={item} />}
                 />
                 <Divider />
                 <Text>done task ( {getDoneTasksAmount(tasks)} )</Text>

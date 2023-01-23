@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     },
     sortValueContainer: {
         borderRadius: theme.borderRadius['20'],
-        borderColor: theme.color.blue,
+        borderColor: theme.backgroundColor.light_blue,
         borderWidth: theme.borderWidth['1'],
     },
     sortValuesContainer: {

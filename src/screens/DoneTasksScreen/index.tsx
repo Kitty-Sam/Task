@@ -14,20 +14,11 @@ export const DoneTasksScreen = () => {
     return (
         <SafeAreaView style={styles.root}>
             {!filteredTasks.length ? (
-                <Text> Your done tasks will be here soon</Text>
+                <Text> Your done tasks will be here soon!</Text>
             ) : (
                 <FlatList
                     data={filteredTasks}
-                    renderItem={({ item }: { item: TaskType }) => (
-                        <TaskContainer
-                            title={item.title}
-                            taskId={item.taskId}
-                            chapter={item.chapter}
-                            time={item.time}
-                            description={item.description}
-                            isDone={item.isDone}
-                        />
-                    )}
+                    renderItem={({ item }: { item: TaskType }) => <TaskContainer task={item} />}
                 />
             )}
         </SafeAreaView>
