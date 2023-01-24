@@ -8,7 +8,8 @@ import { CustomTextInput } from '~components/CustomTextInput';
 import { DatePickerTemplate } from '~components/DatePickerTemplate';
 import { styles } from '~components/ModalTemplate/styles';
 import { ModalWindow } from '~components/ModalTemplate/type';
-import { useDatePicker } from '~hooks/UseDatePicker';
+import { theme } from '~constants/Theme';
+import { useDatePicker, UseDatePickerResponseType } from '~hooks/UseDatePicker';
 import { useInput } from '~hooks/UseInput';
 import { addTaskAction } from '~store/sagasActions/addTask';
 import { toggleIsImportantTaskAction } from '~store/sagasActions/toggleIsDoneTask';
@@ -16,11 +17,13 @@ import { saveToFB } from '~utils/getProperTime';
 
 export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) => {
     const [isTaskImportant, setIsTaskImportant] = useState(false);
+
     const userTaskTitle = useInput('');
+    const userTaskDescription = useInput('');
+    const userExtraInfo = useInput('');
+
     const fromDate = useDatePicker(false, new Date());
     const tillDate = useDatePicker(false, new Date());
-
-    const userTaskDescription = useInput('');
 
     const taskId = String(Date.now());
 
@@ -39,6 +42,7 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
         time: { from: fromDate.dateValue.toString(), till: tillDate.dateValue.toString() },
         isDone: false,
         isImportant: isTaskImportant,
+        extraInfo: userExtraInfo.value,
     };
 
     const onSavePress = () => {
@@ -70,13 +74,12 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
         );
     };
 
-    const onFocusTillDatePress = () => {
-        tillDate.setIsOpen();
+    const onFocusDatePress = (date: UseDatePickerResponseType) => () => {
+        date.setIsOpen();
     };
 
-    const onFocusFromDatePress = () => {
-        fromDate.setIsOpen();
-    };
+    const [isAddedExtraInfo, setIsAddedExtraInfo] = useState(false);
+
     return (
         <View style={styles.modalWrapper}>
             <Modal
@@ -100,15 +103,26 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
                         <CustomTextInput {...userTaskDescription} placeholder="Enter description" />
                         <View style={styles.timeContainer}>
                             <Text style={styles.boldText}>from: </Text>
-                            <TextInput value={saveToFB(fromDate.dateValue)} onFocus={onFocusFromDatePress} />
+                            <TextInput value={saveToFB(fromDate.dateValue)} onFocus={onFocusDatePress(fromDate)} />
                         </View>
                         <View style={styles.timeContainer}>
                             <Text style={styles.boldText}>up till: </Text>
-                            <TextInput value={saveToFB(tillDate.dateValue)} onFocus={onFocusTillDatePress} />
+                            <TextInput value={saveToFB(tillDate.dateValue)} onFocus={onFocusDatePress(tillDate)} />
                         </View>
+
+                        {isAddedExtraInfo ? (
+                            <CustomTextInput {...userExtraInfo} placeholder={'Enter extra info'} />
+                        ) : (
+                            <AppButtonWithoutBackGround
+                                onPress={() => setIsAddedExtraInfo(true)}
+                                title={'Add extra info'}
+                                color={theme.color.light_grey}
+                            />
+                        )}
 
                         <DatePickerTemplate {...fromDate} />
                         <DatePickerTemplate {...tillDate} />
+
                         <View style={styles.buttonsContainer}>
                             <AppButtonWithoutBackGround onPress={onSavePress} title="ok" />
                             <AppButtonWithoutBackGround onPress={onClearPress} title="clear" />

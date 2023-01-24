@@ -12,4 +12,8 @@ export const styles = StyleSheet.create({
     boldText: {
         fontWeight: '700',
     },
+    extraTitleText: {
+        flexWrap: 'wrap',
+        width: '90%',
+    },
 });

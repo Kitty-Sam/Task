@@ -19,7 +19,7 @@ export const TaskItemScreen: FC<TaskScreenProps> = ({ navigation, route }) => {
             <View style={styles.titleContainer}>
                 <Text style={styles.boldText}>{task.chapter}</Text>
             </View>
-            <Text style={[styles.boldText, { flexWrap: 'wrap', width: '90%' }]}>{task.title}</Text>
+            <Text style={[styles.boldText, styles.extraTitleText]}>{task.title}</Text>
 
             <Text>
                 {getFromFB(task.time.from)} - {getFromFB(task.time.till)}
@@ -32,7 +32,7 @@ export const TaskItemScreen: FC<TaskScreenProps> = ({ navigation, route }) => {
             <Gap size={4} />
 
             <Text style={styles.boldText}>Additional Description</Text>
-            <Text>{task.description}</Text>
+            <Text>{task.extraInfo}</Text>
         </ScrollView>
     );
 };

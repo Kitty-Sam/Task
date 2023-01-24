@@ -15,6 +15,7 @@ export type TaskType = {
     chapter: string;
     isDone: boolean;
     isImportant: boolean;
+    extraInfo: string;
 };
 
 const initialState: InitialStateType = {
@@ -36,16 +37,11 @@ type ActionsType =
 export const tasksReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case TasksActions.ADD_TASK: {
-            const { taskId } = action.payload;
-            const hasTask = state.tasks.find((task) => task.taskId === taskId);
-            if (!hasTask) {
-                const newTask: TaskType = action.payload;
-                return {
-                    ...state,
-                    tasks: [newTask, ...state.tasks],
-                };
-            }
-            return state;
+            const newTask: TaskType = action.payload;
+            return {
+                ...state,
+                tasks: [newTask, ...state.tasks],
+            };
         }
 
         case TasksActions.TOGGLE_IS_DONE: {
