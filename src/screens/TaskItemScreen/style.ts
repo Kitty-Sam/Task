@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     },
     titleContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
     },
     boldText: {
         fontWeight: '700',

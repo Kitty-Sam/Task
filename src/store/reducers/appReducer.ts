@@ -3,14 +3,12 @@ import { AppActions, saveDeviceID, toggleAppError, toggleAppStatus } from '../ac
 export enum RequestStatus {
     IDLE = 'IDLE',
     FAILED = 'FAILED',
-    FIRST_LAUNCH = 'FIRST_LAUNCH',
-    SECOND_LAUNCH = 'SECOND_LAUNCH',
     LOADING = 'LOADING',
     SUCCEEDED = 'SUCCEEDED',
 }
 
 const initialState = {
-    status: RequestStatus.FIRST_LAUNCH,
+    status: RequestStatus.IDLE,
     error: false,
     deviceId: '',
 };

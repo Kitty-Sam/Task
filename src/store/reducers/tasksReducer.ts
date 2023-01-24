@@ -36,20 +36,10 @@ type ActionsType =
 export const tasksReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case TasksActions.ADD_TASK: {
-            const { taskId, title, time, description, chapter, isDone, isImportant } = action.payload;
+            const { taskId } = action.payload;
             const hasTask = state.tasks.find((task) => task.taskId === taskId);
-
             if (!hasTask) {
-                const newTask: TaskType = {
-                    taskId,
-                    title,
-                    description,
-                    time,
-                    chapter,
-                    isDone,
-                    isImportant,
-                };
-
+                const newTask: TaskType = action.payload;
                 return {
                     ...state,
                     tasks: [newTask, ...state.tasks],

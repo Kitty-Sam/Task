@@ -34,14 +34,15 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ navigation, route 
                     Back
                 </Text>
 
-                <Text>{title} tasks</Text>
+                <Text>{title}</Text>
 
                 <FlatList
+                    keyExtractor={(item) => item.taskId}
                     data={tasks.filter((task: TaskType) => task.chapter === title)}
                     renderItem={({ item }: { item: TaskType }) => <TaskContainer task={item} />}
                 />
                 <Divider />
-                <Text>done task ( {getDoneTasksAmount(tasks)} )</Text>
+                <Text>done task ( {getDoneTasksAmount(tasks, title)} )</Text>
 
                 <TouchableOpacity onPress={isOpenModalPress} style={styles.addIcon}>
                     <Text style={styles.addIconText}>+</Text>

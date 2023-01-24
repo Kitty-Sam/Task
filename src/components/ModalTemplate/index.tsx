@@ -15,6 +15,7 @@ import { toggleIsImportantTaskAction } from '~store/sagasActions/toggleIsDoneTas
 import { saveToFB } from '~utils/getProperTime';
 
 export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) => {
+    const [isTaskImportant, setIsTaskImportant] = useState(false);
     const userTaskTitle = useInput('');
     const fromDate = useDatePicker(false, new Date());
     const tillDate = useDatePicker(false, new Date());
@@ -30,7 +31,15 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
 
     const dispatch = useDispatch();
 
-    const [isTaskImportant, setIsTaskImportant] = useState(false);
+    const newTask = {
+        chapter,
+        title: userTaskTitle.value,
+        description: userTaskDescription.value,
+        taskId,
+        time: { from: fromDate.dateValue.toString(), till: tillDate.dateValue.toString() },
+        isDone: false,
+        isImportant: isTaskImportant,
+    };
 
     const onSavePress = () => {
         if (
@@ -45,13 +54,7 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
 
         dispatch(
             addTaskAction({
-                chapter,
-                title: userTaskTitle.value,
-                description: userTaskDescription.value,
-                taskId,
-                time: { from: fromDate.dateValue.toString(), till: tillDate.dateValue.toString() },
-                isDone: false,
-                isImportant: isTaskImportant,
+                ...newTask,
             }),
         );
         onClearPress();
@@ -62,17 +65,18 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
         setIsTaskImportant(!isTaskImportant);
         dispatch(
             toggleIsImportantTaskAction({
-                chapter,
-                title: userTaskTitle.value,
-                description: userTaskDescription.value,
-                taskId,
-                time: { from: fromDate.dateValue.toString(), till: tillDate.dateValue.toString() },
-                isDone: false,
-                isImportant: isTaskImportant,
+                ...newTask,
             }),
         );
     };
 
+    const onFocusTillDatePress = () => {
+        tillDate.setIsOpen();
+    };
+
+    const onFocusFromDatePress = () => {
+        fromDate.setIsOpen();
+    };
     return (
         <View style={styles.modalWrapper}>
             <Modal
@@ -90,19 +94,19 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
                         <CustomTextInput {...userTaskDescription} placeholder="Enter description" />
                         <View>
                             <Text>from </Text>
-                            <TextInput value={saveToFB(fromDate.dateValue)} onFocus={() => fromDate.setIsOpen()} />
+                            <TextInput value={saveToFB(fromDate.dateValue)} onFocus={onFocusFromDatePress} />
                         </View>
                         <View>
                             <Text>till </Text>
-                            <TextInput value={saveToFB(tillDate.dateValue)} onFocus={() => tillDate.setIsOpen()} />
+                            <TextInput value={saveToFB(tillDate.dateValue)} onFocus={onFocusTillDatePress} />
                         </View>
 
                         <DatePickerTemplate {...fromDate} />
                         <DatePickerTemplate {...tillDate} />
                         <View style={styles.buttonsContainer}>
-                            <AppButtonWithoutBackGround onPress={onSavePress} title={'ok'} />
-                            <AppButtonWithoutBackGround onPress={onClearPress} title={'clear'} />
-                            <AppButtonWithoutBackGround onPress={() => setIsOpen(false)} title={'close'} />
+                            <AppButtonWithoutBackGround onPress={onSavePress} title="ok" />
+                            <AppButtonWithoutBackGround onPress={onClearPress} title="clear" />
+                            <AppButtonWithoutBackGround onPress={() => setIsOpen(false)} title="close" />
                             <TouchableOpacity onPress={onImportantTaskChangePress}>
                                 <Text>{isTaskImportant ? '+' : '-'}</Text>
                             </TouchableOpacity>

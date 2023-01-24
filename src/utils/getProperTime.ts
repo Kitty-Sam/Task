@@ -5,16 +5,17 @@ import { TaskType } from '~store/reducers/tasksReducer';
 export const todayDate = moment(new Date()).format('dddd,  DD MMMM YYYY');
 
 //filter params
-export const today = moment();
-export const week = moment().subtract(7, 'days');
-export const month = moment().subtract(30, 'days');
+export const now = moment();
+export const start = now.startOf('day');
+export const end = now.endOf('day');
+export const week = moment().add(7, 'days');
+export const month = moment().add(30, 'days');
 
 //filter functions
 export const sortTodayTasks = (values: TaskType[]) => {
     return (
         'You have ' +
-        values.filter((task: TaskType) => moment(new Date(task.time.from)).isBetween(today, today, 'day', '[]'))
-            .length +
+        values.filter((task: TaskType) => moment(new Date(task.time.from)).isBetween(start, end, 'day', '[]')).length +
         ' task(s) today!'
     );
 };
@@ -22,7 +23,7 @@ export const sortTodayTasks = (values: TaskType[]) => {
 export const sortWeekTasks = (values: TaskType[]) => {
     return (
         'You have ' +
-        values.filter((task: TaskType) => moment(new Date(task.time.from)).isBetween(week, today, 'day', '[]')).length +
+        values.filter((task: TaskType) => moment(new Date(task.time.from)).isBetween(start, week, 'day', '[]')).length +
         ' task(s) for this week!'
     );
 };
@@ -30,7 +31,7 @@ export const sortWeekTasks = (values: TaskType[]) => {
 export const sortMonthTasks = (values: TaskType[]) => {
     return (
         'You have ' +
-        values.filter((task: TaskType) => moment(new Date(task.time.from)).isBetween(month, today, 'day', '[]'))
+        values.filter((task: TaskType) => moment(new Date(task.time.from)).isBetween(start, month, 'day', '[]'))
             .length +
         ' task(s) for this month!'
     );

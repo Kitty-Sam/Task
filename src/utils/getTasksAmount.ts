@@ -11,6 +11,6 @@ export const getTasksAmountWithSearch = (tasks: TaskType[], filter: string, sear
     return String(filteredByChapterAndSearch.length);
 };
 
-export const getDoneTasksAmount = (tasks: TaskType[]) => {
-    return String(tasks.filter((task) => task.isDone).length);
+export const getDoneTasksAmount = (tasks: TaskType[], filter: string) => {
+    return String(tasks.filter((task) => task.isDone).filter((el) => el.chapter === filter).length);
 };

@@ -17,6 +17,7 @@ export const DoneTasksScreen = () => {
                 <Text> Your done tasks will be here soon!</Text>
             ) : (
                 <FlatList
+                    keyExtractor={(item) => item.taskId}
                     data={filteredTasks}
                     renderItem={({ item }: { item: TaskType }) => <TaskContainer task={item} />}
                 />

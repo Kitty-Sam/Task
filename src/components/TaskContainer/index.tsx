@@ -11,10 +11,12 @@ import { RootNavigationNames } from '~navigation/RootStack';
 import { removeTaskAction } from '~store/sagasActions/removeTask';
 import { toggleIsDoneTaskAction } from '~store/sagasActions/toggleIsDoneTask';
 import { getFromFB } from '~utils/getProperTime';
+import { getShortString } from '~utils/getShortString';
 
 export const TaskContainer: FC<TaskContainerPropsType> = ({ task }) => {
     const { isDone, taskId, title, time, description, isImportant } = task;
     const { till, from } = time;
+
     const [isTaskDone, setIsTaskDone] = useState(isDone);
 
     const navigation = useNavigation<any>();
@@ -63,8 +65,8 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task }) => {
                 />
             </TouchableOpacity>
             <View style={styles.dataContainer}>
-                <Text style={styles.titleText}>{title.slice(0, 15)}</Text>
-                <Text>{description.slice(0, 20)}</Text>
+                <Text style={styles.titleText}>{getShortString(title, 10)}</Text>
+                <Text>{getShortString(description, 20)}</Text>
             </View>
 
             <TouchableOpacity onPress={onRemovePress} style={styles.iconContainer}>
