@@ -34,4 +34,14 @@ export const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         width: '90%',
     },
+
+    timeContainer: {
+        flexDirection: 'row',
+        width: 150,
+        justifyContent: 'space-between',
+        marginVertical: 8,
+    },
+    boldText: {
+        fontWeight: '600',
+    },
 });

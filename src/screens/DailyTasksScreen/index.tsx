@@ -6,19 +6,19 @@ import { useSelector } from 'react-redux';
 import { Divider } from '~components/Divider';
 import { ModalTemplate } from '~components/ModalTemplate';
 import { TaskContainer } from '~components/TaskContainer';
-import { theme } from '~constants/Theme';
 import { DailyTasksScreenProps } from '~navigation/RootStack/type';
 import { styles } from '~screens/DailyTasksScreen/style';
 import { TaskType } from '~store/reducers/tasksReducer';
 import { getTasks } from '~store/selectors/tasksSelector';
 import { getDoneTasksAmount } from '~utils/getTasksAmount';
 
-export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ navigation, route }) => {
+export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ route }) => {
     const [isOpen, setIsOpen] = useState(false);
     const tasks = useSelector(getTasks);
 
     // @ts-ignore
     const { title } = route.params;
+    const filteredTasks = tasks.filter((task: TaskType) => task.chapter === title);
 
     const isOpenModalPress = () => {
         setIsOpen(true);
@@ -27,23 +27,21 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ navigation, route 
     return (
         <>
             <SafeAreaView style={styles.root}>
-                <Text
-                    onPress={() => navigation.goBack()}
-                    style={{ color: theme.color.blue, position: 'absolute', left: 18, top: 18 }}
-                >
-                    Back
-                </Text>
+                <Text style={styles.headerText}>{title}</Text>
+                {!filteredTasks.length ? (
+                    <Text style={styles.addText}>Just add your task</Text>
+                ) : (
+                    <>
+                        <FlatList
+                            keyExtractor={(item) => item.taskId}
+                            data={filteredTasks}
+                            renderItem={({ item }: { item: TaskType }) => <TaskContainer task={item} />}
+                        />
 
-                <Text>{title}</Text>
-
-                <FlatList
-                    keyExtractor={(item) => item.taskId}
-                    data={tasks.filter((task: TaskType) => task.chapter === title)}
-                    renderItem={({ item }: { item: TaskType }) => <TaskContainer task={item} />}
-                />
-                <Divider />
-                <Text>done task ( {getDoneTasksAmount(tasks, title)} )</Text>
-
+                        <Divider />
+                        <Text>done task ( {getDoneTasksAmount(tasks, title)} )</Text>
+                    </>
+                )}
                 <TouchableOpacity onPress={isOpenModalPress} style={styles.addIcon}>
                     <Text style={styles.addIconText}>+</Text>
                 </TouchableOpacity>

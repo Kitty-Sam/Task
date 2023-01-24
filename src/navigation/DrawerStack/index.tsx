@@ -1,6 +1,8 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 
+import { theme } from '~constants/Theme';
+import { CustomDrawer } from '~navigation/DrawerStack/CustomDrawer';
 import { DailyTasksScreen } from '~screens/DailyTasksScreen';
 import { DoneTasksScreen } from '~screens/DoneTasksScreen';
 import { ImportantTasksScreen } from '~screens/ImportantTasksScreen';
@@ -25,10 +27,13 @@ const Drawer = createDrawerNavigator<DrawerStackParamList>();
 export const DrawerStack = () => {
     return (
         <Drawer.Navigator
+            drawerContent={(props) => <CustomDrawer {...props} />}
+            useLegacyImplementation
             screenOptions={{
                 drawerContentStyle: {
                     marginTop: 70,
                 },
+                headerTintColor: theme.color.black,
             }}
         >
             <Drawer.Screen

@@ -41,6 +41,7 @@ export const theme = {
         12: 12,
         16: 16,
         20: 20,
+        25: 25,
     },
     borderWidth: {
         1: 1,

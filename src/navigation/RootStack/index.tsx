@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
+import { theme } from '~constants/Theme';
 import { DrawerNavigationNames, DrawerStack } from '~navigation/DrawerStack';
 import { LaunchScreen } from '~screens/LaunchScreen';
 import { TaskItemScreen } from '~screens/TaskItemScreen';
@@ -29,7 +30,11 @@ export const RootStack = () => {
             <Root.Screen name={RootNavigationNames.LAUNCH} component={LaunchScreen} />
             <Root.Screen name={RootNavigationNames.TODOS} component={TodosScreen} />
             <Root.Screen name={RootNavigationNames.TASKS} component={DrawerStack} />
-            <Root.Screen name={RootNavigationNames.TASK} component={TaskItemScreen} options={{ headerShown: true }} />
+            <Root.Screen
+                name={RootNavigationNames.TASK}
+                component={TaskItemScreen}
+                options={{ headerShown: true, headerTintColor: theme.backgroundColor.light_purple }}
+            />
         </Root.Navigator>
     );
 };

@@ -89,15 +89,21 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalView}>
-                        <Text>Enter your task</Text>
+                        <Text style={styles.boldText}>Enter your task</Text>
+                        <TouchableOpacity
+                            onPress={onImportantTaskChangePress}
+                            style={{ position: 'absolute', top: 8, right: 18 }}
+                        >
+                            <Text style={{ fontSize: 24 }}>{isTaskImportant ? '+' : '-'}</Text>
+                        </TouchableOpacity>
                         <CustomTextInput {...userTaskTitle} placeholder="Enter title" />
                         <CustomTextInput {...userTaskDescription} placeholder="Enter description" />
-                        <View>
-                            <Text>from </Text>
+                        <View style={styles.timeContainer}>
+                            <Text style={styles.boldText}>from: </Text>
                             <TextInput value={saveToFB(fromDate.dateValue)} onFocus={onFocusFromDatePress} />
                         </View>
-                        <View>
-                            <Text>till </Text>
+                        <View style={styles.timeContainer}>
+                            <Text style={styles.boldText}>up till: </Text>
                             <TextInput value={saveToFB(tillDate.dateValue)} onFocus={onFocusTillDatePress} />
                         </View>
 
@@ -107,9 +113,6 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
                             <AppButtonWithoutBackGround onPress={onSavePress} title="ok" />
                             <AppButtonWithoutBackGround onPress={onClearPress} title="clear" />
                             <AppButtonWithoutBackGround onPress={() => setIsOpen(false)} title="close" />
-                            <TouchableOpacity onPress={onImportantTaskChangePress}>
-                                <Text>{isTaskImportant ? '+' : '-'}</Text>
-                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
