@@ -7,6 +7,7 @@ export type AddTaskPayloadType = {
     title: string;
     time: { from: string; till: string };
     isDone: boolean;
+    isImportant: boolean;
 };
 
 export const addTaskAction = (payload: AddTaskPayloadType): AddTaskActionType => ({

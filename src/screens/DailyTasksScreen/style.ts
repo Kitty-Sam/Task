@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
         borderRadius: 25,
         backgroundColor: theme.backgroundColor.light_purple,
         justifyContent: 'center',
-        marginTop: theme.gap['50'],
+        marginVertical: theme.gap['30'],
     },
     addIconText: {
         textAlign: 'center',

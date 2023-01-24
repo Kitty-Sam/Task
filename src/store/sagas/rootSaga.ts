@@ -6,7 +6,7 @@ import { getDataFromStorageWorker } from '~store/sagas/getDataFromStorageSaga';
 import { getDeviceIdWorker } from '~store/sagas/getDeviceIdSaga';
 import { removeTaskWorker } from '~store/sagas/removeTaskSaga';
 import { saveDataIntoStorageWorker } from '~store/sagas/saveDataIntoStorageSaga';
-import { toggleIsDoneTaskWorker } from '~store/sagas/toggleIsDoneTaskSaga';
+import { toggleIsDoneTaskWorker, toggleIsImportantTaskWorker } from '~store/sagas/toggleIsDoneTaskSaga';
 import {
     ADD_TASK,
     FETCH_TASKS,
@@ -15,6 +15,7 @@ import {
     REMOVE_TASK,
     SAVE_DATA_INTO_STORAGE,
     TOGGLE_IS_DONE,
+    TOGGLE_IS_IMPORTANT,
 } from '~store/sagasActionsType';
 
 export function* watchClickSaga() {
@@ -25,6 +26,7 @@ export function* watchClickSaga() {
     yield takeLatest(ADD_TASK, addTaskWorker);
     yield takeLatest(REMOVE_TASK, removeTaskWorker);
     yield takeLatest(TOGGLE_IS_DONE, toggleIsDoneTaskWorker);
+    yield takeLatest(TOGGLE_IS_IMPORTANT, toggleIsImportantTaskWorker);
 }
 
 export default function* rootSaga() {

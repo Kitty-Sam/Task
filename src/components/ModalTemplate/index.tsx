@@ -1,6 +1,6 @@
 import moment from 'moment';
-import React, { FC } from 'react';
-import { Alert, Modal, Text, TextInput, View } from 'react-native';
+import React, { FC, useState } from 'react';
+import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { AppButtonWithoutBackGround } from '~components/AppButtonWithoutBackGround';
@@ -11,6 +11,7 @@ import { ModalWindow } from '~components/ModalTemplate/type';
 import { useDatePicker } from '~hooks/UseDatePicker';
 import { useInput } from '~hooks/UseInput';
 import { addTaskAction } from '~store/sagasActions/addTask';
+import { toggleIsImportantTaskAction } from '~store/sagasActions/toggleIsDoneTask';
 import { saveToFB } from '~utils/getProperTime';
 
 export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) => {
@@ -28,6 +29,8 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
     };
 
     const dispatch = useDispatch();
+
+    const [isTaskImportant, setIsTaskImportant] = useState(false);
 
     const onSavePress = () => {
         if (
@@ -48,10 +51,26 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
                 taskId,
                 time: { from: fromDate.dateValue.toString(), till: tillDate.dateValue.toString() },
                 isDone: false,
+                isImportant: isTaskImportant,
             }),
         );
         onClearPress();
         setIsOpen(false);
+    };
+
+    const onImportantTaskChangePress = () => {
+        setIsTaskImportant(!isTaskImportant);
+        dispatch(
+            toggleIsImportantTaskAction({
+                chapter,
+                title: userTaskTitle.value,
+                description: userTaskDescription.value,
+                taskId,
+                time: { from: fromDate.dateValue.toString(), till: tillDate.dateValue.toString() },
+                isDone: false,
+                isImportant: isTaskImportant,
+            }),
+        );
     };
 
     return (
@@ -84,6 +103,9 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
                             <AppButtonWithoutBackGround onPress={onSavePress} title={'ok'} />
                             <AppButtonWithoutBackGround onPress={onClearPress} title={'clear'} />
                             <AppButtonWithoutBackGround onPress={() => setIsOpen(false)} title={'close'} />
+                            <TouchableOpacity onPress={onImportantTaskChangePress}>
+                                <Text>{isTaskImportant ? '+' : '-'}</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>

@@ -6,7 +6,7 @@ import { getDeviceId } from '~store/selectors/appSelector';
 import { database } from '~utils/getDataBaseURL';
 
 export function* addTaskWorker({ payload }: AddTaskActionType) {
-    const { taskId, chapter, description, title, time, isDone } = payload;
+    const { taskId, chapter, description, title, time, isDone, isImportant } = payload;
 
     try {
         const resultedDeviceId: string = yield select(getDeviceId);
@@ -14,8 +14,8 @@ export function* addTaskWorker({ payload }: AddTaskActionType) {
             .ref(`/${resultedDeviceId}/`)
             .child('tasks')
             .child(taskId)
-            .set({ chapter, title, description, taskId, time, isDone });
-        yield put(addTaskAC({ chapter, title, description, taskId, time, isDone }));
+            .set({ chapter, title, description, taskId, time, isDone, isImportant });
+        yield put(addTaskAC({ chapter, title, description, taskId, time, isDone, isImportant }));
     } catch (error: any) {
         console.warn(error);
     }

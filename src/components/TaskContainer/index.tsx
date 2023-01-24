@@ -13,7 +13,7 @@ import { toggleIsDoneTaskAction } from '~store/sagasActions/toggleIsDoneTask';
 import { getFromFB } from '~utils/getProperTime';
 
 export const TaskContainer: FC<TaskContainerPropsType> = ({ task }) => {
-    const { isDone, taskId, title, time, description } = task;
+    const { isDone, taskId, title, time, description, isImportant } = task;
     const { till, from } = time;
     const [isTaskDone, setIsTaskDone] = useState(isDone);
 
@@ -32,7 +32,7 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task }) => {
         ]);
     };
 
-    const onDoneTaskChangePress = async () => {
+    const onDoneTaskChangePress = () => {
         setIsTaskDone(!isTaskDone);
         dispatch(toggleIsDoneTaskAction(task));
     };
@@ -44,7 +44,10 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task }) => {
     };
 
     return (
-        <TouchableOpacity style={styles.rootContainer} onPress={onProperTaskPress}>
+        <TouchableOpacity
+            style={[styles.rootContainer, { backgroundColor: isImportant ? 'yellow' : 'transparent' }]}
+            onPress={onProperTaskPress}
+        >
             <View style={styles.dataContainer}>
                 <Text>{getFromFB(from)}</Text>
                 <Text>{getFromFB(till)}</Text>
@@ -63,6 +66,7 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task }) => {
                 <Text style={styles.titleText}>{title.slice(0, 15)}</Text>
                 <Text>{description.slice(0, 20)}</Text>
             </View>
+
             <TouchableOpacity onPress={onRemovePress} style={styles.iconContainer}>
                 <Text>#</Text>
             </TouchableOpacity>

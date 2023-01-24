@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Category } from '~components/Category';
@@ -15,16 +16,18 @@ import { TodosScreenProps } from '~navigation/RootStack/type';
 import { fetchTasksAction } from '~store/sagasActions/fetchTasks';
 import { getTasks } from '~store/selectors/tasksSelector';
 import { setTasksFilter, todayDate } from '~utils/getProperTime';
-import { getTasksAmount } from '~utils/getTasksAmount';
+import { getTasksAmount, getTasksAmountWithSearch } from '~utils/getTasksAmount';
 
 import { styles } from './style';
 
 export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
     const [filter, setFilter] = useState('Today');
+
     const userSearchValue = useInput('');
     const tasks = useSelector(getTasks);
 
     const onCategoryPress = (title: string) => {
+        userSearchValue.resetValue();
         navigation.navigate(RootNavigationNames.TASKS, {
             screen: DrawerNavigationNames.DAILY_TASKS,
             params: { title: title },
@@ -78,7 +81,11 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
                         <View style={styles.categoryWrapper}>
                             <Category
                                 title={item.title}
-                                counter={getTasksAmount(tasks, item.title)}
+                                counter={
+                                    userSearchValue.value
+                                        ? getTasksAmountWithSearch(tasks, item.title, userSearchValue.value)
+                                        : getTasksAmount(tasks, item.title)
+                                }
                                 icon={item.icon}
                                 style={item.style}
                                 backgroundColor={item.backgroundColor}
@@ -89,6 +96,7 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
                     columnWrapperStyle={styles.columnWrapper}
                 />
             </View>
+            {/*<Icon name={'music'} size={24} color={'red'} />*/}
         </SafeAreaView>
     );
 };
