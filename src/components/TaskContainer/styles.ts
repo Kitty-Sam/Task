@@ -20,4 +20,12 @@ export const styles = StyleSheet.create({
         fontSize: theme.fontSize['24'],
     },
     checkbox: { marginHorizontal: theme.gap['16'] },
+    trashIconContainer: {
+        position: 'absolute',
+        right: theme.gap['8'],
+        top: theme.gap['24'],
+        backgroundColor: theme.backgroundColor.light_purple,
+        padding: theme.gap['12'],
+        borderRadius: theme.borderRadius['5'],
+    },
 });
