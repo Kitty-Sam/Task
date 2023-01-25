@@ -23,6 +23,7 @@ module.exports = {
     ignorePatterns: ['.eslintrc.js', 'metro.config.js'],
     rules: {
         'import/no-named-as-default': 0,
+        'import/named': 'off',
         'import/no-unresolved': 'off',
         'import/extensions': 'off',
         'simple-import-sort/imports': 'error',

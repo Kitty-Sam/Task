@@ -25,6 +25,12 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ route }) => {
         setIsOpen(true);
     };
 
+    const [trashVisibleId, setTrashVisibleId] = useState<string | null>(null);
+
+    const updateTrashVisibility = (itemId: string) => {
+        setTrashVisibleId(itemId);
+    };
+
     return (
         <>
             <SafeAreaView style={styles.root}>
@@ -36,7 +42,13 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ route }) => {
                         <FlatList
                             keyExtractor={(item) => item.taskId}
                             data={filteredTasks}
-                            renderItem={({ item }: { item: TaskType }) => <TaskContainer task={item} />}
+                            renderItem={({ item }: { item: TaskType }) => (
+                                <TaskContainer
+                                    task={item}
+                                    updateTrashVisibility={updateTrashVisibility}
+                                    trashId={trashVisibleId}
+                                />
+                            )}
                         />
 
                         <Divider />
