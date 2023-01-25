@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { FlatList, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
 
 import { Divider } from '~components/Divider';
@@ -43,7 +44,7 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ route }) => {
                     </>
                 )}
                 <TouchableOpacity onPress={isOpenModalPress} style={styles.addIcon}>
-                    <Text style={styles.addIconText}>+</Text>
+                    <Icon name="plus" size={24} style={styles.addIconText} />
                 </TouchableOpacity>
             </SafeAreaView>
             {isOpen ? <ModalTemplate isOpen={isOpen} setIsOpen={setIsOpen} chapter={title} /> : <></>}

@@ -9,18 +9,18 @@ import { getTasks } from '~store/selectors/tasksSelector';
 
 export const ImportantTasksScreen = () => {
     const tasks = useSelector(getTasks);
-    // const filteredTasks = tasks.filter((task: TaskType) => task.isImportant);
+    const filteredTasks = tasks.filter((task: TaskType) => task.isImportant);
 
     return (
         <SafeAreaView style={styles.root}>
-            {/*{!filteredTasks.length ? (*/}
-            {/*    <Text> Your important tasks will be here soon!</Text>*/}
-            {/*) : (*/}
-            {/*    <FlatList*/}
-            {/*        data={filteredTasks}*/}
-            {/*        renderItem={({ item }: { item: TaskType }) => <TaskContainer task={item} />}*/}
-            {/*    />*/}
-            {/*)}*/}
+            {!filteredTasks.length ? (
+                <Text> Your important tasks will be here soon!</Text>
+            ) : (
+                <FlatList
+                    data={filteredTasks}
+                    renderItem={({ item }: { item: TaskType }) => <TaskContainer task={item} />}
+                />
+            )}
         </SafeAreaView>
     );
 };

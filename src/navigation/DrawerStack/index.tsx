@@ -1,14 +1,12 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { theme } from '~constants/Theme';
 import { CustomDrawer } from '~navigation/DrawerStack/CustomDrawer';
 import { DailyTasksScreen } from '~screens/DailyTasksScreen';
 import { DoneTasksScreen } from '~screens/DoneTasksScreen';
 import { ImportantTasksScreen } from '~screens/ImportantTasksScreen';
-import { DailyTaskSvg } from '~src/svg/DailyTaskSvg';
-import { DoneTaskSvg } from '~src/svg/DoneTaskSvg';
-import { ImportantTaskSvg } from '~src/svg/ImportantTaskSvg';
 
 export enum DrawerNavigationNames {
     DAILY_TASKS = 'Daily tasks',
@@ -29,32 +27,33 @@ export const DrawerStack = () => {
         <Drawer.Navigator
             drawerContent={(props) => <CustomDrawer {...props} />}
             useLegacyImplementation
-            screenOptions={{
-                drawerContentStyle: {
-                    marginTop: 70,
-                },
-                headerTintColor: theme.color.black,
-            }}
+            screenOptions={({ navigation }) => ({
+                drawerActiveTintColor: theme.backgroundColor.light_purple,
+
+                headerLeft: () => (
+                    <Icon name="navicon" size={18} onPress={navigation.toggleDrawer} style={{ marginLeft: 16 }} />
+                ),
+            })}
         >
             <Drawer.Screen
                 name={DrawerNavigationNames.DAILY_TASKS}
                 component={DailyTasksScreen}
                 options={{
-                    drawerIcon: () => <DailyTaskSvg width={'20'} height={'20'} strokeFill={'#888'} />,
+                    drawerIcon: () => <Icon name="calendar" size={24} color={theme.color.light_grey} />,
                 }}
             />
             <Drawer.Screen
                 name={DrawerNavigationNames.IMPORTANT_TASKS}
                 component={ImportantTasksScreen}
                 options={{
-                    drawerIcon: () => <ImportantTaskSvg width={'18'} height={'17'} color={'#888'} />,
+                    drawerIcon: () => <Icon name="star" size={24} color={theme.color.light_grey} />,
                 }}
             />
             <Drawer.Screen
                 name={DrawerNavigationNames.DONE_TASKS}
                 component={DoneTasksScreen}
                 options={{
-                    drawerIcon: () => <DoneTaskSvg width={'17'} height={'11'} color={'#888'} />,
+                    drawerIcon: () => <Icon name="check-square-o" size={24} color={theme.color.light_grey} />,
                 }}
             />
         </Drawer.Navigator>

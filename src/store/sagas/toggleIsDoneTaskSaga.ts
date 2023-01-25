@@ -16,14 +16,16 @@ export function* toggleIsDoneTaskWorker({ payload }: ToggleIsDoneTaskActionType)
 
         if (snapshot.val()) {
             const tasksFB: TaskType[] = Object.values(snapshot.val());
-            tasksFB.forEach((task: TaskType) =>
+            const properTask = tasksFB.find((task: TaskType) => task.taskId === taskId);
+
+            if (properTask) {
                 database.ref(`/${deviceId}/tasks/${taskId}`).update({
-                    ...task,
+                    ...payload,
                     isDone: !isDone,
-                }),
-            );
+                });
+            }
+            yield put(toggleIsDoneTaskAC(taskId));
         }
-        yield put(toggleIsDoneTaskAC(taskId));
     } catch (e) {
         console.log(e);
     }
@@ -38,14 +40,16 @@ export function* toggleIsImportantTaskWorker({ payload }: ToggleIsImportantTaskA
 
         if (snapshot.val()) {
             const tasksFB: TaskType[] = Object.values(snapshot.val());
-            tasksFB.forEach((task: TaskType) =>
+            const properTask = tasksFB.find((task: TaskType) => task.taskId === taskId);
+
+            if (properTask) {
                 database.ref(`/${deviceId}/tasks/${taskId}`).update({
-                    ...task,
+                    ...payload,
                     isImportant: !isImportant,
-                }),
-            );
+                });
+            }
+            yield put(toggleIsImportantTaskAC(taskId));
         }
-        yield put(toggleIsImportantTaskAC(taskId));
     } catch (e) {
         console.log(e);
     }

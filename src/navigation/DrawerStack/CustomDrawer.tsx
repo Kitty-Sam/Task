@@ -15,10 +15,11 @@ export const CustomDrawer = (props: any) => {
     };
     return (
         <DrawerContentScrollView {...props}>
+            <Gap size={5} />
             <AppButtonWithoutBackGround
                 onPress={goBackPress}
                 title="Back to main menu"
-                color={theme.color.light_grey}
+                color={theme.backgroundColor.light_purple}
             />
             <Gap size={10} />
             <DrawerItemList {...props} />

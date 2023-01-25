@@ -1,16 +1,9 @@
 import { theme } from '~constants/Theme';
 
-const school = require('../../../assets/school.png');
-const work = require('../../../assets/work.png');
-const shop = require('../../../assets/shop.png');
-const read = require('../../../assets/read.png');
-const human = require('../../../assets/human.png');
-const add = require('../../../assets/add.png');
-
 export const categories = [
     {
         title: 'School',
-        icon: school,
+        icon: 'building',
         style: {
             width: 29,
             height: 24,
@@ -19,7 +12,7 @@ export const categories = [
     },
     {
         title: 'Work',
-        icon: work,
+        icon: 'briefcase',
         style: {
             width: 27,
             height: 25,
@@ -28,7 +21,7 @@ export const categories = [
     },
     {
         title: 'Shop',
-        icon: shop,
+        icon: 'shopping-cart',
         style: {
             width: 27,
             height: 27,
@@ -37,7 +30,7 @@ export const categories = [
     },
     {
         title: 'Read',
-        icon: read,
+        icon: 'book',
         style: {
             width: 29,
             height: 23,
@@ -46,7 +39,7 @@ export const categories = [
     },
     {
         title: 'Work out',
-        icon: human,
+        icon: 'child',
         style: {
             width: 19,
             height: 26,
@@ -56,7 +49,7 @@ export const categories = [
     {
         title: '',
         backgroundColor: theme.color.white,
-        icon: add,
+        icon: 'plus',
         style: {
             width: 35,
             height: 35,

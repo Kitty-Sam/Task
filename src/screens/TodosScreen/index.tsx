@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-// import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Category } from '~components/Category';
@@ -57,7 +56,10 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
                     <TouchableOpacity
                         style={[
                             styles.sortValueContainer,
-                            { backgroundColor: filter === item ? theme.backgroundColor.green : theme.color.white },
+                            {
+                                backgroundColor:
+                                    filter === item ? theme.backgroundColor.green_and_blue : theme.color.white,
+                            },
                         ]}
                         key={item}
                         onPress={onChooseFilterPress(item)}
@@ -96,7 +98,6 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
                     columnWrapperStyle={styles.columnWrapper}
                 />
             </View>
-            {/*<Icon name={'music'} size={24} color={'red'} />*/}
         </SafeAreaView>
     );
 };

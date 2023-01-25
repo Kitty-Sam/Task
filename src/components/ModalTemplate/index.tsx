@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React, { FC, useState } from 'react';
 import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 
 import { AppButtonWithoutBackGround } from '~components/AppButtonWithoutBackGround';
@@ -12,7 +13,6 @@ import { theme } from '~constants/Theme';
 import { useDatePicker, UseDatePickerResponseType } from '~hooks/UseDatePicker';
 import { useInput } from '~hooks/UseInput';
 import { addTaskAction } from '~store/sagasActions/addTask';
-import { toggleIsImportantTaskAction } from '~store/sagasActions/toggleIsDoneTask';
 import { saveToFB } from '~utils/getProperTime';
 
 export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) => {
@@ -30,6 +30,10 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
     const onClearPress = () => {
         userTaskTitle.resetValue();
         userTaskDescription.resetValue();
+    };
+
+    const onClosePress = () => {
+        setIsOpen(false);
     };
 
     const dispatch = useDispatch();
@@ -67,11 +71,6 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
 
     const onImportantTaskChangePress = () => {
         setIsTaskImportant(!isTaskImportant);
-        dispatch(
-            toggleIsImportantTaskAction({
-                ...newTask,
-            }),
-        );
     };
 
     const onFocusDatePress = (date: UseDatePickerResponseType) => () => {
@@ -93,11 +92,8 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
                 <View style={styles.modalContainer}>
                     <View style={styles.modalView}>
                         <Text style={styles.boldText}>Enter your task</Text>
-                        <TouchableOpacity
-                            onPress={onImportantTaskChangePress}
-                            style={{ position: 'absolute', top: 8, right: 18 }}
-                        >
-                            <Text style={{ fontSize: 24 }}>{isTaskImportant ? '+' : '-'}</Text>
+                        <TouchableOpacity onPress={onImportantTaskChangePress} style={styles.starIcon}>
+                            <Icon name={isTaskImportant ? 'star' : 'star-o'} size={24} color={theme.color.yellow} />
                         </TouchableOpacity>
                         <CustomTextInput {...userTaskTitle} placeholder="Enter title" />
                         <CustomTextInput {...userTaskDescription} placeholder="Enter description" />
@@ -125,8 +121,7 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
 
                         <View style={styles.buttonsContainer}>
                             <AppButtonWithoutBackGround onPress={onSavePress} title="ok" />
-                            <AppButtonWithoutBackGround onPress={onClearPress} title="clear" />
-                            <AppButtonWithoutBackGround onPress={() => setIsOpen(false)} title="close" />
+                            <AppButtonWithoutBackGround onPress={onClosePress} title="close" color={theme.color.pink} />
                         </View>
                     </View>
                 </View>

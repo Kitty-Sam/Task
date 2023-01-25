@@ -60,6 +60,9 @@ export const getFromFB = (value: string) => {
 export const getFromFBDay = (value: string) => {
     return moment(new Date(value)).format('dddd, MMMM DD');
 };
+export const getFromFBShortDay = (value: string) => {
+    return moment(new Date(value)).format('ddd, MMM DD');
+};
 
 export const saveToFB = (value: Date) => {
     return moment(value).format('h:mm a');

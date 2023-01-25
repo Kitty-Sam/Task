@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Image, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { styles } from '~components/Category/style';
 import { CategoryPropsType } from '~components/Category/type';
@@ -19,7 +20,7 @@ export const Category: FC<CategoryPropsType> = ({ title, counter, icon, backgrou
                         },
                     ]}
                 >
-                    <Image source={icon} style={style} />
+                    <Icon name={icon} size={24} color={theme.color.pink} />
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity
@@ -27,7 +28,7 @@ export const Category: FC<CategoryPropsType> = ({ title, counter, icon, backgrou
                     onPress={onPress}
                 >
                     <Text style={styles.counter}>{counter}</Text>
-                    <Image source={icon} style={style} />
+                    <Icon name={icon} size={24} color={theme.color.white} />
                     <Text style={styles.title}>{title}</Text>
                 </TouchableOpacity>
             )}

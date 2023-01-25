@@ -2,6 +2,7 @@ import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
 import React, { FC, useState } from 'react';
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 
 import { styles } from '~components/TaskContainer/styles';
@@ -14,7 +15,7 @@ import { getFromFB } from '~utils/getProperTime';
 import { getShortString } from '~utils/getShortString';
 
 export const TaskContainer: FC<TaskContainerPropsType> = ({ task }) => {
-    const { isDone, taskId, title, time, description, isImportant } = task;
+    const { isDone, taskId, title, time, description } = task;
     const { till, from } = time;
 
     const [isTaskDone, setIsTaskDone] = useState(isDone);
@@ -46,10 +47,7 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task }) => {
     };
 
     return (
-        <TouchableOpacity
-            style={[styles.rootContainer, { backgroundColor: isImportant ? 'yellow' : 'transparent' }]}
-            onPress={onProperTaskPress}
-        >
+        <TouchableOpacity style={styles.rootContainer} onPress={onProperTaskPress}>
             <View style={styles.dataContainer}>
                 <Text>{getFromFB(from)}</Text>
                 <Text>{getFromFB(till)}</Text>
@@ -69,9 +67,7 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task }) => {
                 <Text>{getShortString(description, 20)}</Text>
             </View>
 
-            <TouchableOpacity onPress={onRemovePress} style={styles.iconContainer}>
-                <Text>#</Text>
-            </TouchableOpacity>
+            <Icon name="ellipsis-v" size={18} onPress={onRemovePress} style={styles.iconContainer} />
         </TouchableOpacity>
     );
 };

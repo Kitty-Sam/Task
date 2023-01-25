@@ -37,6 +37,7 @@ export const theme = {
         20: 20,
     },
     borderRadius: {
+        5: 5,
         10: 10,
         12: 12,
         16: 16,
