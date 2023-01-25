@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         paddingHorizontal: theme.paddingHorizontal['16'],
         paddingVertical: theme.paddingVertical['10'],
-        color: theme.color.blue,
         fontSize: theme.fontSize['16'],
     },
 });

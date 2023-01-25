@@ -12,3 +12,4 @@ export type StackScreenNavigationProps<T extends keyof NavParamList, NavParamLis
 export type LaunchScreenProps = StackScreenNavigationProps<RootNavigationNames.LAUNCH, RootStackParamList>;
 export type TodosScreenProps = StackScreenNavigationProps<RootNavigationNames.TODOS, RootStackParamList>;
 export type DailyTasksScreenProps = StackScreenNavigationProps<DrawerNavigationNames.DAILY_TASKS, DrawerStackParamList>;
+export type TaskScreenProps = StackScreenNavigationProps<RootNavigationNames.TASK, RootStackParamList>;

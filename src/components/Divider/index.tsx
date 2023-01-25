@@ -7,7 +7,7 @@ export const Divider = () => {
     return (
         <View
             style={{
-                borderBottomColor: 'black',
+                borderBottomColor: theme.color.black,
                 borderBottomWidth: theme.borderWidth['1'],
                 alignSelf: 'stretch',
                 marginHorizontal: theme.marginHorizontal['16'],

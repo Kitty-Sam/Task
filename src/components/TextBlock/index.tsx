@@ -2,11 +2,7 @@ import React, { FC } from 'react';
 import { Text, View } from 'react-native';
 
 import { styles } from '~components/TextBlock/styles';
-
-export interface TextBlockType {
-    title: string;
-    paragraph: string;
-}
+import { TextBlockType } from '~components/TextBlock/type';
 
 export const TextBlock: FC<TextBlockType> = ({ title, paragraph }) => {
     return (

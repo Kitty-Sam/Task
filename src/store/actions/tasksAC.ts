@@ -5,6 +5,7 @@ export enum TasksActions {
     REMOVE_TASK = 'remove_task',
     FETCH_TASKS = 'fetch_tasks',
     TOGGLE_IS_DONE = 'toggle_id_done',
+    TOGGLE_IS_IMPORTANT = 'toggle_is_important',
 }
 
 export type RemovePayloadType = Omit<TaskType, 'title' | 'description' | 'time' | 'chapter'>;
@@ -16,6 +17,16 @@ export const toggleIsDoneTaskAC: ToggleIsDoneTaskActionType = (payload: string) 
 
 export type ToggleIsDoneTaskActionType = (payload: string) => {
     type: TasksActions.TOGGLE_IS_DONE;
+    payload: string;
+};
+
+export const toggleIsImportantTaskAC: ToggleIsImportantTaskActionType = (payload: string) => ({
+    type: TasksActions.TOGGLE_IS_IMPORTANT,
+    payload,
+});
+
+export type ToggleIsImportantTaskActionType = (payload: string) => {
+    type: TasksActions.TOGGLE_IS_IMPORTANT;
     payload: string;
 };
 

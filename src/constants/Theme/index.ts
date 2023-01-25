@@ -37,10 +37,12 @@ export const theme = {
         20: 20,
     },
     borderRadius: {
+        5: 5,
         10: 10,
         12: 12,
         16: 16,
         20: 20,
+        25: 25,
     },
     borderWidth: {
         1: 1,
@@ -54,6 +56,7 @@ export const theme = {
         4: 4,
         8: 8,
         16: 16,
+        30: 30,
         50: 50,
     },
 };

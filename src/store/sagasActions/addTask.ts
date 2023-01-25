@@ -1,12 +1,14 @@
 import { ADD_TASK } from '~store/sagasActionsType';
 
 export type AddTaskPayloadType = {
-    // deviceId: string;
     taskId: string;
     chapter: string;
     description: string;
     title: string;
-    time: string;
+    time: { from: string; till: string };
+    isDone: boolean;
+    isImportant: boolean;
+    extraInfo: string;
 };
 
 export const addTaskAction = (payload: AddTaskPayloadType): AddTaskActionType => ({

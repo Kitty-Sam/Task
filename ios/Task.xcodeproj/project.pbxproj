@@ -15,6 +15,8 @@
 		82F33DB4083DA66824754BFA /* Pods_Task.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2424865D7D9FF7C215E635B7 /* Pods_Task.framework */; };
 		83AAAAF6C6AD9009CB898FBE /* Pods_Task_TaskTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F51724CDED70D32B0E4904 /* Pods_Task_TaskTests.framework */; };
 		DB6BFBBB2976C69F007393DF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6BFBBA2976C69F007393DF /* GoogleService-Info.plist */; };
+		DB73611629812D000051E858 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB73611529812D000051E858 /* Ionicons.ttf */; };
+		DB73611829812D080051E858 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB73611729812D080051E858 /* FontAwesome.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Task/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Task-TaskTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Task-TaskTests.release.xcconfig"; path = "Target Support Files/Pods-Task-TaskTests/Pods-Task-TaskTests.release.xcconfig"; sourceTree = "<group>"; };
 		DB6BFBBA2976C69F007393DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DB73611529812D000051E858 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		DB73611729812D080051E858 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -88,6 +92,7 @@
 		13B07FAE1A68108700A75B9A /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				DB73611429812CED0051E858 /* Fonts */,
 				DB6BFBBA2976C69F007393DF /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -149,6 +154,15 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-Task-TaskTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DB73611429812CED0051E858 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DB73611729812D080051E858 /* FontAwesome.ttf */,
+				DB73611529812D000051E858 /* Ionicons.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,7 +259,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				DB73611829812D080051E858 /* FontAwesome.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				DB73611629812D000051E858 /* Ionicons.ttf in Resources */,
 				DB6BFBBB2976C69F007393DF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

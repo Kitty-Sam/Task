@@ -5,3 +5,4 @@ export const GET_DATA_FROM_STORAGE = 'GET_DATA_FROM_STORAGE';
 export const ADD_TASK = 'ADD_TASK';
 export const REMOVE_TASK = 'REMOVE_TASK';
 export const TOGGLE_IS_DONE = 'TOGGLE_IS_DONE';
+export const TOGGLE_IS_IMPORTANT = 'TOGGLE_IS_IMPORTANT';

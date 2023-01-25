@@ -1,12 +1,21 @@
-import { addTaskAC, fetchTasksAC, removeTaskAC, TasksActions, toggleIsDoneTaskAC } from '~store/actions/tasksAC';
+import {
+    addTaskAC,
+    fetchTasksAC,
+    removeTaskAC,
+    TasksActions,
+    toggleIsDoneTaskAC,
+    toggleIsImportantTaskAC,
+} from '~store/actions/tasksAC';
 
 export type TaskType = {
     taskId: string;
     title: string;
     description: string;
-    time: string;
+    time: { from: string; till: string };
     chapter: string;
     isDone: boolean;
+    isImportant: boolean;
+    extraInfo: string;
 };
 
 const initialState: InitialStateType = {
@@ -21,31 +30,18 @@ type ActionsType =
     | ReturnType<typeof addTaskAC>
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof fetchTasksAC>
-    | ReturnType<typeof toggleIsDoneTaskAC>;
+    | ReturnType<typeof toggleIsDoneTaskAC>
+    | ReturnType<typeof toggleIsImportantTaskAC>;
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
 export const tasksReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case TasksActions.ADD_TASK: {
-            const { taskId, title, time, description, chapter, isDone } = action.payload;
-            const hasTask = state.tasks.find((task) => task.taskId === taskId);
-
-            if (!hasTask) {
-                const newTask: TaskType = {
-                    taskId,
-                    title,
-                    description,
-                    time,
-                    chapter,
-                    isDone,
-                };
-
-                return {
-                    ...state,
-                    tasks: [newTask, ...state.tasks],
-                };
-            }
-            return state;
+            const newTask: TaskType = action.payload;
+            return {
+                ...state,
+                tasks: [newTask, ...state.tasks],
+            };
         }
 
         case TasksActions.TOGGLE_IS_DONE: {
@@ -55,6 +51,20 @@ export const tasksReducer = (state = initialState, action: ActionsType): Initial
                 tasks: state.tasks.map((task) => {
                     if (taskId === task.taskId) {
                         return { ...task, isDone: !task.isDone };
+                    } else {
+                        return task;
+                    }
+                }),
+            };
+        }
+
+        case TasksActions.TOGGLE_IS_IMPORTANT: {
+            const taskId = action.payload;
+            return {
+                ...state,
+                tasks: state.tasks.map((task) => {
+                    if (taskId === task.taskId) {
+                        return { ...task, isImportant: !task.isImportant };
                     } else {
                         return task;
                     }

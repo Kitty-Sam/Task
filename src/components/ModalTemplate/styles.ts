@@ -13,6 +13,11 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
+    starIcon: {
+        position: 'absolute',
+        top: 8,
+        right: 18,
+    },
     modalView: {
         margin: theme.gap['16'],
         backgroundColor: theme.color.white,
@@ -33,5 +38,15 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
         width: '90%',
+    },
+
+    timeContainer: {
+        flexDirection: 'row',
+        width: 150,
+        justifyContent: 'space-between',
+        marginVertical: 8,
+    },
+    boldText: {
+        fontWeight: '600',
     },
 });
