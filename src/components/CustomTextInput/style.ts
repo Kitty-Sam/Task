@@ -11,5 +11,6 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         marginVertical: 8,
         padding: 16,
+        color: theme.color.black,
     },
 });

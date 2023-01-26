@@ -48,5 +48,6 @@ export const styles = StyleSheet.create({
     },
     boldText: {
         fontWeight: '600',
+        color: theme.color.black,
     },
 });

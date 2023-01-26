@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     addText: {
         fontWeight: '500',
         marginVertical: 100,
+        color: theme.color.black,
     },
     headerText: {
         color: theme.color.black,

@@ -254,6 +254,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-splash-screen (3.3.0):
+    - React-Core
   - React-perflogger (0.70.6)
   - React-RCTActionSheet (0.70.6):
     - React-Core/RCTActionSheetHeaders (= 0.70.6)
@@ -336,7 +338,7 @@ PODS:
     - RNFBApp
   - RNGestureHandler (2.4.2):
     - React-Core
-  - RNReanimated (2.6.0):
+  - RNReanimated (2.14.4):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -396,6 +398,7 @@ DEPENDENCIES:
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -477,6 +480,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-date-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -556,6 +561,7 @@ SPEC CHECKSUMS:
   react-native-config: 5330c8258265c1e5fdb8c009d2cabd6badd96727
   react-native-date-picker: 93e43b3084cea595b4d68b1405d6d99849663bd6
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
   React-RCTAnimation: 5341e288375451297057391227f691d9b2326c3d
@@ -574,7 +580,7 @@ SPEC CHECKSUMS:
   RNFBApp: 9295dac8a4e8857918bcff90328b197807ee0dc1
   RNFBDatabase: 73fdf2e9e4b2630070f7d2450360c060567ff2fa
   RNGestureHandler: 61628a2c859172551aa2100d3e73d1e57878392f
-  RNReanimated: 5d75ff8370a7b0abc715ab848d42423bb6fbdd00
+  RNReanimated: 6668b0587bebd4b15dd849b99e5a9c70fc12ed95
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
   RNSVG: d787d64ca06b9158e763ad2638a8c4edce00782a
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8

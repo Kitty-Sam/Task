@@ -11,6 +11,7 @@ export const CustomTextInput: FC<CustomTextInputType> = ({ value, onChangeText, 
             onChangeText={onChangeText}
             placeholder={placeholder}
             style={styles.textInputContainer}
+            placeholderTextColor={'grey'}
         />
     );
 };

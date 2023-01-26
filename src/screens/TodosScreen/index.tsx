@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Category } from '~components/Category';
@@ -20,7 +21,7 @@ import { getTasksAmount, getTasksAmountWithSearch } from '~utils/getTasksAmount'
 import { styles } from './style';
 
 export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
-    const [filter, setFilter] = useState('Today');
+    const [filter, setFilter] = useState('');
 
     const userSearchValue = useInput('');
     const tasks = useSelector(getTasks);
@@ -29,12 +30,16 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
         userSearchValue.resetValue();
         navigation.navigate(RootNavigationNames.TASKS, {
             screen: DrawerNavigationNames.DAILY_TASKS,
-            params: { title: title },
+            params: { title: title, filter: filter, search: userSearchValue.value },
         });
     };
 
     const onChooseFilterPress = (value: string) => () => {
         setFilter(value);
+    };
+
+    const onRefreshPress = () => {
+        setFilter('');
     };
 
     const dispatch = useDispatch();
@@ -74,6 +79,7 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
                         </Text>
                     </TouchableOpacity>
                 ))}
+                <Icon name="refresh" size={18} onPress={onRefreshPress} />
             </View>
             <View style={styles.listContainer}>
                 <FlatList
