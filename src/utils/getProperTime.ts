@@ -37,11 +37,22 @@ export const sortMonthTasks = (values: TaskType[]) => {
     );
 };
 
-export const setTasksFilter = (text: string, values: TaskType[]) => {
-    switch (text) {
-        case 'Today':
-            return sortTodayTasks(values);
+export const sortToday = (values: TaskType[]) => {
+    return values.filter((task: TaskType) => moment(new Date(task.time.from)).isBetween(start, end, 'day', '[]'));
+};
+export const sortWeek = (values: TaskType[]) => {
+    return values.filter((task: TaskType) => moment(new Date(task.time.from)).isBetween(start, week, 'day', '[]'));
+};
+export const sortMonth = (values: TaskType[]) => {
+    return values.filter((task: TaskType) => moment(new Date(task.time.from)).isBetween(start, month, 'day', '[]'));
+};
 
+//common function
+export const setTasksFilter = (period: string, values: TaskType[]) => {
+    switch (period) {
+        case 'Today': {
+            return sortTodayTasks(values);
+        }
         case 'Week': {
             return sortWeekTasks(values);
         }
@@ -50,6 +61,22 @@ export const setTasksFilter = (text: string, values: TaskType[]) => {
         }
         default:
             return sortTodayTasks(values);
+    }
+};
+
+export const setFilteredTasks = (period: string, values: TaskType[]) => {
+    switch (period) {
+        case 'Today':
+            return sortToday(values);
+
+        case 'Week': {
+            return sortWeek(values);
+        }
+        case 'Month': {
+            return sortMonth(values);
+        }
+        default:
+            return sortToday(values);
     }
 };
 

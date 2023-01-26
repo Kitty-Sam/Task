@@ -16,4 +16,9 @@ export const styles = StyleSheet.create({
         flexWrap: 'wrap',
         width: '90%',
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        width: '90%',
+    },
 });

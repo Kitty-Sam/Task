@@ -18,7 +18,7 @@ import { TaskContainerPropsType } from '~components/TaskContainer/type';
 import { theme } from '~constants/Theme';
 import { RootNavigationNames } from '~navigation/RootStack';
 import { removeTaskAction } from '~store/sagasActions/removeTask';
-import { toggleIsDoneTaskAction } from '~store/sagasActions/toggleIsDoneTask';
+import { toggleIsDoneTaskAction, toggleIsImportantTaskAction } from '~store/sagasActions/toggleIsDoneTask';
 import { getFromFB } from '~utils/getProperTime';
 import { getShortString } from '~utils/getShortString';
 
@@ -27,23 +27,50 @@ export type ContextAnimationType = {
 };
 
 export const TaskContainer: FC<TaskContainerPropsType> = ({ task, trashId, updateTrashVisibility }) => {
-    const { isDone, taskId, title, time, description } = task;
+    const { isDone, taskId, title, time, description, isImportant } = task;
     const { till, from } = time;
 
     const [isTaskDone, setIsTaskDone] = useState(isDone);
+    const [isTaskImportant, setIsTaskImportant] = useState(isImportant);
 
     const navigation = useNavigation<any>();
 
     const dispatch = useDispatch();
 
+    const onProperTaskEditPress = () => {
+        navigation.navigate(RootNavigationNames.TASK, {
+            task,
+            isEdit: true,
+        });
+    };
+
+    const onProperTaskPress = () => {
+        navigation.navigate(RootNavigationNames.TASK, {
+            task,
+        });
+    };
+
+    const onOpenMenuPress = () => {
+        Alert.alert('Actions with task', 'What do you prefer?', [
+            {
+                text: 'Edit',
+                onPress: () => onProperTaskEditPress(),
+            },
+            {
+                text: 'Open full info',
+                onPress: () => onProperTaskPress(),
+            },
+            { text: 'Cancel', onPress: () => console.log('cancel'), style: 'cancel' },
+        ]);
+    };
+
     const onRemovePress = () => {
         Alert.alert('Remove task', 'Are you sure?', [
             {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
+                text: 'Remove',
+                onPress: () => dispatch(removeTaskAction({ taskId })),
             },
-            { text: 'OK', onPress: () => dispatch(removeTaskAction({ taskId })) },
+            { text: 'Cancel', onPress: () => console.log('cancel'), style: 'cancel' },
         ]);
     };
 
@@ -52,10 +79,9 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task, trashId, updat
         dispatch(toggleIsDoneTaskAction(task));
     };
 
-    const onProperTaskPress = () => {
-        navigation.navigate(RootNavigationNames.TASK, {
-            task,
-        });
+    const onImportantTaskChangePress = () => {
+        setIsTaskImportant(!isTaskImportant);
+        dispatch(toggleIsImportantTaskAction(task));
     };
 
     ///animation block
@@ -72,7 +98,7 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task, trashId, updat
     });
 
     const rIconContainer = useAnimatedStyle(() => {
-        const opacity = withTiming(Math.abs(translateX.value) < 70 ? 0 : 1);
+        const opacity = withTiming(Math.abs(translateX.value) < 50 ? 0 : 1);
         return { opacity };
     });
 
@@ -93,7 +119,7 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task, trashId, updat
         onEnd: (event) => {
             const positionX = event.translationX;
 
-            -positionX > 70 ? (translateX.value = withTiming(-70)) : (translateX.value = withTiming(0));
+            -positionX > 50 ? (translateX.value = withTiming(-50)) : (translateX.value = withTiming(0));
 
             runOnJS(updateTrashVisibility)(taskId);
         },
@@ -102,11 +128,7 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task, trashId, updat
     return (
         <>
             <PanGestureHandler onGestureEvent={panGestureEvent}>
-                <Animated.View
-                    style={[styles.rootContainer, rStyle]}
-                    // onStartShouldSetResponder={() => true}
-                    // onResponderGrant={() => onProperTaskPress()}
-                >
+                <Animated.View style={[styles.rootContainer, rStyle]}>
                     <View style={styles.dataContainer}>
                         <Text>{getFromFB(from)}</Text>
                         <Text>{getFromFB(till)}</Text>
@@ -125,12 +147,19 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task, trashId, updat
                         <Text style={styles.titleText}>{getShortString(title, 10)}</Text>
                         <Text>{getShortString(description, 20)}</Text>
                     </View>
+                    <Icon
+                        name={isTaskImportant ? 'star' : 'star-o'}
+                        size={24}
+                        color={theme.color.yellow}
+                        onPress={onImportantTaskChangePress}
+                        style={styles.starIcon}
+                    />
 
-                    <Icon name="ellipsis-v" size={18} onPress={onRemovePress} style={styles.iconContainer} />
+                    <Icon name="ellipsis-v" size={18} onPress={onOpenMenuPress} style={styles.editIcon} />
                 </Animated.View>
             </PanGestureHandler>
             <Animated.View style={[styles.trashIconContainer, rIconContainer]}>
-                <Icon name={'trash'} onPress={onRemovePress} size={20} />
+                <Icon name={'trash'} size={20} onPress={onRemovePress} />
             </Animated.View>
         </>
     );

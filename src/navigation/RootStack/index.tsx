@@ -17,9 +17,12 @@ export enum RootNavigationNames {
 
 export type RootStackParamList = {
     [RootNavigationNames.LAUNCH]: undefined;
-    [RootNavigationNames.TASKS]: { screen: DrawerNavigationNames.DAILY_TASKS; params: { title: string } };
+    [RootNavigationNames.TASKS]: {
+        screen: DrawerNavigationNames.DAILY_TASKS;
+        params: { title: string; filter: string; search: string };
+    };
     [RootNavigationNames.TODOS]: undefined;
-    [RootNavigationNames.TASK]: { task: TaskType };
+    [RootNavigationNames.TASK]: { task: TaskType; isEdit?: boolean };
 };
 
 const Root = createNativeStackNavigator<RootStackParamList>();

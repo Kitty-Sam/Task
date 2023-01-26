@@ -1,5 +1,6 @@
 import {
     addTaskAC,
+    editTaskAC,
     fetchTasksAC,
     removeTaskAC,
     TasksActions,
@@ -31,7 +32,8 @@ type ActionsType =
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof fetchTasksAC>
     | ReturnType<typeof toggleIsDoneTaskAC>
-    | ReturnType<typeof toggleIsImportantTaskAC>;
+    | ReturnType<typeof toggleIsImportantTaskAC>
+    | ReturnType<typeof editTaskAC>;
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
 export const tasksReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -65,6 +67,20 @@ export const tasksReducer = (state = initialState, action: ActionsType): Initial
                 tasks: state.tasks.map((task) => {
                     if (taskId === task.taskId) {
                         return { ...task, isImportant: !task.isImportant };
+                    } else {
+                        return task;
+                    }
+                }),
+            };
+        }
+
+        case TasksActions.EDIT_TASK: {
+            const { taskId, title, extraInfo, description } = action.payload;
+            return {
+                ...state,
+                tasks: state.tasks.map((task) => {
+                    if (taskId === task.taskId) {
+                        return { ...task, title, extraInfo, description };
                     } else {
                         return task;
                     }

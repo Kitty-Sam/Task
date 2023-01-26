@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
+        "kill": "npx kill-port 8081",
         "android": "react-native run-android",
         "ios": "react-native run-ios",
         "iPad": "react-native run-ios --simulator='iPad Pro (12.9-inch) (4th generation)'",
@@ -40,6 +41,7 @@
         "react-native-reanimated": "^2.6.0",
         "react-native-safe-area-context": "^4.4.1",
         "react-native-screens": "^3.18.2",
+        "react-native-splash-screen": "^3.3.0",
         "react-native-svg": "^13.7.0",
         "react-native-svg-transformer": "^1.0.0",
         "react-native-vector-icons": "^9.2.0",

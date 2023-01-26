@@ -14,7 +14,8 @@ export const styles = StyleSheet.create({
         margin: theme.gap['8'],
     },
     dataContainer: { flexDirection: 'column' },
-    iconContainer: { position: 'absolute', right: theme.gap['16'] },
+    editIcon: { position: 'absolute', right: 8, bottom: 2, padding: 8 },
+    starIcon: { position: 'absolute', right: 8, top: 1 },
     titleText: {
         fontWeight: '700',
         fontSize: theme.fontSize['24'],
@@ -25,7 +26,7 @@ export const styles = StyleSheet.create({
         right: theme.gap['8'],
         top: theme.gap['24'],
         backgroundColor: theme.backgroundColor.light_purple,
-        padding: theme.gap['12'],
+        padding: theme.gap['8'],
         borderRadius: theme.borderRadius['5'],
     },
 });

@@ -99,11 +99,19 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
                         <CustomTextInput {...userTaskDescription} placeholder="Enter description" />
                         <View style={styles.timeContainer}>
                             <Text style={styles.boldText}>from: </Text>
-                            <TextInput value={saveToFB(fromDate.dateValue)} onFocus={onFocusDatePress(fromDate)} />
+                            <TextInput
+                                value={saveToFB(fromDate.dateValue)}
+                                onFocus={onFocusDatePress(fromDate)}
+                                style={{ color: theme.color.light_grey }}
+                            />
                         </View>
                         <View style={styles.timeContainer}>
                             <Text style={styles.boldText}>up till: </Text>
-                            <TextInput value={saveToFB(tillDate.dateValue)} onFocus={onFocusDatePress(tillDate)} />
+                            <TextInput
+                                value={saveToFB(tillDate.dateValue)}
+                                onFocus={onFocusDatePress(tillDate)}
+                                style={{ color: theme.color.light_grey }}
+                            />
                         </View>
 
                         {isAddedExtraInfo ? (
