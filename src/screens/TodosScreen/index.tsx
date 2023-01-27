@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,9 @@ import { useInput } from '~hooks/UseInput';
 import { DrawerNavigationNames } from '~navigation/DrawerStack';
 import { RootNavigationNames } from '~navigation/RootStack';
 import { TodosScreenProps } from '~navigation/RootStack/type';
+import { RequestStatus } from '~store/reducers/appReducer';
 import { fetchTasksAction } from '~store/sagasActions/fetchTasks';
+import { getAppStatus } from '~store/selectors/appSelector';
 import { getTasks } from '~store/selectors/tasksSelector';
 import { setTasksFilter, todayDate } from '~utils/getProperTime';
 import { getTasksAmount, getTasksAmountWithSearch } from '~utils/getTasksAmount';
@@ -25,6 +27,7 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
 
     const userSearchValue = useInput('');
     const tasks = useSelector(getTasks);
+    const appStatus = useSelector(getAppStatus);
 
     const onCategoryPress = (title: string) => {
         userSearchValue.resetValue();
@@ -50,8 +53,12 @@ export const TodosScreen: FC<TodosScreenProps> = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.root}>
-            <View style={{ alignItems: 'center' }}>
-                <Text style={styles.title}> {tasks.length ? setTasksFilter(filter, tasks) : 'Add tasks'}</Text>
+            <View style={styles.titleContainer}>
+                {appStatus === RequestStatus.LOADING ? (
+                    <ActivityIndicator />
+                ) : (
+                    <Text style={styles.title}> {tasks.length ? setTasksFilter(filter, tasks) : 'Add tasks'}</Text>
+                )}
                 <Text style={styles.date}>{todayDate}</Text>
             </View>
             <CustomTextInput {...userSearchValue} placeholder={'Search tasks'} />

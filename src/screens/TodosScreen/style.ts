@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-evenly',
     },
+    titleContainer: { alignItems: 'center' },
     title: {
         fontSize: theme.fontSize['24'],
         fontWeight: '600',
