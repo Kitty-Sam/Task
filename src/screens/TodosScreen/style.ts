@@ -40,10 +40,11 @@ export const styles = StyleSheet.create({
     },
     listContainer: {
         flexDirection: 'row',
+        flexWrap: 'wrap',
+        height: 350,
     },
     columnWrapper: {
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        alignSelf: 'flex-start',
     },
     sortValueContainer: {
         borderRadius: theme.borderRadius['20'],
@@ -66,5 +67,8 @@ export const styles = StyleSheet.create({
     },
     categoryWrapper: {
         marginTop: theme.gap['16'],
+    },
+    contentContainer: {
+        padding: 16,
     },
 });

@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -9,9 +8,5 @@ export const App = () => {
         SplashScreen.hide();
     }, []);
 
-    return (
-        <NavigationContainer>
-            <RootStack />
-        </NavigationContainer>
-    );
+    return <RootStack />;
 };

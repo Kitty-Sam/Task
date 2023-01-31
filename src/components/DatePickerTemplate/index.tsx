@@ -14,6 +14,7 @@ export const DatePickerTemplate: FC<DatePickerTemplateType> = ({ booleanValue, o
             date={dateValue}
             onConfirm={onConfirm}
             onCancel={onCancel}
+            androidVariant={'iosClone'}
         />
     );
 };

@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { theme } from '~constants/Theme';
 import { CustomDrawer } from '~navigation/DrawerStack/CustomDrawer';
+import { styles } from '~navigation/DrawerStack/style';
 import { DailyTasksScreen } from '~screens/DailyTasksScreen';
 import { DoneTasksScreen } from '~screens/DoneTasksScreen';
 import { ImportantTasksScreen } from '~screens/ImportantTasksScreen';
@@ -15,7 +16,7 @@ export enum DrawerNavigationNames {
 }
 
 export type DrawerStackParamList = {
-    [DrawerNavigationNames.DAILY_TASKS]: undefined;
+    [DrawerNavigationNames.DAILY_TASKS]: { title: string; filter: string; search: string };
     [DrawerNavigationNames.IMPORTANT_TASKS]: undefined;
     [DrawerNavigationNames.DONE_TASKS]: undefined;
 };
@@ -31,8 +32,9 @@ export const DrawerStack = () => {
                 drawerActiveTintColor: theme.backgroundColor.light_purple,
 
                 headerLeft: () => (
-                    <Icon name="navicon" size={18} onPress={navigation.toggleDrawer} style={{ marginLeft: 16 }} />
+                    <Icon name="navicon" size={18} onPress={navigation.toggleDrawer} style={styles.leftIcon} />
                 ),
+                headerTitleAlign: 'center',
             })}
         >
             <Drawer.Screen

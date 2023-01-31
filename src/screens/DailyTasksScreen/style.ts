@@ -7,6 +7,9 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
+    activityIndicator: {
+        flex: 1,
+    },
     addText: {
         fontWeight: '500',
         marginVertical: 100,

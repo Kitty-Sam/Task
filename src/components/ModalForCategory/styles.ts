@@ -15,8 +15,8 @@ export const styles = StyleSheet.create({
     },
     starIcon: {
         position: 'absolute',
-        top: 8,
-        right: 18,
+        top: theme.gap['8'],
+        right: theme.gap['16'],
     },
     modalView: {
         margin: theme.gap['16'],
@@ -37,20 +37,6 @@ export const styles = StyleSheet.create({
     buttonsContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        width: '100%',
-        // flexGrow: 0,
-        // flexShrink: 0,
-        // flexBasis: '90%',
-    },
-
-    timeContainer: {
-        flexDirection: 'row',
-        width: 150,
-        justifyContent: 'space-between',
-        marginVertical: 8,
-    },
-    boldText: {
-        fontWeight: '600',
-        color: theme.color.black,
+        width: '90%',
     },
 });

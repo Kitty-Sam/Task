@@ -2,30 +2,29 @@ import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { put, select } from 'redux-saga/effects';
 
 import { toggleAppStatus } from '~store/actions/appAC';
-import { fetchTasksAC } from '~store/actions/tasksAC';
+import { fetchCategoriesAC } from '~store/actions/categoriesAC';
 import { RequestStatus } from '~store/reducers/appReducer';
+import { CategoryType } from '~store/reducers/categoriesReducer';
 import { getDeviceId } from '~store/selectors/appSelector';
 import { database } from '~utils/getDataBaseURL';
 
-import { TaskType } from '../reducers/tasksReducer';
-
-export function* fetchTasksWorker() {
+export function* fetchCategoriesWorker() {
     try {
         yield put(toggleAppStatus(RequestStatus.LOADING));
         const resultedDeviceId: string = yield select(getDeviceId);
-        const reference: FirebaseDatabaseTypes.Reference = yield database.ref(`/${resultedDeviceId}/tasks`);
+        const reference: FirebaseDatabaseTypes.Reference = yield database.ref(`/${resultedDeviceId}/categories`);
         const snapshot: FirebaseDatabaseTypes.DataSnapshot = yield reference.once('value');
 
         if (snapshot.val()) {
-            const tasksFB: TaskType[] = Object.values(snapshot.val());
-            yield put(fetchTasksAC(tasksFB));
-            yield put(toggleAppStatus(RequestStatus.SUCCEEDED));
+            const categoriesFB: CategoryType[] = Object.values(snapshot.val());
+            yield put(fetchCategoriesAC(categoriesFB));
+            yield put(toggleAppStatus(RequestStatus.IDLE));
             return;
         }
-        yield put(fetchTasksAC([]));
+        yield put(fetchCategoriesAC([]));
     } catch (error: any) {
-        console.warn(error);
-        yield put(fetchTasksAC([]));
+        yield put(fetchCategoriesAC([]));
         yield put(toggleAppStatus(RequestStatus.FAILED));
+        console.warn(error);
     }
 }

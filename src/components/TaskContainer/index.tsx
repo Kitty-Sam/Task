@@ -14,17 +14,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 
 import { styles } from '~components/TaskContainer/styles';
-import { TaskContainerPropsType } from '~components/TaskContainer/type';
+import { ContextAnimationType, TaskContainerPropsType } from '~components/TaskContainer/type';
 import { theme } from '~constants/Theme';
 import { RootNavigationNames } from '~navigation/RootStack';
 import { removeTaskAction } from '~store/sagasActions/removeTask';
 import { toggleIsDoneTaskAction, toggleIsImportantTaskAction } from '~store/sagasActions/toggleIsDoneTask';
 import { getFromFB } from '~utils/getProperTime';
 import { getShortString } from '~utils/getShortString';
-
-export type ContextAnimationType = {
-    translateX: number;
-};
 
 export const TaskContainer: FC<TaskContainerPropsType> = ({ task, trashId, updateTrashVisibility }) => {
     const { isDone, taskId, title, time, description, isImportant } = task;
@@ -139,8 +135,10 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task, trashId, updat
                             value={isTaskDone}
                             onValueChange={onDoneTaskChangePress}
                             style={styles.checkbox}
-                            onTintColor={theme.backgroundColor.light_purple}
-                            onCheckColor={theme.backgroundColor.light_purple}
+                            tintColors={{
+                                true: theme.backgroundColor.light_purple,
+                                false: theme.backgroundColor.light_blue,
+                            }}
                         />
                     </TouchableOpacity>
                     <View style={styles.dataContainer}>

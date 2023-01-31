@@ -1,3 +1,4 @@
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -29,18 +30,20 @@ const Root = createNativeStackNavigator<RootStackParamList>();
 
 export const RootStack = () => {
     return (
-        <Root.Navigator screenOptions={{ headerShown: false }}>
-            <Root.Screen name={RootNavigationNames.LAUNCH} component={LaunchScreen} />
-            <Root.Screen name={RootNavigationNames.TODOS} component={TodosScreen} />
-            <Root.Screen name={RootNavigationNames.TASKS} component={DrawerStack} />
-            <Root.Screen
-                name={RootNavigationNames.TASK}
-                component={TaskItemScreen}
-                options={({ navigation }) => ({
-                    headerShown: true,
-                    headerLeft: () => <Icon name="arrow-left" size={18} onPress={navigation.goBack} />,
-                })}
-            />
-        </Root.Navigator>
+        <NavigationContainer>
+            <Root.Navigator screenOptions={{ headerShown: false }}>
+                <Root.Screen name={RootNavigationNames.LAUNCH} component={LaunchScreen} />
+                <Root.Screen name={RootNavigationNames.TODOS} component={TodosScreen} />
+                <Root.Screen name={RootNavigationNames.TASKS} component={DrawerStack} />
+                <Root.Screen
+                    name={RootNavigationNames.TASK}
+                    component={TaskItemScreen}
+                    options={({ navigation }) => ({
+                        headerShown: true,
+                        headerLeft: () => <Icon name="arrow-left" size={18} onPress={navigation.goBack} />,
+                    })}
+                />
+            </Root.Navigator>
+        </NavigationContainer>
     );
 };

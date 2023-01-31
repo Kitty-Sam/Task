@@ -9,8 +9,6 @@ export enum TasksActions {
     EDIT_TASK = 'edit_task',
 }
 
-export type RemovePayloadType = Omit<TaskType, 'title' | 'description' | 'time' | 'chapter'>;
-
 export const toggleIsDoneTaskAC: ToggleIsDoneTaskActionType = (payload: string) => ({
     type: TasksActions.TOGGLE_IS_DONE,
     payload,

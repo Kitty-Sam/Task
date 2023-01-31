@@ -1,17 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { theme } from '~constants/Theme';
+import { styles } from '~components/Divider/style';
 
 export const Divider = () => {
-    return (
-        <View
-            style={{
-                borderBottomColor: theme.color.black,
-                borderBottomWidth: theme.borderWidth['1'],
-                alignSelf: 'stretch',
-                marginHorizontal: theme.marginHorizontal['16'],
-            }}
-        />
-    );
+    return <View style={styles.dividerWrapper} />;
 };

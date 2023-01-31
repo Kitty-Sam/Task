@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { Alert, ScrollView, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -13,7 +13,7 @@ import { editTaskAction } from '~store/sagasActions/editTask';
 import { getFromFB, getFromFBDay } from '~utils/getProperTime';
 import { getShortString } from '~utils/getShortString';
 
-export const TaskItemScreen: FC<TaskScreenProps> = ({ navigation, route }) => {
+export const TaskItemScreen: FC<TaskScreenProps> = memo(({ navigation, route }) => {
     const { task, isEdit } = route.params;
     const { title, time, description, extraInfo } = task;
 
@@ -26,7 +26,7 @@ export const TaskItemScreen: FC<TaskScreenProps> = ({ navigation, route }) => {
 
     useEffect(() => {
         navigation.setOptions({ headerTitle: getShortString(task.title, 15) });
-    }, []);
+    }, [task.title]);
 
     const onSavePress = () => {
         if (userTitle.value.trim() === '' && userDescription.value.trim() === '') {
@@ -45,6 +45,11 @@ export const TaskItemScreen: FC<TaskScreenProps> = ({ navigation, route }) => {
         setIsEdit(false);
         navigation.goBack();
     };
+
+    const onCancelPress = () => {
+        navigation.goBack();
+    };
+
     return (
         <ScrollView style={styles.root}>
             <View style={styles.titleContainer}>
@@ -80,15 +85,11 @@ export const TaskItemScreen: FC<TaskScreenProps> = ({ navigation, route }) => {
             {isEditText ? (
                 <View style={styles.buttonContainer}>
                     <AppButtonWithoutBackGround onPress={onSavePress} title={'save'} />
-                    <AppButtonWithoutBackGround
-                        onPress={() => console.log('clear')}
-                        title={'clear all'}
-                        color={theme.color.pink}
-                    />
+                    <AppButtonWithoutBackGround onPress={onCancelPress} title={'cancel'} color={theme.color.pink} />
                 </View>
             ) : (
                 <></>
             )}
         </ScrollView>
     );
-};
+});

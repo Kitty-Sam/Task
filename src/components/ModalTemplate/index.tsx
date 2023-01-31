@@ -17,6 +17,7 @@ import { saveToFB } from '~utils/getProperTime';
 
 export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) => {
     const [isTaskImportant, setIsTaskImportant] = useState(false);
+    const [isAddedExtraInfo, setIsAddedExtraInfo] = useState(false);
 
     const userTaskTitle = useInput('');
     const userTaskDescription = useInput('');
@@ -24,8 +25,6 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
 
     const fromDate = useDatePicker(false, new Date());
     const tillDate = useDatePicker(false, new Date());
-
-    const taskId = String(Date.now());
 
     const onClearPress = () => {
         userTaskTitle.resetValue();
@@ -42,7 +41,7 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
         chapter,
         title: userTaskTitle.value,
         description: userTaskDescription.value,
-        taskId,
+        taskId: String(Date.now()),
         time: { from: fromDate.dateValue.toString(), till: tillDate.dateValue.toString() },
         isDone: false,
         isImportant: isTaskImportant,
@@ -76,8 +75,6 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
     const onFocusDatePress = (date: UseDatePickerResponseType) => () => {
         date.setIsOpen();
     };
-
-    const [isAddedExtraInfo, setIsAddedExtraInfo] = useState(false);
 
     return (
         <View style={styles.modalWrapper}>
@@ -129,7 +126,11 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
 
                         <View style={styles.buttonsContainer}>
                             <AppButtonWithoutBackGround onPress={onSavePress} title="ok" />
-                            <AppButtonWithoutBackGround onPress={onClosePress} title="close" color={theme.color.pink} />
+                            <AppButtonWithoutBackGround
+                                onPress={onClosePress}
+                                title="cancel"
+                                color={theme.color.pink}
+                            />
                         </View>
                     </View>
                 </View>

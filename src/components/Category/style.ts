@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
         borderRadius: theme.borderRadius['16'],
         alignItems: 'center',
         justifyContent: 'space-evenly',
+        margin: theme.gap['10'],
     },
     counter: {
         position: 'absolute',

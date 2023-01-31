@@ -5,3 +5,7 @@ export interface TaskContainerPropsType {
     updateTrashVisibility?: any;
     trashId?: string | null;
 }
+
+export type ContextAnimationType = {
+    translateX: number;
+};
