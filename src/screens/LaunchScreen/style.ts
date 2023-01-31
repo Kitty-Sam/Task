@@ -6,4 +6,8 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-around',
         flex: 1,
     },
+    image: {
+        width: '95%',
+        height: '50%',
+    },
 });
