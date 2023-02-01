@@ -76,7 +76,6 @@ export function* filterTasksWorker({ payload }: FilterTasksActionType) {
         } else {
             yield put(toggleAppStatus(RequestStatus.FAILED));
             yield put(fetchTasksAC([]));
-            Alert.alert('Match is not found');
         }
     } catch (error: any) {
         console.warn(error);
