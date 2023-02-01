@@ -71,9 +71,10 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
     }, [isFocused]);
 
     const renderItem = useCallback(
-        ({ item }: { item: CategoryType }) => (
+        ({ item, index }: any) => (
             <View style={styles.categoryWrapper}>
                 <Category
+                    testID={`listItem.${index + 1}`}
                     title={item.title}
                     counter={
                         userSearchValue.value

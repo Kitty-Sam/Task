@@ -9,10 +9,13 @@ export const AppButton: FC<AppButtonType> = ({
     title,
     onPress,
     backgroundColor = theme.backgroundColor.light_purple,
+    testID,
 }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.containerStyle, { backgroundColor }]}>
-            <Text style={styles.textStyle}>{title}</Text>
+        <TouchableOpacity onPress={onPress} style={[styles.containerStyle, { backgroundColor }]} testID={testID}>
+            <Text style={styles.textStyle} testID={`${testID}.label`}>
+                {title}
+            </Text>
         </TouchableOpacity>
     );
 };

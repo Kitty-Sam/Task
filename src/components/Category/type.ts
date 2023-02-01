@@ -4,4 +4,5 @@ export interface CategoryPropsType {
     icon: string;
     backgroundColor: string;
     onPress: () => void;
+    testID?: string;
 }

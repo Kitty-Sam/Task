@@ -28,7 +28,7 @@ export const LaunchScreen: FC<LaunchScreenProps> = memo(({ navigation }) => {
         <SafeAreaView style={styles.root}>
             <Image source={img} style={styles.image} />
             <TextBlock title={title} paragraph={paragraph} />
-            <AppButton onPress={onGetStartedPress} title={'Get started'} />
+            <AppButton onPress={onGetStartedPress} title={'Get started'} testID="Launch" />
         </SafeAreaView>
     );
 });
