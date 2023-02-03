@@ -1,4 +1,5 @@
-import { AppActions, saveDeviceID, toggleAppError, toggleAppStatus } from '../actions/appAC';
+import { AppActions } from '~store/actions/actionsType';
+import { ActionsType, IApp } from '~store/reducers/types';
 
 export enum RequestStatus {
     IDLE = 'IDLE',
@@ -7,38 +8,24 @@ export enum RequestStatus {
     SUCCEEDED = 'SUCCEEDED',
 }
 
-const initialState = {
+const initialState: IApp = {
     status: RequestStatus.IDLE,
     error: false,
     deviceId: '',
 };
 
-type InitialStateType = {
-    error: boolean;
-    status: RequestStatusType;
-    deviceId: string;
-};
-
-export type RequestStatusType = RequestStatus;
-
-// eslint-disable-next-line @typescript-eslint/default-param-last
-export const appReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const appReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case AppActions.APP_SET_STATUS:
-            return { ...state, status: action.payload };
+            return { ...state, status: action.payload.status };
 
         case AppActions.APP_SET_ERROR: {
-            return { ...state, error: action.payload };
+            return { ...state, error: action.payload.error };
         }
         case AppActions.APP_SET_DEVICE_ID: {
-            return { ...state, deviceId: action.payload };
+            return { ...state, deviceId: action.payload.id };
         }
         default:
             return state;
     }
 };
-
-export type ActionsType =
-    | ReturnType<typeof toggleAppStatus>
-    | ReturnType<typeof toggleAppError>
-    | ReturnType<typeof saveDeviceID>;

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Modal, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { AppButtonWithoutBackGround } from '~components/AppButtonWithoutBackGround';
+import { AppButtonWithoutBackGround } from '~components/AppButton';
 import { CustomTextInput } from '~components/CustomTextInput';
 import { DropDownPickerTemplate } from '~components/DropDownPickerTemplate';
 import { styles } from '~components/ModalForCategory/styles';
@@ -10,7 +10,7 @@ import { ModalForCategoryType } from '~components/ModalForCategory/type';
 import { colors, icons } from '~constants/Colors';
 import { theme } from '~constants/Theme';
 import { useDropDownPicker } from '~hooks/UseDropDownPicker';
-import { addCategoryAction } from '~store/sagasActions/addCategory';
+import { addCategoryAction } from '~store/sagasActions/actions/addCategory';
 
 export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, userCategory, userColor, catId }) => {
     const dispatch = useDispatch();

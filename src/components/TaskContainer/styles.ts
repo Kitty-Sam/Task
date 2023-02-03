@@ -1,10 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { theme } from '~constants/Theme';
 
+const { width } = Dimensions.get('window');
+
 export const styles = StyleSheet.create({
     rootContainer: {
-        width: 350,
+        width: width * 0.9,
         padding: theme.gap['16'],
         borderWidth: theme.borderWidth['1'],
         borderColor: theme.color.light_grey,

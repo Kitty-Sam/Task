@@ -1,4 +1,3 @@
-import { useIsFocused } from '@react-navigation/native';
 import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,9 +14,9 @@ import { DrawerNavigationNames } from '~navigation/DrawerStack';
 import { RootNavigationNames } from '~navigation/RootStack';
 import { TodosScreenProps } from '~navigation/RootStack/type';
 import { RequestStatus } from '~store/reducers/appReducer';
-import { CategoryType } from '~store/reducers/categoriesReducer';
-import { fetchCategoriesAction } from '~store/sagasActions/fetchCategories';
-import { fetchTasksAction } from '~store/sagasActions/fetchTasks';
+import { ICategory } from '~store/reducers/types';
+import { fetchCategoriesAction } from '~store/sagasActions/actions/fetchCategories';
+import { fetchTasksAction } from '~store/sagasActions/actions/fetchTasks';
 import { getAppStatus } from '~store/selectors/appSelector';
 import { getCategories } from '~store/selectors/categoriesSelector';
 import { getTasks } from '~store/selectors/tasksSelector';
@@ -37,8 +36,6 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
 
     const userCategory = useInput('');
     const userColor = useInput('violet');
-
-    const isFocused = useIsFocused();
 
     const dispatch = useDispatch();
 
@@ -64,11 +61,9 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
     };
 
     useEffect(() => {
-        if (isFocused) {
-            dispatch(fetchTasksAction());
-            dispatch(fetchCategoriesAction());
-        }
-    }, [isFocused]);
+        dispatch(fetchTasksAction());
+        dispatch(fetchCategoriesAction());
+    }, []);
 
     const renderItem = useCallback(
         ({ item, index }: any) => (
@@ -95,7 +90,7 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
         [categories, userSearchValue.value, tasks],
     );
 
-    const keyExtractor = (item: CategoryType) => item.title;
+    const keyExtractor = (item: ICategory) => item.title;
 
     return (
         <SafeAreaView style={styles.root}>
@@ -135,7 +130,7 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
                         ))}
                         <Icon name="refresh" size={18} onPress={onRefreshPress} />
                     </View>
-                    {isOpen ? (
+                    {isOpen && (
                         <ModalForCategory
                             userCategory={userCategory}
                             isOpen={isOpen}
@@ -143,8 +138,6 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
                             catId={Date.now().toString()}
                             userColor={userColor}
                         />
-                    ) : (
-                        <></>
                     )}
                     <View style={styles.listContainer}>
                         <FlatList

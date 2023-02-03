@@ -9,6 +9,8 @@ import { DailyTasksScreen } from '~screens/DailyTasksScreen';
 import { DoneTasksScreen } from '~screens/DoneTasksScreen';
 import { ImportantTasksScreen } from '~screens/ImportantTasksScreen';
 
+const Drawer = createDrawerNavigator<DrawerStackParamList>();
+
 export enum DrawerNavigationNames {
     DAILY_TASKS = 'Daily tasks',
     IMPORTANT_TASKS = 'Important tasks',
@@ -20,8 +22,6 @@ export type DrawerStackParamList = {
     [DrawerNavigationNames.IMPORTANT_TASKS]: undefined;
     [DrawerNavigationNames.DONE_TASKS]: undefined;
 };
-
-const Drawer = createDrawerNavigator<DrawerStackParamList>();
 
 export const DrawerStack = () => {
     return (

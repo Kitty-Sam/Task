@@ -1,37 +1,38 @@
 import { useIsFocused } from '@react-navigation/native';
-import React, { FC, memo, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Platform, Text, TouchableOpacity } from 'react-native';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, Platform, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Divider } from '~components/Divider';
-import { Gap } from '~components/Gap';
 import { ModalTemplate } from '~components/ModalTemplate';
 import { TaskContainer } from '~components/TaskContainer';
 import { DailyTasksScreenProps } from '~navigation/RootStack/type';
 import { styles } from '~screens/DailyTasksScreen/style';
 import { RequestStatus } from '~store/reducers/appReducer';
-import { TaskType } from '~store/reducers/tasksReducer';
-import { filterTasksAction } from '~store/sagasActions/filterTasks';
+import { ITask } from '~store/reducers/types';
+import { filterTasksAction } from '~store/sagasActions/actions/filterTasks';
 import { getAppStatus } from '~store/selectors/appSelector';
-import { getTasks } from '~store/selectors/tasksSelector';
+import { getCurrentTasks } from '~store/selectors/tasksSelector';
 import { getDoneTasksAmount } from '~utils/getTasksAmount';
 
-export const DailyTasksScreen: FC<DailyTasksScreenProps> = memo(({ route }) => {
+export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ route: { params } }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const tasks = useSelector(getTasks);
-    const appStatus = useSelector(getAppStatus);
     const [trashVisibleId, setTrashVisibleId] = useState<string | null>(null);
+
+    const currentTasks = useSelector(getCurrentTasks);
+    const appStatus = useSelector(getAppStatus);
+
     const isFocused = useIsFocused();
 
-    const { title, filter, search } = route.params;
+    const { title, filter, search } = params;
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(filterTasksAction({ searchValue: search, chapter: title, period: filter }));
-    }, [isFocused, filter, search, title]);
+    }, [isFocused, search, title, filter]);
 
     const isOpenModalPress = () => {
         setIsOpen(true);
@@ -41,6 +42,13 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = memo(({ route }) => {
         setTrashVisibleId(itemId);
     };
 
+    const renderItem = useCallback(
+        ({ item }: { item: ITask }) => (
+            <TaskContainer task={item} updateTrashVisibility={updateTrashVisibility} trashId={trashVisibleId} />
+        ),
+        [currentTasks],
+    );
+
     return (
         <>
             <SafeAreaView style={styles.root}>
@@ -49,25 +57,19 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = memo(({ route }) => {
                 ) : (
                     <>
                         <Text style={styles.headerText}>{title}</Text>
-                        {Platform.OS === 'android' && <Gap size={3} />}
-                        {!tasks.length ? (
+                        {Platform.OS === 'android' && <View style={styles.viewContainer} />}
+                        {!currentTasks.length ? (
                             <Text style={styles.addText}>Just add your task</Text>
                         ) : (
                             <>
                                 <FlatList
                                     keyExtractor={(item) => item.taskId}
-                                    data={tasks}
-                                    renderItem={({ item }: { item: TaskType }) => (
-                                        <TaskContainer
-                                            task={item}
-                                            updateTrashVisibility={updateTrashVisibility}
-                                            trashId={trashVisibleId}
-                                        />
-                                    )}
+                                    data={currentTasks}
+                                    renderItem={renderItem}
                                 />
 
                                 <Divider />
-                                <Text>done task ( {getDoneTasksAmount(tasks, title)} )</Text>
+                                <Text>done task ( {getDoneTasksAmount(currentTasks, title)} )</Text>
                             </>
                         )}
                         <TouchableOpacity onPress={isOpenModalPress} style={styles.addIcon}>
@@ -76,7 +78,7 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = memo(({ route }) => {
                     </>
                 )}
             </SafeAreaView>
-            {isOpen ? <ModalTemplate isOpen={isOpen} setIsOpen={setIsOpen} chapter={title} /> : <></>}
+            {isOpen && <ModalTemplate isOpen={isOpen} setIsOpen={setIsOpen} chapter={title} />}
         </>
     );
-});
+};

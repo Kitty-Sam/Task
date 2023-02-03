@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     addText: {
-        fontWeight: '500',
+        fontWeight: theme.fontWeight['500'],
         marginVertical: 100,
         color: theme.color.black,
     },
@@ -33,5 +33,8 @@ export const styles = StyleSheet.create({
     addIconText: {
         textAlign: 'center',
         color: theme.color.white,
+    },
+    viewContainer: {
+        marginTop: 30,
     },
 });

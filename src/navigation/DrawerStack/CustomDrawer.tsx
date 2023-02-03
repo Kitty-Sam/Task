@@ -2,11 +2,12 @@ import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } 
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
+import { View } from 'react-native';
 
-import { AppButtonWithoutBackGround } from '~components/AppButtonWithoutBackGround';
-import { Gap } from '~components/Gap';
+import { AppButtonWithoutBackGround } from '~components/AppButton';
 import { theme } from '~constants/Theme';
 import { DrawerStackParamList } from '~navigation/DrawerStack/index';
+import { styles } from '~navigation/DrawerStack/style';
 
 export const CustomDrawer = (props: DrawerContentComponentProps) => {
     const navigation = useNavigation<StackNavigationProp<DrawerStackParamList>>();
@@ -15,13 +16,13 @@ export const CustomDrawer = (props: DrawerContentComponentProps) => {
     };
     return (
         <DrawerContentScrollView {...props}>
-            <Gap size={5} />
-            <AppButtonWithoutBackGround
-                onPress={goBackPress}
-                title="Back to main menu"
-                color={theme.backgroundColor.light_purple}
-            />
-            <Gap size={10} />
+            <View style={styles.buttonContainer}>
+                <AppButtonWithoutBackGround
+                    onPress={goBackPress}
+                    title="Back to main menu"
+                    color={theme.backgroundColor.light_purple}
+                />
+            </View>
             <DrawerItemList {...props} />
         </DrawerContentScrollView>
     );

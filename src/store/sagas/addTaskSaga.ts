@@ -1,11 +1,11 @@
 import { put, select } from 'redux-saga/effects';
 
-import { addTaskAC } from '~store/actions/tasksAC';
-import { AddTaskActionType } from '~store/sagasActions/addTask';
+import { addTaskAC } from '~store/actions/actions';
+import { AddTask } from '~store/sagasActions/actions/addTask';
 import { getDeviceId } from '~store/selectors/appSelector';
 import { database } from '~utils/getDataBaseURL';
 
-export function* addTaskWorker({ payload }: AddTaskActionType) {
+export function* addTaskWorker({ payload }: AddTask) {
     const { taskId } = payload;
 
     try {
@@ -15,7 +15,7 @@ export function* addTaskWorker({ payload }: AddTaskActionType) {
             .child('tasks')
             .child(taskId)
             .set({ ...payload });
-        yield put(addTaskAC({ ...payload }));
+        yield put(addTaskAC({ task: payload }));
     } catch (error: any) {
         console.warn(error);
     }

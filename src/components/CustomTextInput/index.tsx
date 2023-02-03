@@ -9,7 +9,7 @@ export const CustomTextInput: FC<CustomTextInputType> = ({ value, onChangeText, 
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.textInputContainer}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <TextInput
-                    value={value.toLowerCase()}
+                    value={value}
                     onChangeText={onChangeText}
                     placeholder={placeholder}
                     style={styles.textInput}

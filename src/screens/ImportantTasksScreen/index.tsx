@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TaskContainerSquare } from '~components/TaskContainerSquare';
 import { styles } from '~screens/DoneTasksScreen/style';
 import { TaskType } from '~store/reducers/tasksReducer';
-import { fetchTasksAction } from '~store/sagasActions/fetchTasks';
+import { fetchTasksAction } from '~store/sagasActions/actions/fetchTasks';
 import { getTasks } from '~store/selectors/tasksSelector';
 
 export const ImportantTasksScreen = () => {
     const tasks = useSelector(getTasks);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -23,7 +22,6 @@ export const ImportantTasksScreen = () => {
         ({ item }: { item: TaskType }) => <TaskContainerSquare task={item} />,
         [filteredTasks],
     );
-    const keyExtractor = (item: TaskType) => item.taskId;
 
     return (
         <SafeAreaView style={styles.root}>
@@ -33,7 +31,7 @@ export const ImportantTasksScreen = () => {
                 <View style={styles.listContainer}>
                     <FlatList
                         contentContainerStyle={styles.contentContainer}
-                        keyExtractor={keyExtractor}
+                        keyExtractor={(item: TaskType) => item.taskId}
                         data={filteredTasks}
                         numColumns={2}
                         renderItem={renderItem}

@@ -1,13 +1,13 @@
 import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { put, select } from 'redux-saga/effects';
 
-import { toggleIsDoneTaskAC, toggleIsImportantTaskAC } from '~store/actions/tasksAC';
-import { TaskType } from '~store/reducers/tasksReducer';
-import { ToggleIsDoneTaskActionType, ToggleIsImportantTaskActionType } from '~store/sagasActions/toggleIsDoneTask';
+import { toggleIsDoneTaskAC, toggleIsImportantTaskAC } from '~store/actions/actions';
+import { ITask } from '~store/reducers/types';
+import { ToggleIsDone, ToggleIsImportant } from '~store/sagasActions/actions/toggleIsDoneTask';
 import { getDeviceId } from '~store/selectors/appSelector';
 import { database } from '~utils/getDataBaseURL';
 
-export function* toggleIsDoneTaskWorker({ payload }: ToggleIsDoneTaskActionType) {
+export function* toggleIsDoneTaskWorker({ payload }: ToggleIsDone) {
     const { taskId, isDone } = payload;
 
     try {
@@ -15,8 +15,8 @@ export function* toggleIsDoneTaskWorker({ payload }: ToggleIsDoneTaskActionType)
         const snapshot: FirebaseDatabaseTypes.DataSnapshot = yield database.ref(`/${deviceId}/tasks`).once('value');
 
         if (snapshot.val()) {
-            const tasksFB: TaskType[] = Object.values(snapshot.val());
-            const properTask = tasksFB.find((task: TaskType) => task.taskId === taskId);
+            const tasksFB: ITask[] = Object.values(snapshot.val());
+            const properTask = tasksFB.find((task: ITask) => task.taskId === taskId);
 
             if (properTask) {
                 database.ref(`/${deviceId}/tasks/${taskId}`).update({
@@ -24,14 +24,14 @@ export function* toggleIsDoneTaskWorker({ payload }: ToggleIsDoneTaskActionType)
                     isDone: !isDone,
                 });
             }
-            yield put(toggleIsDoneTaskAC(taskId));
+            yield put(toggleIsDoneTaskAC({ id: taskId }));
         }
     } catch (e) {
         console.log(e);
     }
 }
 
-export function* toggleIsImportantTaskWorker({ payload }: ToggleIsImportantTaskActionType) {
+export function* toggleIsImportantTaskWorker({ payload }: ToggleIsImportant) {
     const { taskId, isImportant } = payload;
 
     try {
@@ -39,8 +39,8 @@ export function* toggleIsImportantTaskWorker({ payload }: ToggleIsImportantTaskA
         const snapshot: FirebaseDatabaseTypes.DataSnapshot = yield database.ref(`/${deviceId}/tasks`).once('value');
 
         if (snapshot.val()) {
-            const tasksFB: TaskType[] = Object.values(snapshot.val());
-            const properTask = tasksFB.find((task: TaskType) => task.taskId === taskId);
+            const tasksFB: ITask[] = Object.values(snapshot.val());
+            const properTask = tasksFB.find((task: ITask) => task.taskId === taskId);
 
             if (properTask) {
                 database.ref(`/${deviceId}/tasks/${taskId}`).update({
@@ -48,7 +48,7 @@ export function* toggleIsImportantTaskWorker({ payload }: ToggleIsImportantTaskA
                     isImportant: !isImportant,
                 });
             }
-            yield put(toggleIsImportantTaskAC(taskId));
+            yield put(toggleIsImportantTaskAC({ id: taskId }));
         }
     } catch (e) {
         console.log(e);

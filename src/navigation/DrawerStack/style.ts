@@ -6,4 +6,7 @@ export const styles = StyleSheet.create({
     leftIcon: {
         marginLeft: theme.gap['16'],
     },
+    buttonContainer: {
+        marginVertical: 50,
+    },
 });

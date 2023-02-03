@@ -4,20 +4,23 @@ import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-nat
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 
-import { AppButtonWithoutBackGround } from '~components/AppButtonWithoutBackGround';
+import { AppButtonWithoutBackGround } from '~components/AppButton';
 import { CustomTextInput } from '~components/CustomTextInput';
 import { DatePickerTemplate } from '~components/DatePickerTemplate';
 import { styles } from '~components/ModalTemplate/styles';
 import { ModalWindow } from '~components/ModalTemplate/type';
 import { theme } from '~constants/Theme';
-import { useDatePicker, UseDatePickerResponseType } from '~hooks/UseDatePicker';
+import { useDatePicker } from '~hooks/UseDatePicker';
+import { UseDatePickerResponseType } from '~hooks/UseDatePicker/type';
 import { useInput } from '~hooks/UseInput';
-import { addTaskAction } from '~store/sagasActions/addTask';
+import { addTaskAction } from '~store/sagasActions/actions/addTask';
 import { saveToFB } from '~utils/getProperTime';
 
 export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) => {
     const [isTaskImportant, setIsTaskImportant] = useState(false);
     const [isAddedExtraInfo, setIsAddedExtraInfo] = useState(false);
+
+    const dispatch = useDispatch();
 
     const userTaskTitle = useInput('');
     const userTaskDescription = useInput('');
@@ -34,8 +37,6 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
     const onClosePress = () => {
         setIsOpen(false);
     };
-
-    const dispatch = useDispatch();
 
     const newTask = {
         chapter,

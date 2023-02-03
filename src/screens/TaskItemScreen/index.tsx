@@ -2,20 +2,20 @@ import React, { FC, memo, useEffect, useState } from 'react';
 import { Alert, ScrollView, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { AppButtonWithoutBackGround } from '~components/AppButtonWithoutBackGround';
+import { AppButtonWithoutBackGround } from '~components/AppButton';
 import { CustomTextInput } from '~components/CustomTextInput';
-import { Gap } from '~components/Gap';
 import { theme } from '~constants/Theme';
 import { useInput } from '~hooks/UseInput';
 import { TaskScreenProps } from '~navigation/RootStack/type';
 import { styles } from '~screens/TaskItemScreen/style';
-import { editTaskAction } from '~store/sagasActions/editTask';
+import { editTaskAction } from '~store/sagasActions/actions/editTask';
 import { getFromFB, getFromFBDay } from '~utils/getProperTime';
 import { getShortString } from '~utils/getShortString';
 
-export const TaskItemScreen: FC<TaskScreenProps> = memo(({ navigation, route }) => {
-    const { task, isEdit } = route.params;
+export const TaskItemScreen: FC<TaskScreenProps> = memo(({ navigation, route: { params } }) => {
+    const { task, isEdit } = params;
     const { title, time, description, extraInfo } = task;
+    console.log('task', task);
 
     const [isEditText, setIsEdit] = useState(isEdit);
     const userTitle = useInput(title);
@@ -59,21 +59,21 @@ export const TaskItemScreen: FC<TaskScreenProps> = memo(({ navigation, route }) 
                 {getFromFB(time.from)} - {getFromFB(time.till)}
             </Text>
             <Text>{getFromFBDay(time.from)}</Text>
-            <Gap size={2} />
+            <View style={styles.viewContainer} />
             <Text style={styles.boldText}>Title</Text>
             {isEditText ? (
                 <CustomTextInput {...userTitle} placeholder={'edit title'} />
             ) : (
                 <Text style={styles.extraTitleText}>{title}</Text>
             )}
-            <Gap size={2} />
+            <View style={styles.viewContainer} />
             <Text style={styles.boldText}>Description</Text>
             {isEditText ? (
                 <CustomTextInput {...userDescription} placeholder={'edit description'} />
             ) : (
                 <Text style={styles.extraTitleText}>{description}</Text>
             )}
-            <Gap size={2} />
+            <View style={styles.viewContainer} />
             <Text style={styles.boldText}>Additional Description</Text>
 
             {isEditText ? (
@@ -82,13 +82,11 @@ export const TaskItemScreen: FC<TaskScreenProps> = memo(({ navigation, route }) 
                 <Text style={styles.extraTitleText}>{extraInfo ? extraInfo : '---'}</Text>
             )}
 
-            {isEditText ? (
+            {isEditText && (
                 <View style={styles.buttonContainer}>
                     <AppButtonWithoutBackGround onPress={onSavePress} title={'save'} />
                     <AppButtonWithoutBackGround onPress={onCancelPress} title={'cancel'} color={theme.color.pink} />
                 </View>
-            ) : (
-                <></>
             )}
         </ScrollView>
     );
