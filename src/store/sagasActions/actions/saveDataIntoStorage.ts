@@ -1,8 +1,8 @@
-import { TaskType } from '~store/reducers/tasksReducer';
-import { SAVE_DATA_INTO_STORAGE } from '~store/sagasActionsType';
+import { ITask } from '~store/reducers/types';
+import { SAVE_DATA_INTO_STORAGE } from '~store/sagasActions/types';
 
 export type SaveDataIntoStoragePayloadType = {
-    tasks: TaskType[];
+    tasks: ITask[];
 };
 
 export const saveDataIntoStorageAction = (payload: SaveDataIntoStoragePayloadType): SaveDataIntoStorageActionType => ({

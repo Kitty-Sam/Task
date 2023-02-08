@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { SaveDataIntoStorageActionType } from '~store/sagasActions/saveDataIntoStorage';
+import { SaveDataIntoStorageActionType } from '~store/sagasActions/actions/saveDataIntoStorage';
 
 export function* saveDataIntoStorageWorker({ payload }: SaveDataIntoStorageActionType) {
     const { tasks } = payload;

@@ -8,5 +8,9 @@ export type UseInputResponseType = {
 
 export const useInput = (initialValue: string): UseInputResponseType => {
     const [value, setValue] = useState(initialValue);
-    return { value, onChangeText: (text: string) => setValue(text), resetValue: () => setValue(initialValue) };
+    return {
+        value,
+        onChangeText: (text: string) => setValue(text.toLowerCase()),
+        resetValue: () => setValue(initialValue),
+    };
 };

@@ -21,4 +21,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         width: '90%',
     },
+    viewContainer: {
+        marginTop: 20,
+    },
 });

@@ -1,4 +1,4 @@
-import { FETCH_TASKS } from '~store/sagasActionsType';
+import { FETCH_TASKS } from '~store/sagasActions/types';
 
 export const fetchTasksAction = (): FetchTasksActionType => ({
     type: FETCH_TASKS,

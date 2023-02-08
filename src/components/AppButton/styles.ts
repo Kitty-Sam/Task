@@ -8,9 +8,8 @@ export const styles = StyleSheet.create({
     },
     textStyle: {
         textAlign: 'center',
-        paddingHorizontal: theme.paddingHorizontal['80'],
+        paddingHorizontal: theme.paddingHorizontal['16'],
         paddingVertical: theme.paddingVertical['10'],
-        color: theme.color.white,
         fontSize: theme.fontSize['16'],
     },
 });

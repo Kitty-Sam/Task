@@ -1,36 +1,24 @@
-import { addCategoryAC, CategoriesActions, fetchCategoriesAC } from '~store/actions/categoriesAC';
+import { CategoriesActions } from '~store/actions/actionsType';
+import { ActionsType, ICategory } from '~store/reducers/types';
 
-export interface CategoryType {
-    catId: string;
-    title: string;
-    icon: string;
-    backgroundColor: string;
-}
-
-const initialState: InitialStateType = {
-    categories: [],
+const initialState = {
+    categories: [] as ICategory[],
 };
 
-type InitialStateType = {
-    categories: CategoryType[];
-};
-
-type ActionsType = ReturnType<typeof addCategoryAC> | ReturnType<typeof fetchCategoriesAC>;
-
-export const categoriesReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const categoriesReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case CategoriesActions.ADD_CATEGORY: {
-            const newCategory: CategoryType = action.payload;
+            const newCategory = action.payload.category;
             return {
                 ...state,
-                categories: [newCategory, ...state.categories],
+                categories: [...state.categories, newCategory],
             };
         }
 
         case CategoriesActions.FETCH_CATEGORIES: {
             return {
                 ...state,
-                categories: action.payload,
+                categories: action.payload.categories,
             };
         }
 

@@ -1,5 +1,5 @@
-import { TaskType } from '~store/reducers/tasksReducer';
+import { ITask } from '~store/reducers/types';
 
 export interface TaskContainerPropsType {
-    task: TaskType;
+    task: ITask;
 }

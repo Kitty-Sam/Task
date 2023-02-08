@@ -1,6 +1,6 @@
-import { ADD_TASK } from '~store/sagasActionsType';
+import { ADD_TASK } from '~store/sagasActions/types';
 
-export type AddTaskPayloadType = {
+export interface AddTaskPayload {
     taskId: string;
     chapter: string;
     description: string;
@@ -9,14 +9,14 @@ export type AddTaskPayloadType = {
     isDone: boolean;
     isImportant: boolean;
     extraInfo: string;
-};
+}
 
-export const addTaskAction = (payload: AddTaskPayloadType): AddTaskActionType => ({
+export const addTaskAction = (payload: AddTaskPayload) => ({
     type: ADD_TASK,
     payload,
 });
 
-export type AddTaskActionType = {
+export type AddTask = {
     type: typeof ADD_TASK;
-    payload: AddTaskPayloadType;
+    payload: AddTaskPayload;
 };

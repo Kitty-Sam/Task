@@ -17,8 +17,8 @@ import { styles } from '~components/TaskContainer/styles';
 import { ContextAnimationType, TaskContainerPropsType } from '~components/TaskContainer/type';
 import { theme } from '~constants/Theme';
 import { RootNavigationNames } from '~navigation/RootStack';
-import { removeTaskAction } from '~store/sagasActions/removeTask';
-import { toggleIsDoneTaskAction, toggleIsImportantTaskAction } from '~store/sagasActions/toggleIsDoneTask';
+import { removeTaskAction } from '~store/sagasActions/actions/removeTask';
+import { toggleIsDoneTaskAction, toggleIsImportantTaskAction } from '~store/sagasActions/actions/toggleIsDoneTask';
 import { getFromFB } from '~utils/getProperTime';
 import { getShortString } from '~utils/getShortString';
 
@@ -30,7 +30,6 @@ export const TaskContainer: FC<TaskContainerPropsType> = ({ task, trashId, updat
     const [isTaskImportant, setIsTaskImportant] = useState(isImportant);
 
     const navigation = useNavigation<any>();
-
     const dispatch = useDispatch();
 
     const onProperTaskEditPress = () => {

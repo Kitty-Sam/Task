@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
         borderColor: theme.color.light_grey,
         borderRadius: theme.gap['8'],
         marginVertical: theme.gap['8'],
-
         color: theme.color.black,
     },
     textInput: {

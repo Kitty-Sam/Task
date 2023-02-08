@@ -1,18 +1,30 @@
 import React, { FC } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-import { styles } from '~components/AppButton/styles';
-import { AppButtonType } from '~components/AppButton/type';
+import { AppButtonWithoutBackgroundType } from '~components/AppButton/type';
 import { theme } from '~constants/Theme';
 
-export const AppButton: FC<AppButtonType> = ({
+import { styles } from './styles';
+
+export const AppButtonWithoutBackGround: FC<AppButtonWithoutBackgroundType> = ({
     title,
     onPress,
-    backgroundColor = theme.backgroundColor.light_purple,
+    color = theme.color.blue,
+    backgroundColor,
+    testID,
 }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.containerStyle, { backgroundColor }]}>
-            <Text style={styles.textStyle}>{title}</Text>
+        <TouchableOpacity
+            onPress={onPress}
+            style={[styles.containerStyle, { backgroundColor, paddingHorizontal: backgroundColor && '20%' }]}
+            testID={testID}
+        >
+            <Text
+                style={[styles.textStyle, { color: backgroundColor ? theme.color.white : color }]}
+                testID={`${testID}.label`}
+            >
+                {title}
+            </Text>
         </TouchableOpacity>
     );
 };

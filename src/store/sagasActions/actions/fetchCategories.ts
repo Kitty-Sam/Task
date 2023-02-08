@@ -1,4 +1,4 @@
-import { FETCH_CATEGORIES } from '~store/sagasActionsType';
+import { FETCH_CATEGORIES } from '~store/sagasActions/types';
 
 export const fetchCategoriesAction = (): FetchCategoriesActionType => ({
     type: FETCH_CATEGORIES,

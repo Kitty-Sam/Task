@@ -1,12 +1,6 @@
 import { useState } from 'react';
 
-export type UseDatePickerResponseType = {
-    booleanValue: boolean;
-    onConfirm: (value: Date) => void;
-    onCancel: () => void;
-    dateValue: Date;
-    setIsOpen: () => void;
-};
+import { UseDatePickerResponseType } from '~hooks/UseDatePicker/type';
 
 export const useDatePicker = (initBooleanValue: boolean, initDateValue: Date): UseDatePickerResponseType => {
     const [booleanValue, setBooleanValue] = useState(initBooleanValue);

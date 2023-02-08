@@ -29,7 +29,8 @@
             "~constants/*": ["src/constants/*"],
             "~context/*": ["src/context/*"],
             "~hooks/*": ["src/hooks/*"],
-            "~store/*": ["src/store/*"]
+            "~store/*": ["src/store/*"],
+            "~assets/*": ["src/assets/*"]
         }
     },
     "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js", "__tests__/**/*-test.ts"]
