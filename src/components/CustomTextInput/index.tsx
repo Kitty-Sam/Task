@@ -4,11 +4,12 @@ import { Keyboard, KeyboardAvoidingView, Platform, TextInput, TouchableWithoutFe
 import { styles } from '~components/CustomTextInput/style';
 import { CustomTextInputType } from '~components/CustomTextInput/type';
 
-export const CustomTextInput: FC<CustomTextInputType> = ({ value, onChangeText, placeholder }) => {
+export const CustomTextInput: FC<CustomTextInputType> = ({ value, onChangeText, placeholder, testID }) => {
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.textInputContainer}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <TextInput
+                    testID={testID}
                     value={value}
                     onChangeText={onChangeText}
                     placeholder={placeholder}

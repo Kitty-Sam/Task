@@ -21,6 +21,7 @@ export function* fetchTasksWorker() {
             return;
         }
         yield put(fetchTasksAC({ tasks: [] }));
+        yield put(toggleAppStatus({ status: RequestStatus.FAILED }));
     } catch (error: any) {
         console.warn(error);
         yield put(fetchTasksAC({ tasks: [] }));

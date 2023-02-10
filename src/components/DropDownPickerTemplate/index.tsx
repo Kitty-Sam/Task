@@ -1,3 +1,4 @@
+import React from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import { styles } from '~components/DropDownPickerTemplate/style';
@@ -13,9 +14,11 @@ export const DropDownPickerTemplate = ({
     title,
     zIndex,
     zIndexInverse,
+    testID,
 }: any) => {
     return (
         <DropDownPicker
+            testID={testID}
             open={open}
             value={value}
             items={items}

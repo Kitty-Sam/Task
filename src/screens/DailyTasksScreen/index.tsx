@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,7 +57,7 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ route: { params } 
                 ) : (
                     <>
                         <Text style={styles.headerText}>{title}</Text>
-                        {Platform.OS === 'android' && <View style={styles.viewContainer} />}
+                        <View style={styles.viewContainer} />
                         {!currentTasks.length ? (
                             <Text style={styles.addText}>Just add your task</Text>
                         ) : (

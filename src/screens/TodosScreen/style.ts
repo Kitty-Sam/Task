@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     },
     inputContainer: {
         flexDirection: 'row',
-        width: 280,
+        width: '70%',
         borderRadius: theme.borderRadius['12'],
         paddingVertical: theme.paddingVertical['15'],
         backgroundColor: theme.color.white,
@@ -39,9 +39,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     listContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        height: 350,
+        height: '50%',
     },
     columnWrapper: {
         alignSelf: 'flex-start',

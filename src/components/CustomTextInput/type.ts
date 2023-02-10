@@ -3,4 +3,5 @@ export interface CustomTextInputType {
     onChangeText: (text: string) => void;
     resetValue: () => void;
     placeholder: string;
+    testID?: string;
 }

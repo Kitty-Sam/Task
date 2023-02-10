@@ -1,6 +1,7 @@
 import { FirebaseDatabaseTypes } from '@react-native-firebase/database';
 import { put, select } from 'redux-saga/effects';
 
+import { categories } from '~constants/Categories';
 import { fetchCategoriesAC, toggleAppStatus } from '~store/actions/actions';
 import { RequestStatus } from '~store/reducers/appReducer';
 import { ICategory } from '~store/reducers/types';
@@ -16,13 +17,27 @@ export function* fetchCategoriesWorker() {
 
         if (snapshot.val()) {
             const categoriesFB: ICategory[] = Object.values(snapshot.val());
-            yield put(fetchCategoriesAC({ categories: categoriesFB }));
+            const sortedCategoriesFB = categoriesFB.sort((a, b) => +a.catId - +b.catId);
+            yield put(fetchCategoriesAC({ categories: sortedCategoriesFB }));
             yield put(toggleAppStatus({ status: RequestStatus.IDLE }));
             return;
         }
-        yield put(fetchCategoriesAC({ categories: [] }));
+
+        const sortedCategories = categories.sort((a, b) => +a.catId - +b.catId);
+
+        sortedCategories.forEach(async (el) => {
+            await database
+                .ref(`/${resultedDeviceId}/`)
+                .child('categories')
+                .child(el.catId)
+                .set({ ...el });
+        });
+
+        yield put(fetchCategoriesAC({ categories: sortedCategories }));
+        yield put(toggleAppStatus({ status: RequestStatus.FAILED }));
     } catch (error: any) {
-        yield put(fetchCategoriesAC({ categories: [] }));
+        const sortedCategories = categories.sort((a, b) => +a.catId - +b.catId);
+        yield put(fetchCategoriesAC({ categories: sortedCategories }));
         yield put(toggleAppStatus({ status: RequestStatus.FAILED }));
         console.warn(error);
     }

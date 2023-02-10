@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TaskContainerSquare } from '~components/TaskContainerSquare';
 import { styles } from '~screens/DoneTasksScreen/style';
-import { TaskType } from '~store/reducers/tasksReducer';
+import { ITask } from '~store/reducers/types';
 import { fetchTasksAction } from '~store/sagasActions/actions/fetchTasks';
 import { getTasks } from '~store/selectors/tasksSelector';
 
@@ -16,12 +16,9 @@ export const DoneTasksScreen = () => {
         dispatch(fetchTasksAction());
     }, []);
 
-    const filteredTasks = tasks.filter((task: TaskType) => task.isDone);
+    const filteredTasks = tasks.filter((task: ITask) => task.isDone);
 
-    const renderItem = useCallback(
-        ({ item }: { item: TaskType }) => <TaskContainerSquare task={item} />,
-        [filteredTasks],
-    );
+    const renderItem = useCallback(({ item }: { item: ITask }) => <TaskContainerSquare task={item} />, [filteredTasks]);
 
     return (
         <SafeAreaView style={styles.root}>
@@ -31,7 +28,7 @@ export const DoneTasksScreen = () => {
                 <View style={styles.listContainer}>
                     <FlatList
                         contentContainerStyle={styles.contentContainer}
-                        keyExtractor={(item: TaskType) => item.taskId}
+                        keyExtractor={(item: ITask) => item.taskId}
                         data={filteredTasks}
                         numColumns={2}
                         renderItem={renderItem}
