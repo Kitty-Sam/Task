@@ -7,7 +7,7 @@ import { DrawerNavigationNames, DrawerStack } from '~navigation/DrawerStack';
 import { LaunchScreen } from '~screens/LaunchScreen';
 import { TaskItemScreen } from '~screens/TaskItemScreen';
 import { TodosScreen } from '~screens/TodosScreen';
-import { TaskType } from '~store/reducers/tasksReducer';
+import { ITask } from '~store/reducers/types';
 
 export enum RootNavigationNames {
     LAUNCH = 'Launch',
@@ -23,7 +23,7 @@ export type RootStackParamList = {
         params: { title: string; filter: string; search: string };
     };
     [RootNavigationNames.TODOS]: undefined;
-    [RootNavigationNames.TASK]: { task: TaskType; isEdit?: boolean };
+    [RootNavigationNames.TASK]: { task: ITask; isEdit?: boolean };
 };
 
 const Root = createNativeStackNavigator<RootStackParamList>();
@@ -39,6 +39,7 @@ export const RootStack = () => {
                     name={RootNavigationNames.TASK}
                     component={TaskItemScreen}
                     options={({ navigation }) => ({
+                        headerTitleAlign: 'center',
                         headerShown: true,
                         headerLeft: () => <Icon name="arrow-left" size={18} onPress={navigation.goBack} />,
                     })}

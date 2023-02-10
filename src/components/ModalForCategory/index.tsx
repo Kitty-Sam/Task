@@ -24,8 +24,8 @@ export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, 
             addCategoryAction({
                 catId: catId,
                 title: userCategory.value,
-                icon: iconDrop.value!,
-                backgroundColor: colorDrop.value!,
+                icon: iconDrop.value! || 'music',
+                backgroundColor: colorDrop.value! || 'violet',
             }),
         );
 
@@ -50,17 +50,34 @@ export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, 
                 <View style={styles.modalContainer}>
                     <View style={styles.modalView}>
                         <Text>Create your own category</Text>
-                        <CustomTextInput {...userCategory} placeholder="add category title" />
+                        <CustomTextInput {...userCategory} placeholder="add category title" testID="CategoryTitle" />
 
-                        <DropDownPickerTemplate {...colorDrop} title="color" zIndex={3000} zIndexInverse={1000} />
-                        <DropDownPickerTemplate {...iconDrop} title="icon" zIndex={2000} zIndexInverse={2000} />
+                        <DropDownPickerTemplate
+                            {...colorDrop}
+                            title="color"
+                            zIndex={3000}
+                            zIndexInverse={1000}
+                            testID="CategoryColor"
+                        />
+                        <DropDownPickerTemplate
+                            {...iconDrop}
+                            title="icon"
+                            zIndex={2000}
+                            zIndexInverse={2000}
+                            testID="CategoryIcon"
+                        />
 
                         <View style={styles.buttonsContainer}>
-                            <AppButtonWithoutBackGround onPress={saveCategoryPress} title="save" />
+                            <AppButtonWithoutBackGround
+                                onPress={saveCategoryPress}
+                                title="save"
+                                testID="CategorySave"
+                            />
                             <AppButtonWithoutBackGround
                                 onPress={onCancelPress}
                                 title="cancel"
                                 color={theme.color.pink}
+                                testID="CategoryCancel"
                             />
                         </View>
                     </View>

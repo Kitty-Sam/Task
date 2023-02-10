@@ -8,10 +8,14 @@ import { theme } from '~constants/Theme';
 
 export const Category: FC<CategoryPropsType> = ({ title, counter, icon, backgroundColor, onPress, testID }) => {
     return (
-        <TouchableOpacity style={[styles.containerStyle, { backgroundColor: backgroundColor }]} onPress={onPress}>
-            <Text style={styles.counter}>{title === 'Add' ? '' : counter}</Text>
+        <TouchableOpacity
+            style={[styles.containerStyle, { backgroundColor: backgroundColor }]}
+            onPress={onPress}
+            testID={testID}
+        >
+            <Text style={styles.counter}>{title === 'add' ? '' : counter}</Text>
             <Icon name={icon} size={24} color={theme.color.white} />
-            <Text style={styles.title} testID={testID}>
+            <Text style={styles.title} testID={`${testID}.label`}>
                 {title}
             </Text>
         </TouchableOpacity>

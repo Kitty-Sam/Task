@@ -1,13 +1,13 @@
-import { TaskType } from '~store/reducers/tasksReducer';
+import { ITask } from '~store/reducers/types';
 
-export const getTasksAmount = (tasks: TaskType[], filter: string) => {
+export const getTasksAmount = (tasks: ITask[], filter: string) => {
     return String(tasks.filter((task) => task.chapter === filter).length);
 };
 
-export const getTasksAmountWithSearch = (tasks: TaskType[], filter: string, search: string) => {
+export const getTasksAmountWithSearch = (tasks: ITask[], filter: string, search: string) => {
     return String(tasks.filter((task) => task.chapter === filter).filter((task) => task.title.includes(search)).length);
 };
 
-export const getDoneTasksAmount = (tasks: TaskType[], filter: string) => {
+export const getDoneTasksAmount = (tasks: ITask[], filter: string) => {
     return String(tasks.filter((task) => task.chapter === filter).filter((task) => task.isDone).length);
 };

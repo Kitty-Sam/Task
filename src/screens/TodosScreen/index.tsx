@@ -29,18 +29,18 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
     const [filter, setFilter] = useState('');
     const [isOpen, setIsOpen] = useState(false);
 
-    const userSearchValue = useInput('');
     const tasks = useSelector(getTasks);
     const categories = useSelector(getCategories);
     const appStatus = useSelector(getAppStatus);
 
     const userCategory = useInput('');
     const userColor = useInput('violet');
+    const userSearchValue = useInput('');
 
     const dispatch = useDispatch();
 
     const onCategoryPress = (title: string) => () => {
-        if (title === 'Add') {
+        if (title === 'add') {
             setIsOpen(true);
             return;
         }
@@ -69,7 +69,7 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
         ({ item, index }: any) => (
             <View style={styles.categoryWrapper}>
                 <Category
-                    testID={`listItem.${index + 1}`}
+                    testID={`categoryItem.${index + 1}`}
                     title={item.title}
                     counter={
                         userSearchValue.value
@@ -103,7 +103,7 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
 
                         <Text style={styles.date}>{todayDate}</Text>
                     </View>
-                    <CustomTextInput {...userSearchValue} placeholder={'Search tasks'} />
+                    <CustomTextInput {...userSearchValue} placeholder={'Search tasks'} testID="Search" />
 
                     <View style={styles.sortValuesContainer}>
                         {sortValues.map((item) => (
@@ -117,8 +117,10 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
                                 ]}
                                 key={item}
                                 onPress={onChooseFilterPress(item)}
+                                testID={item}
                             >
                                 <Text
+                                    testID={`${item}.label`}
                                     style={[
                                         styles.sortValueText,
                                         { color: filter === item ? theme.color.white : theme.color.light_grey },

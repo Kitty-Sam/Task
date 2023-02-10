@@ -15,7 +15,6 @@ import { getShortString } from '~utils/getShortString';
 export const TaskItemScreen: FC<TaskScreenProps> = memo(({ navigation, route: { params } }) => {
     const { task, isEdit } = params;
     const { title, time, description, extraInfo } = task;
-    console.log('task', task);
 
     const [isEditText, setIsEdit] = useState(isEdit);
     const userTitle = useInput(title);

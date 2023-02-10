@@ -1420,19 +1420,31 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.3.0.tgz"
   "version" "1.3.0"
 
-"@react-native-firebase/app@^16.5.0":
-  "integrity" "sha512-Vi8F4+UVS+ybv7w/7m9UjZWWUjMTr/0nChZBv5aVqo84Afld99hN5YT2wdpF4QbDs39l92WLJYUT9LMCqvBKeg=="
-  "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-16.5.0.tgz"
-  "version" "16.5.0"
+"@react-native-community/push-notification-ios@^1.10.1":
+  "integrity" "sha512-k6bZWUKLif4GjenyTD3aQLwA2VT3bNmt22INO/34lexnpmqkPDZF7nreqbckTHG0Zso9wDTe4N/AZJUC/d8iRg=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/push-notification-ios/-/push-notification-ios-1.10.1.tgz"
+  "version" "1.10.1"
+  dependencies:
+    "invariant" "^2.2.4"
+
+"@react-native-firebase/app@^16.7.0":
+  "integrity" "sha512-+CQodRrXZnT6iX2wAnTWbNKBZJco7MM6WcDTtf7koS7+D1jV6eCzjUgAZmG0G9WKzVV9uRuitkh1ZMve1982fg=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-16.7.0.tgz"
+  "version" "16.7.0"
   dependencies:
     "@expo/config-plugins" "^5.0.4"
     "opencollective-postinstall" "^2.0.1"
     "superstruct" "^0.6.2"
 
-"@react-native-firebase/database@^16.5.0":
-  "integrity" "sha512-swQeygaKqkkg5j7zkjlzX/yFEtXktBj+Bm3rPAdVEusTgSndZyK3ul8r2ReI97QCNoMZp8G2zsEhfhKYVBt1iA=="
-  "resolved" "https://registry.npmjs.org/@react-native-firebase/database/-/database-16.5.0.tgz"
-  "version" "16.5.0"
+"@react-native-firebase/database@^16.7.0":
+  "integrity" "sha512-FR4Qw5VldWKsd9txp5Os6DtGrODYeetkG4HcPkBbr5FScRvZMhwcfF4F0E4GO57VOWayUU/yjL2hJUS9XuiPrQ=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/database/-/database-16.7.0.tgz"
+  "version" "16.7.0"
+
+"@react-native-firebase/messaging@^16.7.0":
+  "integrity" "sha512-7T/eS/eijEHQfBhIbLD0NQ5dJI62MTKqVz3IMk5EhuOo29lOnvmWxR/Fsz/mP8ZGqsHH+KiIKvyhUdTW392jAQ=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/messaging/-/messaging-16.7.0.tgz"
+  "version" "16.7.0"
 
 "@react-native/assets@1.0.0":
   "integrity" "sha512-KrwSpS1tKI70wuKl68DwJZYEvXktDHdZMG0k2AXD/rJVSlB23/X2CB2cutVR0HwNMJIal9HOUOBB2rVfa6UGtQ=="
@@ -1805,6 +1817,11 @@
   "integrity" "sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w=="
   "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
   "version" "15.7.5"
+
+"@types/react-native-push-notification@^8.1.1":
+  "integrity" "sha512-ZN4UbU4EM3C7XGt4zI6RqHEZS2+35EwOz9DPAD1lTTY3IpWMHAKYjryykvP35hFkSwrGMpT8nYuMFPEJRwDEJA=="
+  "resolved" "https://registry.npmjs.org/@types/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz"
+  "version" "8.1.1"
 
 "@types/react-native-vector-icons@^6.4.13":
   "integrity" "sha512-1PqFoKuXTSzMHwGMAr+REdYJBQAbe9xrww3ecZR0FsHcD1K+vGS/rxuAriL4rsI6+p69sZQjDzpEVAbDQcjSwA=="
@@ -7404,6 +7421,11 @@
   "integrity" "sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A=="
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz"
   "version" "0.70.3"
+
+"react-native-push-notification@^8.1.1":
+  "integrity" "sha512-XpBtG/w+a6WXTxu6l1dNYyTiHnbgnvjoc3KxPTxYkaIABRmvuJZkFxqruyGvfCw7ELAlZEAJO+dthdTabCe1XA=="
+  "resolved" "https://registry.npmjs.org/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz"
+  "version" "8.1.1"
 
 "react-native-reanimated@^2.6.0":
   "integrity" "sha512-DquSbl7P8j4SAmc+kRdd75Ianm8G+IYQ9T4AQ6lrpLVeDkhZmjWI0wkutKWnp6L7c5XNVUrFDUf69dwETLCItQ=="

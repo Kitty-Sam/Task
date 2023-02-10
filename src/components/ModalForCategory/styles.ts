@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     modalWrapper: {
         justifyContent: 'center',
         alignItems: 'center',
+        width: '80%',
     },
     modalContainer: {
         flex: 1,

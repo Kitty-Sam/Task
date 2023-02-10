@@ -35,6 +35,6 @@ export const styles = StyleSheet.create({
         color: theme.color.white,
     },
     viewContainer: {
-        marginTop: 30,
+        marginTop: '8%',
     },
 });
