@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
     root: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-evenly',
     },
     titleContainer: { alignItems: 'center' },
     title: {
@@ -39,7 +38,8 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     listContainer: {
-        height: '50%',
+        flex: 1,
+        // height: '60%',
     },
     columnWrapper: {
         alignSelf: 'flex-start',
@@ -68,5 +68,9 @@ export const styles = StyleSheet.create({
     },
     contentContainer: {
         padding: 16,
+    },
+    headerContainer: {
+        height: '40%',
+        justifyContent: 'space-around',
     },
 });

@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Modal, Text, View } from 'react-native';
+import ColorPicker from 'react-native-wheel-color-picker';
 import { useDispatch } from 'react-redux';
 
 import { AppButtonWithoutBackGround } from '~components/AppButton';
@@ -7,7 +8,7 @@ import { CustomTextInput } from '~components/CustomTextInput';
 import { DropDownPickerTemplate } from '~components/DropDownPickerTemplate';
 import { styles } from '~components/ModalForCategory/styles';
 import { ModalForCategoryType } from '~components/ModalForCategory/type';
-import { colors, icons } from '~constants/Colors';
+import { icons } from '~constants/Colors';
 import { theme } from '~constants/Theme';
 import { useDropDownPicker } from '~hooks/UseDropDownPicker';
 import { addCategoryAction } from '~store/sagasActions/actions/addCategory';
@@ -15,21 +16,27 @@ import { addCategoryAction } from '~store/sagasActions/actions/addCategory';
 export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, userCategory, userColor, catId }) => {
     const dispatch = useDispatch();
 
-    const colorDrop = useDropDownPicker(false, null, colors);
-
     const iconDrop = useDropDownPicker(false, null, icons);
+
+    const [currentColor, setCurrentColor] = useState('');
+    const [isPressed, setIsPressed] = useState(false);
+
+    const onColorChange = (color: string) => {
+        setCurrentColor(color);
+    };
 
     const saveCategoryPress = () => {
         dispatch(
             addCategoryAction({
                 catId: catId,
-                title: userCategory.value,
+                title: userCategory.value || 'test',
                 icon: iconDrop.value! || 'music',
-                backgroundColor: colorDrop.value! || 'violet',
+                backgroundColor: currentColor || 'blue',
             }),
         );
 
         setIsOpen(false);
+        setIsPressed(false);
         userCategory.resetValue();
     };
 
@@ -52,13 +59,34 @@ export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, 
                         <Text>Create your own category</Text>
                         <CustomTextInput {...userCategory} placeholder="add category title" testID="CategoryTitle" />
 
-                        <DropDownPickerTemplate
-                            {...colorDrop}
-                            title="color"
-                            zIndex={3000}
-                            zIndexInverse={1000}
-                            testID="CategoryColor"
-                        />
+                        {isPressed ? (
+                            <View style={styles.colorPickerContainer}>
+                                <Text>Current color: {currentColor}</Text>
+                                <ColorPicker
+                                    color={currentColor}
+                                    swatchesOnly={false}
+                                    onColorChange={onColorChange}
+                                    thumbSize={40}
+                                    sliderSize={40}
+                                    noSnap={true}
+                                    row={false}
+                                />
+                            </View>
+                        ) : !currentColor ? (
+                            <AppButtonWithoutBackGround
+                                onPress={() => setIsPressed(true)}
+                                title={'open color picker'}
+                            />
+                        ) : (
+                            <>
+                                <Text>Current color:{currentColor}</Text>
+                                <AppButtonWithoutBackGround
+                                    onPress={() => setIsPressed(true)}
+                                    title={'open color picker'}
+                                />
+                            </>
+                        )}
+
                         <DropDownPickerTemplate
                             {...iconDrop}
                             title="icon"

@@ -3,7 +3,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { Divider } from '~components/Divider';
 import { ModalTemplate } from '~components/ModalTemplate';
@@ -21,8 +21,8 @@ export const DailyTasksScreen: FC<DailyTasksScreenProps> = ({ route: { params } 
     const [isOpen, setIsOpen] = useState(false);
     const [trashVisibleId, setTrashVisibleId] = useState<string | null>(null);
 
-    const currentTasks = useSelector(getCurrentTasks);
-    const appStatus = useSelector(getAppStatus);
+    const currentTasks = useSelector(getCurrentTasks, shallowEqual);
+    const appStatus = useSelector(getAppStatus, shallowEqual);
 
     const isFocused = useIsFocused();
 
