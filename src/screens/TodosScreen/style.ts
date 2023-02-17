@@ -5,7 +5,13 @@ import { theme } from '~constants/Theme';
 export const styles = StyleSheet.create({
     root: {
         flex: 1,
+        justifyContent: 'center',
         alignItems: 'center',
+    },
+    loader: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     titleContainer: { alignItems: 'center' },
     title: {
@@ -39,7 +45,6 @@ export const styles = StyleSheet.create({
     },
     listContainer: {
         flex: 1,
-        // height: '60%',
     },
     columnWrapper: {
         alignSelf: 'flex-start',
@@ -70,7 +75,7 @@ export const styles = StyleSheet.create({
         padding: 16,
     },
     headerContainer: {
-        height: '40%',
+        height: '35%',
         justifyContent: 'space-around',
     },
 });

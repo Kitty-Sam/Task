@@ -1,3 +1,4 @@
+import notifee, { TimestampTrigger, TriggerType } from '@notifee/react-native';
 import moment from 'moment';
 import React, { FC, useState } from 'react';
 import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -49,7 +50,37 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
         extraInfo: userExtraInfo.value,
     };
 
-    const onSavePress = () => {
+    //notifications
+    const onCreateTriggerNotification = async () => {
+        await notifee.requestPermission();
+
+        const channelId = await notifee.createChannel({
+            id: 'default',
+            name: 'Default Android Channel',
+        });
+
+        const date = new Date(Date.now());
+        date.setHours(fromDate.dateValue.getHours());
+        date.setMinutes(fromDate.dateValue.getMinutes());
+
+        const trigger: TimestampTrigger = {
+            type: TriggerType.TIMESTAMP,
+            timestamp: date.getTime(),
+        };
+
+        await notifee.createTriggerNotification(
+            {
+                title: userTaskTitle.value,
+                body: userTaskDescription.value,
+                android: {
+                    channelId: channelId,
+                },
+            },
+            trigger,
+        );
+    };
+
+    const onSavePress = async () => {
         if (
             userTaskTitle.value.trim() === '' &&
             userTaskDescription.value.trim() === '' &&
@@ -60,6 +91,7 @@ export const ModalTemplate: FC<ModalWindow> = ({ isOpen, setIsOpen, chapter }) =
             return;
         }
 
+        await onCreateTriggerNotification();
         dispatch(
             addTaskAction({
                 ...newTask,

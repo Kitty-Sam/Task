@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { Category } from '~components/Category';
-import { CustomTextInput } from '~components/CustomTextInput';
+import { CustomTextInputWithSetTimeOut } from '~components/CustomTextInputWithSetTimeOut';
 import { ModalForCategory } from '~components/ModalForCategory';
 import { sortValues } from '~constants/SortValues';
 import { theme } from '~constants/Theme';
@@ -95,7 +95,9 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
     return (
         <SafeAreaView style={styles.root}>
             {appStatus === RequestStatus.LOADING ? (
-                <ActivityIndicator />
+                <View style={styles.loader}>
+                    <ActivityIndicator />
+                </View>
             ) : (
                 <>
                     <View style={styles.headerContainer}>
@@ -106,7 +108,11 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
 
                             <Text style={styles.date}>{todayDate}</Text>
                         </View>
-                        <CustomTextInput {...userSearchValue} placeholder={'Search tasks'} testID="Search" />
+                        <CustomTextInputWithSetTimeOut
+                            {...userSearchValue}
+                            placeholder={'Search tasks'}
+                            testID="Search"
+                        />
                         <View style={styles.sortValuesContainer}>
                             {sortValues.map((item) => (
                                 <TouchableOpacity

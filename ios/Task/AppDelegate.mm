@@ -1,3 +1,4 @@
+// #import "Orientation.h"
 #import <UserNotifications/UserNotifications.h>
 #import <RNCPushNotificationIOS.h>
 #import <Firebase.h>
@@ -32,6 +33,13 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 
 @implementation AppDelegate
+
+// - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+// {
+//   return [Orientation getOrientation];
+// }
+
+
 // Required for the register event.
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
@@ -167,5 +175,6 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 }
 
 #endif
+
 
 @end

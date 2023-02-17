@@ -13,7 +13,7 @@ import { theme } from '~constants/Theme';
 import { useDropDownPicker } from '~hooks/UseDropDownPicker';
 import { addCategoryAction } from '~store/sagasActions/actions/addCategory';
 
-export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, userCategory, userColor, catId }) => {
+export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, userCategory, catId }) => {
     const dispatch = useDispatch();
 
     const iconDrop = useDropDownPicker(false, null, icons);
@@ -61,7 +61,6 @@ export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, 
 
                         {isPressed ? (
                             <View style={styles.colorPickerContainer}>
-                                <Text>Current color: {currentColor}</Text>
                                 <ColorPicker
                                     color={currentColor}
                                     swatchesOnly={false}

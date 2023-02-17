@@ -41,6 +41,6 @@ export const styles = StyleSheet.create({
         width: '90%',
     },
     colorPickerContainer: {
-        height: '65%',
+        height: '70%',
     },
 });

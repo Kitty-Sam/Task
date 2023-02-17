@@ -6,6 +6,7 @@ import org.devio.rn.splashscreen.SplashScreen;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 
+
 public class MainActivity extends ReactActivity {
 
   /**
@@ -22,6 +23,7 @@ public class MainActivity extends ReactActivity {
             SplashScreen.show(this);
             super.onCreate(savedInstanceState);
         }
+
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
