@@ -11,7 +11,7 @@ export const colors: ValueType[] = [
 ];
 
 export const icons: ValueType[] = [
-    { label: 'car', value: 'car' },
+    { label: 'car', value: 'car', testID: 'car' },
     { label: 'music', value: 'music' },
     { label: 'gift', value: 'gift' },
     { label: 'hotel', value: 'hotel' },

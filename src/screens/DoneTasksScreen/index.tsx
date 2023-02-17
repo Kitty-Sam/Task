@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { FlatList, SafeAreaView, Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { TaskContainerSquare } from '~components/TaskContainerSquare';
 import { styles } from '~screens/DoneTasksScreen/style';
@@ -9,7 +9,7 @@ import { fetchTasksAction } from '~store/sagasActions/actions/fetchTasks';
 import { getTasks } from '~store/selectors/tasksSelector';
 
 export const DoneTasksScreen = () => {
-    const tasks = useSelector(getTasks);
+    const tasks = useSelector(getTasks, shallowEqual);
     const dispatch = useDispatch();
 
     useEffect(() => {

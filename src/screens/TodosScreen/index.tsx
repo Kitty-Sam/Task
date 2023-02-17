@@ -2,10 +2,10 @@ import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { Category } from '~components/Category';
-import { CustomTextInput } from '~components/CustomTextInput';
+import { CustomTextInputWithSetTimeOut } from '~components/CustomTextInputWithSetTimeOut';
 import { ModalForCategory } from '~components/ModalForCategory';
 import { sortValues } from '~constants/SortValues';
 import { theme } from '~constants/Theme';
@@ -29,9 +29,9 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
     const [filter, setFilter] = useState('');
     const [isOpen, setIsOpen] = useState(false);
 
-    const tasks = useSelector(getTasks);
-    const categories = useSelector(getCategories);
-    const appStatus = useSelector(getAppStatus);
+    const tasks = useSelector(getTasks, shallowEqual);
+    const categories = useSelector(getCategories, shallowEqual);
+    const appStatus = useSelector(getAppStatus, shallowEqual);
 
     const userCategory = useInput('');
     const userColor = useInput('violet');
@@ -95,52 +95,64 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
     return (
         <SafeAreaView style={styles.root}>
             {appStatus === RequestStatus.LOADING ? (
-                <ActivityIndicator />
+                <View style={styles.loader}>
+                    <ActivityIndicator />
+                </View>
             ) : (
                 <>
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.title}> {tasks.length ? setTasksFilter(filter, tasks) : 'Add tasks'}</Text>
+                    <View style={styles.headerContainer}>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>
+                                {tasks.length ? setTasksFilter(filter, tasks) : 'Add tasks'}
+                            </Text>
 
-                        <Text style={styles.date}>{todayDate}</Text>
-                    </View>
-                    <CustomTextInput {...userSearchValue} placeholder={'Search tasks'} testID="Search" />
-
-                    <View style={styles.sortValuesContainer}>
-                        {sortValues.map((item) => (
-                            <TouchableOpacity
-                                style={[
-                                    styles.sortValueContainer,
-                                    {
-                                        backgroundColor:
-                                            filter === item ? theme.backgroundColor.green_and_blue : theme.color.white,
-                                    },
-                                ]}
-                                key={item}
-                                onPress={onChooseFilterPress(item)}
-                                testID={item}
-                            >
-                                <Text
-                                    testID={`${item}.label`}
-                                    style={[
-                                        styles.sortValueText,
-                                        { color: filter === item ? theme.color.white : theme.color.light_grey },
-                                    ]}
-                                >
-                                    {item}
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
-                        <Icon name="refresh" size={18} onPress={onRefreshPress} />
-                    </View>
-                    {isOpen && (
-                        <ModalForCategory
-                            userCategory={userCategory}
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            catId={Date.now().toString()}
-                            userColor={userColor}
+                            <Text style={styles.date}>{todayDate}</Text>
+                        </View>
+                        <CustomTextInputWithSetTimeOut
+                            {...userSearchValue}
+                            placeholder={'Search tasks'}
+                            testID="Search"
                         />
-                    )}
+                        <View style={styles.sortValuesContainer}>
+                            {sortValues.map((item) => (
+                                <TouchableOpacity
+                                    style={[
+                                        styles.sortValueContainer,
+                                        {
+                                            backgroundColor:
+                                                filter === item
+                                                    ? theme.backgroundColor.green_and_blue
+                                                    : theme.color.white,
+                                        },
+                                    ]}
+                                    key={item}
+                                    onPress={onChooseFilterPress(item)}
+                                    testID={item}
+                                >
+                                    <Text
+                                        testID={`${item}.label`}
+                                        style={[
+                                            styles.sortValueText,
+                                            { color: filter === item ? theme.color.white : theme.color.light_grey },
+                                        ]}
+                                    >
+                                        {item}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                            <Icon name="refresh" size={18} onPress={onRefreshPress} />
+                        </View>
+                        {isOpen && (
+                            <ModalForCategory
+                                userCategory={userCategory}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                catId={Date.now().toString()}
+                                userColor={userColor}
+                            />
+                        )}
+                    </View>
+
                     <View style={styles.listContainer}>
                         <FlatList
                             numColumns={3}

@@ -3,6 +3,7 @@ import { useState } from 'react';
 export type ValueType = {
     label: string;
     value: string;
+    testID?: string;
 };
 
 export const useDropDownPicker = (isOpen: boolean, initValue: null, itemsValues: ValueType[]) => {

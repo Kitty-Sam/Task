@@ -12,29 +12,26 @@ describe('Add category modal screen', () => {
         await input.typeText(typedTitleText)
     });
 
-    // it('Should open color picker', async () => {
-    //     await element(by.id('CategoryColor')).tap()
-    //     const picker = element(by.id('CategoryColor').withAncestor(by.id('CategoryColor')))
-    //     await picker.swipe("up", 'fast')
-    // });
-    //
-    // it('Should open icon picker', async () => {
-    //     await element(by.id('CategoryIcon')).tap()
-    //     const picker = element(by.id('CategoryIcon').withAncestor(by.id('CategoryIcon')))
-    //     await picker.swipe("up", 'fast')
-    // });
-
-    it('Button save', async () => {
-        const button = element(by.id('CategorySave'))
-        await expect(button).toBeVisible();
-
+    it('Should open icon picker', async () => {
+        const picker = element(by.id('CategoryIcon'))
+        await picker.tap()
+        const proper_item = element(by.id('car'))
+        await proper_item.tap()
     });
 
     it('Button cancel', async () => {
         const button = element(by.id('CategoryCancel'))
         await expect(button).toBeVisible();
-        await button.tap();
     });
+
+    it('Button save', async () => {
+        const button = element(by.id('CategorySave'))
+        await expect(button).toBeVisible();
+        await button.tap();
+
+    });
+
+
 
 
 

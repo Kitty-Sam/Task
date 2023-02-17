@@ -5,8 +5,13 @@ import { theme } from '~constants/Theme';
 export const styles = StyleSheet.create({
     root: {
         flex: 1,
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
+    },
+    loader: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     titleContainer: { alignItems: 'center' },
     title: {
@@ -39,7 +44,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     listContainer: {
-        height: '50%',
+        flex: 1,
     },
     columnWrapper: {
         alignSelf: 'flex-start',
@@ -68,5 +73,9 @@ export const styles = StyleSheet.create({
     },
     contentContainer: {
         padding: 16,
+    },
+    headerContainer: {
+        height: '35%',
+        justifyContent: 'space-around',
     },
 });

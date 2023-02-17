@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         right: theme.gap['16'],
     },
     modalView: {
-        margin: theme.gap['16'],
+        margin: theme.gap['24'],
         backgroundColor: theme.color.white,
         borderRadius: theme.borderRadius['20'],
         paddingHorizontal: theme.paddingHorizontal['16'],
@@ -39,5 +39,8 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
         width: '90%',
+    },
+    colorPickerContainer: {
+        height: '70%',
     },
 });
