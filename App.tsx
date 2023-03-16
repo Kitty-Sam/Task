@@ -1,12 +1,12 @@
-import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
-import {TestScreen} from './src/screens/TestScreen';
+import React, { useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
+
+import { RootStack } from '~navigation/RootStack';
 
 export const App = () => {
-  return (
-    <SafeAreaView>
-      <Text>hello</Text>
-      <TestScreen />
-    </SafeAreaView>
-  );
+    useEffect(() => {
+        SplashScreen.hide();
+    }, []);
+
+    return <RootStack />;
 };
