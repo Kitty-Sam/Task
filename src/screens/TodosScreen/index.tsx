@@ -25,6 +25,7 @@ import { getTasksAmount, getTasksAmountWithSearch } from '~utils/getTasksAmount'
 
 import { styles } from './style';
 
+const numColumns = 3;
 export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
     const [filter, setFilter] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -155,7 +156,7 @@ export const TodosScreen: FC<TodosScreenProps> = memo(({ navigation }) => {
 
                     <View style={styles.listContainer}>
                         <FlatList
-                            numColumns={3}
+                            numColumns={numColumns}
                             data={categories}
                             contentContainerStyle={styles.contentContainer}
                             keyExtractor={keyExtractor}

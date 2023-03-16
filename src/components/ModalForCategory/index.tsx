@@ -13,6 +13,7 @@ import { theme } from '~constants/Theme';
 import { useDropDownPicker } from '~hooks/UseDropDownPicker';
 import { addCategoryAction } from '~store/sagasActions/actions/addCategory';
 
+const pickerSize = 40;
 export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, userCategory, catId }) => {
     const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, 
         dispatch(
             addCategoryAction({
                 catId: catId,
-                title: userCategory.value || 'test',
+                title: userCategory.value || 'attempt',
                 icon: iconDrop.value! || 'music',
                 backgroundColor: currentColor || 'blue',
             }),
@@ -65,8 +66,8 @@ export const ModalForCategory: FC<ModalForCategoryType> = ({ isOpen, setIsOpen, 
                                     color={currentColor}
                                     swatchesOnly={false}
                                     onColorChange={onColorChange}
-                                    thumbSize={40}
-                                    sliderSize={40}
+                                    thumbSize={pickerSize}
+                                    sliderSize={pickerSize}
                                     noSnap={true}
                                     row={false}
                                 />

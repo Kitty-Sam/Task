@@ -34,6 +34,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/default-param-last': 'off',
         "@react-native-firebase/database'(import/named)": 'off',
+        '@typescript-eslint/no-unused-expressions': 'off'
     },
     plugins: ['@typescript-eslint', 'simple-import-sort', 'import'],
 };
